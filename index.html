@@ -210,6 +210,10 @@ input,textarea{user-select:text}
 .sidebar-overlay.show{display:block}
 .brand-logos{display:flex;justify-content:center;gap:40px;margin-top:60px;flex-wrap:wrap;opacity:.4}
 .brand-logo{font-size:14px;font-weight:700;color:var(--txt2);display:flex;align-items:center;gap:8px}
+/* === كود مثال API === */
+.code-block{background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--cyanL);direction:ltr;text-align:left;overflow-x:auto;line-height:1.75;margin:0 0 4px;white-space:pre}
+.code-block::-webkit-scrollbar{height:6px}
+.inline-code{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:var(--purpleL);font-family:'JetBrains Mono',monospace;font-size:12px;padding:2px 8px;border-radius:6px;direction:ltr;display:inline-block}
 @media(max-width:900px){
 .dashboard{grid-template-columns:1fr}
 .dashboard-sidebar{position:fixed;top:0;right:-100%;width:280px;height:100vh;z-index:200;transition:right .3s;border-left:1px solid rgba(255,255,255,.05)}
@@ -321,47 +325,36 @@ input,textarea{user-select:text}
             <div class="auth-header">
                 <span class="icon">🔑</span>
                 <h2>نسيت كلمة المرور؟</h2>
-                <p>أدخل بريدك الإلكتروني وسنرسل لك كود استعادة</p>
+                <p>أدخل بريدك الإلكتروني للمتابعة</p>
             </div>
             <form onsubmit="handleForgotPassword(event)">
                 <div class="form-group">
                     <label class="form-label">البريد الإلكتروني</label>
                     <input type="email" class="form-input ltr" id="forgot-email" placeholder="you@example.com" required>
                 </div>
-                <button type="submit" class="btn btn-primary btn-full btn-lg" id="forgot-btn">📧 أرسل كود الاستعادة</button>
+                <button type="submit" class="btn btn-primary btn-full btn-lg" id="forgot-btn">🔓 متابعة</button>
             </form>
             <div class="auth-switch">تذكرت كلمة المرور؟<a onclick="showPage('login')">سجل دخول</a></div>
         </div>
     </div>
 </div>
 
-<!-- ═══════════ Forgot Password — Step 2 (Code + New Password) ═══════════ -->
+<!-- ═══════════ Forgot Password — Step 2 (New Password Only) ═══════════ -->
 <div class="page" id="page-reset">
     <div class="auth-wrapper">
         <div class="auth-card">
             <button class="back-link" onclick="showPage('forgot')">← رجوع</button>
             <div class="auth-header">
-                <span class="icon">📩</span>
-                <h2>تحقق من بريدك</h2>
-                <p>أرسلنا كود الاستعادة إلى</p>
+                <span class="icon">🔐</span>
+                <h2>كلمة مرور جديدة</h2>
+                <p>تم التحقق من البريد</p>
                 <p id="reset-email-display" style="color:var(--purpleL);font-weight:700;direction:ltr;font-family:'JetBrains Mono',monospace;font-size:14px;margin-top:6px"></p>
             </div>
-            <div class="alert alert-warning">
-                <span class="alert-icon">⚠️</span>
-                <div><strong>لم تجد الكود؟</strong><br>تحقق من مجلد <strong>البريد غير المرغوب فيه (Spam)</strong>.</div>
+            <div class="alert alert-info">
+                <span class="alert-icon">🔒</span>
+                <div>اختر كلمة مرور قوية (8 أحرف على الأقل). لن تتمكن من الدخول بالكلمة القديمة بعد الآن.</div>
             </div>
             <form onsubmit="handleResetPassword(event)">
-                <div class="form-group">
-                    <label class="form-label">كود التحقق</label>
-                    <div class="code-inputs" id="reset-code-inputs">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="0">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="1">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="2">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="3">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="4">
-                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="5">
-                    </div>
-                </div>
                 <div class="form-group">
                     <label class="form-label">كلمة المرور الجديدة</label>
                     <input type="password" class="form-input ltr" id="reset-password1" placeholder="••••••••" required minlength="8" oninput="updateResetStrength()">
@@ -385,9 +378,6 @@ input,textarea{user-select:text}
                 </div>
                 <button type="submit" class="btn btn-primary btn-full btn-lg" id="reset-btn" disabled>🔄 إعادة تعيين كلمة المرور</button>
             </form>
-            <div style="text-align:center;margin-top:16px">
-                <button class="back-link" id="reset-resend-btn" onclick="handleForgotResend()" disabled style="margin:0;font-size:13px">إعادة إرسال الكود (<span id="reset-timer">60</span> ث)</button>
-            </div>
         </div>
     </div>
 </div>
@@ -601,6 +591,88 @@ input,textarea{user-select:text}
                     </div>
                     <div id="keys-list"></div>
                 </div>
+
+                <!-- ═══ بطاقة: كيف تستخدم مفتاح API ═══ -->
+                <div class="card" id="api-guide-card">
+                    <div class="card-title">📖 كيف تستخدم مفتاح API؟</div>
+                    <div class="card-subtitle">دليل سريع لربط سكربتك بالمنصة</div>
+
+                    <!-- 1) عنوان السيرفر -->
+                    <div class="settings-section">
+                        <div class="settings-title">🌐 عنوان السيرفر (Base URL)</div>
+                        <div class="settings-desc">هذا هو العنوان الذي سيتصل به سكربتك في كل الطلبات</div>
+                        <div class="key-value-wrapper">
+                            <div class="key-value" id="api-url-display">https://pedigree-hankering-unmixable.ngrok-free.dev</div>
+                            <div class="key-actions">
+                                <button class="icon-btn" onclick="copyText('https://pedigree-hankering-unmixable.ngrok-free.dev')" title="نسخ">📋</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2) طريقة الاستخدام -->
+                    <div class="settings-section">
+                        <div class="settings-title">🔑 طريقة الاستخدام</div>
+                        <div class="settings-desc">
+                            أرسل كل الطلبات بطريقة <strong style="color:var(--txt)">POST</strong> مع تمرير المفتاح داخل جسم الطلب باسم
+                            <span class="inline-code">_token</span>
+                            والمحتوى من نوع
+                            <span class="inline-code">text/plain;charset=UTF-8</span>
+                        </div>
+                    </div>
+
+                    <!-- 3) مثال Python -->
+                    <div class="settings-section">
+                        <div class="settings-title">🐍 مثال بلغة Python</div>
+                        <div class="settings-desc">استخدم مكتبة requests</div>
+<pre class="code-block">import requests
+
+API_URL = "https://pedigree-hankering-unmixable.ngrok-free.dev"
+API_KEY = "ضع_مفتاحك_هنا"
+
+headers = {
+    "Content-Type": "text/plain;charset=UTF-8",
+    "ngrok-skip-browser-warning": "true"
+}
+
+# مثال: التحقق من حالة الحساب
+response = requests.post(
+    API_URL + "/api/user/me",
+    headers=headers,
+    json={"_token": API_KEY}
+)
+print(response.json())</pre>
+                    </div>
+
+                    <!-- 4) مثال JavaScript -->
+                    <div class="settings-section">
+                        <div class="settings-title">🌐 مثال بلغة JavaScript</div>
+                        <div class="settings-desc">يعمل في المتصفح أو Node.js</div>
+<pre class="code-block">const API_URL = "https://pedigree-hankering-unmixable.ngrok-free.dev";
+const API_KEY = "ضع_مفتاحك_هنا";
+
+fetch(API_URL + "/api/user/me", {
+    method: "POST",
+    headers: {
+        "Content-Type": "text/plain;charset=UTF-8",
+        "ngrok-skip-browser-warning": "true"
+    },
+    body: JSON.stringify({ _token: API_KEY })
+})
+.then(r => r.json())
+.then(data => console.log(data));</pre>
+                    </div>
+
+                    <!-- 5) ملاحظات -->
+                    <div class="settings-section" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
+                        <div class="settings-title">💡 ملاحظات مهمة</div>
+                        <ul style="padding-right:24px;line-height:2;color:var(--txt2);font-size:14px;margin-top:12px">
+                            <li>كل الطلبات يجب أن تكون بطريقة <strong style="color:var(--txt)">POST</strong> فقط.</li>
+                            <li>لا تشارك مفتاحك مع أي شخص — من يملكه يستطيع التحكم بحسابك.</li>
+                            <li>إن واجهت مشكلة في ngrok أضف الهيدر <span class="inline-code">ngrok-skip-browser-warning: true</span>.</li>
+                            <li>لأي استفسار: <strong style="color:var(--purpleL)">zonetunnel@gmail.com</strong></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <!-- Tab: Tunnels -->
@@ -739,32 +811,18 @@ input,textarea{user-select:text}
    🛡️  حماية DevTools & Inspect
    ═══════════════════════════════════════════════════════ */
 (function() {
-    // منع القائمة اليمنى
     document.addEventListener('contextmenu', e => e.preventDefault());
-
-    // منع اختصارات المفاتيح
     document.addEventListener('keydown', e => {
-        // F12
         if (e.key === 'F12') { e.preventDefault(); return false; }
-        // Ctrl+Shift+I / J / C
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault(); return false;
-        }
-        // Ctrl+U (view source)
+        if (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) { e.preventDefault(); return false; }
         if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) { e.preventDefault(); return false; }
     });
-
-    // Anti-debug (يعمل فقط عند فتح DevTools — لكنه غير مزعج)
     const antiDebug = () => {
         const start = performance.now();
         debugger;
         const end = performance.now();
-        if (end - start > 100) {
-            // DevTools مفتوح — لكن لا نعاقب بشدة
-            console.clear();
-        }
+        if (end - start > 100) console.clear();
     };
-    // تفعيل خفيف: مرة كل 3 ثواني فقط
     setInterval(antiDebug, 3000);
 })();
 
@@ -892,7 +950,7 @@ async function handleLogin(event) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   🔑 نسيت كلمة المرور — الخطوة 1
+   🔑 نسيت كلمة المرور — الخطوة 1 (بريد فقط → صفحة الباسورد مباشرة)
    ═══════════════════════════════════════════════════════ */
 async function handleForgotPassword(event) {
     event.preventDefault();
@@ -900,7 +958,7 @@ async function handleForgotPassword(event) {
     const btn = document.getElementById('forgot-btn');
     btn.disabled = true;
 
-    setLoading(true, 'جاري إرسال كود الاستعادة...');
+    setLoading(true, 'جاري التحقق من البريد...');
     try {
         await api('/api/auth/forgot-password', {
             body: JSON.stringify({ email })
@@ -908,10 +966,8 @@ async function handleForgotPassword(event) {
         resetData.email = email;
         document.getElementById('reset-email-display').textContent = email;
         setLoading(false);
-        showToast('📧 تم إرسال كود الاستعادة');
+        showToast('✅ تم التحقق، أدخل كلمة المرور الجديدة');
         showPage('reset');
-        startResetTimer();
-        setTimeout(() => focusResetCodeInput(), 200);
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
@@ -920,23 +976,18 @@ async function handleForgotPassword(event) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   🔑 نسيت كلمة المرور — الخطوة 2 (كود + كلمة جديدة)
+   🔑 نسيت كلمة المرور — الخطوة 2 (كتابة كلمة مرور جديدة فقط)
    ═══════════════════════════════════════════════════════ */
 async function handleResetPassword(event) {
     event.preventDefault();
-    const inputs = document.querySelectorAll('#reset-code-inputs .code-input');
-    const code = Array.from(inputs).map(i => i.value).join('');
     const new_password = document.getElementById('reset-password1').value;
     const confirm = document.getElementById('reset-password2').value;
 
-    if (code.length !== 6) {
-        return showToast('❌ أدخل الكود كاملاً (6 أرقام)', 'error');
-    }
     if (new_password !== confirm) {
         return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
     }
     if (new_password.length < 8) {
-        return showToast('❌ كلمة المرور قصيرة', 'error');
+        return showToast('❌ كلمة المرور قصيرة (8 أحرف على الأقل)', 'error');
     }
 
     const btn = document.getElementById('reset-btn');
@@ -947,7 +998,6 @@ async function handleResetPassword(event) {
         await api('/api/auth/reset-password', {
             body: JSON.stringify({
                 email: resetData.email,
-                code: code,
                 new_password: new_password
             })
         });
@@ -956,47 +1006,8 @@ async function handleResetPassword(event) {
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
-        inputs.forEach(i => { i.value = ''; i.classList.remove('filled'); });
-        inputs[0].focus();
         btn.disabled = false;
     }
-}
-
-async function handleForgotResend() {
-    try {
-        await api('/api/auth/forgot-password', {
-            body: JSON.stringify({ email: resetData.email })
-        });
-        showToast('📧 تم إرسال كود جديد');
-    } catch (e) {
-        showToast('❌ ' + e.message, 'error');
-        return;
-    }
-    startResetTimer();
-}
-
-let resetTimerInterval = null;
-function startResetTimer() {
-    const btn = document.getElementById('reset-resend-btn');
-    let t = 60;
-    btn.disabled = true;
-    btn.textContent = 'إعادة إرسال الكود (' + t + ' ث)';
-    if (resetTimerInterval) clearInterval(resetTimerInterval);
-    resetTimerInterval = setInterval(() => {
-        t--;
-        if (t <= 0) {
-            clearInterval(resetTimerInterval);
-            btn.disabled = false;
-            btn.textContent = '🔄 إعادة إرسال الكود';
-        } else {
-            btn.textContent = 'إعادة إرسال الكود (' + t + ' ث)';
-        }
-    }, 1000);
-}
-
-function focusResetCodeInput() {
-    const first = document.querySelector('#reset-code-inputs .code-input');
-    if (first) first.focus();
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1273,7 +1284,6 @@ function updateUserUI() {
         (currentUser.first_name + ' ' + (currentUser.last_name || '')).trim() || 'المستخدم';
     document.getElementById('user-email-display').textContent = currentUser.email || '';
 
-    // Settings
     document.getElementById('settings-firstname').value = currentUser.first_name || '';
     document.getElementById('settings-lastname').value = currentUser.last_name || '';
     document.getElementById('settings-user-id').textContent = currentUser.id || '—';
@@ -1315,9 +1325,7 @@ async function loadStats() {
         document.getElementById('stat-keys').textContent = data.stats.api_keys || 0;
         document.getElementById('stat-tunnels').textContent = data.stats.tunnels_online || 0;
         document.getElementById('stat-requests').textContent = data.stats.total_requests || 0;
-    } catch (e) {
-        // فشل صامت
-    }
+    } catch (e) {}
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1427,17 +1435,20 @@ function toggleKeyVisibility(id) {
 function copyKey(id) {
     const value = keyCache[id];
     if (!value) return showToast('❌ المفتاح غير متاح', 'error');
+    copyText(value, '📋 تم نسخ المفتاح');
+}
 
+function copyText(text, successMsg) {
+    if (!text) return;
+    const done = () => showToast(successMsg || '📋 تم النسخ');
     if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(value)
-            .then(() => showToast('📋 تم نسخ المفتاح'))
-            .catch(() => fallbackCopy(value));
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, successMsg));
     } else {
-        fallbackCopy(value);
+        fallbackCopy(text, successMsg);
     }
 }
 
-function fallbackCopy(text) {
+function fallbackCopy(text, successMsg) {
     const ta = document.createElement('textarea');
     ta.value = text;
     ta.style.position = 'fixed';
@@ -1446,7 +1457,7 @@ function fallbackCopy(text) {
     ta.select();
     try {
         document.execCommand('copy');
-        showToast('📋 تم نسخ المفتاح');
+        showToast(successMsg || '📋 تم النسخ');
     } catch {
         showToast('❌ فشل النسخ', 'error');
     }
@@ -1671,7 +1682,7 @@ function toggleSidebar(force) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   🎯 خانات الكود (يعمل مع أي مجموعة)
+   🎯 خانات الكود (تسجيل فقط الآن)
    ═══════════════════════════════════════════════════════ */
 function setupCodeInputs(containerId, onComplete) {
     const container = document.getElementById(containerId);
@@ -1716,12 +1727,8 @@ function setupCodeInputs(containerId, onComplete) {
     });
 }
 
-// إعداد خانات التسجيل
+// إعداد خانات التسجيل فقط (حذفنا خانات الاستعادة)
 setupCodeInputs('verify-code-inputs', handleVerifyCode);
-// إعداد خانات الاستعادة
-setupCodeInputs('reset-code-inputs', () => {
-    document.getElementById('reset-password1')?.focus();
-});
 
 /* ═══════════════════════════════════════════════════════
    🚀 التهيئة
