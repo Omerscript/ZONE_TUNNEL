@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZONE TUNNEL — أنفاق مجانية للجميع</title>
+<meta name="description" content="ZONE TUNNEL — منصة مجانية غير ربحية لإنشاء الأنفاق وربط السكربتات بالإنترنت">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#05060f;--bg2:#0a0c1c;--bg3:#111326;
+--card:rgba(20,22,42,.7);--purple:#8b5cf6;--purpleL:#a78bfa;
+--cyan:#06b6d4;--cyanL:#22d3ee;--pink:#ec4899;--green:#10b981;
+--red:#ef4444;--amber:#f59e0b;--txt:#fff;--txt2:#a1a1c2;--txt3:#6b6b8a;
+--border:rgba(139,92,246,.15);--borderH:rgba(139,92,246,.4);
+--grad:linear-gradient(135deg,#8b5cf6,#06b6d4)
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--txt);line-height:1.6;overflow-x:hidden;min-height:100%}
+body{min-height:100vh;user-select:none}
+input,textarea{user-select:text}
+.bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.35;animation:float 25s ease-in-out infinite}
+.orb-1{width:500px;height:500px;background:var(--purple);top:-200px;right:-150px}
+.orb-2{width:400px;height:400px;background:var(--cyan);bottom:-150px;left:-100px;animation-delay:-8s}
+.orb-3{width:350px;height:350px;background:var(--pink);top:40%;left:40%;animation-delay:-16s;opacity:.2}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(50px,-30px) scale(1.05)}50%{transform:translate(-30px,50px) scale(.95)}75%{transform:translate(30px,30px) scale(1.02)}}
+.bg-grid{position:fixed;inset:0;background-image:radial-gradient(circle,rgba(139,92,246,.08) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;mask-image:radial-gradient(ellipse at center,black 30%,transparent 75%)}
+.page{display:none;min-height:100vh;position:relative;z-index:1}
+.page.active{display:block}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.navbar{position:sticky;top:0;z-index:100;padding:20px 0;backdrop-filter:blur(20px);background:rgba(5,6,15,.7);border-bottom:1px solid rgba(255,255,255,.05)}
+.nav-inner{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer}
+.logo-icon{width:40px;height:40px;border-radius:12px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 40px rgba(139,92,246,.4)}
+.nav-actions{display:flex;gap:12px}
+.btn{padding:12px 24px;border-radius:10px;border:none;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 24px rgba(139,92,246,.3)}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 32px rgba(139,92,246,.5)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+.btn-ghost{background:rgba(255,255,255,.05);color:var(--txt);border:1px solid rgba(255,255,255,.1)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:var(--purple)}
+.btn-danger{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.btn-danger:hover{background:rgba(239,68,68,.25);border-color:var(--red)}
+.btn-lg{padding:16px 36px;font-size:17px;border-radius:16px}
+.btn-full{width:100%}
+.hero{padding:80px 0 100px;text-align:center;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:999px;color:var(--purpleL);font-size:14px;font-weight:600;margin-bottom:24px;animation:fadeUp .6s ease-out}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.hero h1{font-size:clamp(40px,7vw,80px);font-weight:900;line-height:1.1;margin-bottom:24px;animation:fadeUp .6s ease-out .1s both}
+.hero h1 .gradient{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.subtitle{font-size:clamp(16px,2vw,20px);color:var(--txt2);max-width:640px;margin:0 auto 40px;animation:fadeUp .6s ease-out .2s both}
+.hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s ease-out .3s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.stats-row{display:flex;justify-content:center;gap:60px;margin-top:70px;flex-wrap:wrap;animation:fadeUp .6s ease-out .4s both}
+.stat{text-align:center}
+.stat-num{font-size:40px;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:8px}
+.stat-label{color:var(--txt2);font-size:14px;font-weight:500}
+.features{padding:80px 0}
+.section-title{text-align:center;font-size:clamp(28px,4vw,44px);font-weight:900;margin-bottom:16px}
+.section-subtitle{text-align:center;color:var(--txt2);font-size:17px;margin-bottom:60px;max-width:600px;margin-left:auto;margin-right:auto}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.feature-card{background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:24px;padding:32px;transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0;transition:opacity .3s}
+.feature-card:hover{transform:translateY(-8px);border-color:var(--borderH);box-shadow:0 0 40px rgba(139,92,246,.4)}
+.feature-card:hover::before{opacity:1}
+.feature-icon{width:60px;height:60px;border-radius:16px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
+.feature-card h3{font-size:20px;font-weight:700;margin-bottom:12px}
+.feature-card p{color:var(--txt2);font-size:15px;line-height:1.7}
+.footer{padding:40px 0;border-top:1px solid rgba(255,255,255,.05);text-align:center;color:var(--txt3);font-size:14px}
+.footer a{color:var(--purpleL);text-decoration:none;transition:color .2s}
+.footer a:hover{color:var(--cyan)}
+.footer-links{display:flex;justify-content:center;gap:24px;margin-top:16px;flex-wrap:wrap;font-size:13px}
+.auth-wrapper{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.auth-card{width:100%;max-width:460px;background:var(--card);backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:32px;padding:40px;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 80px rgba(139,92,246,.15);animation:cardIn .5s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.auth-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.auth-header{text-align:center;margin-bottom:32px}
+.auth-header .icon{font-size:60px;margin-bottom:12px;display:block}
+.auth-header h2{font-size:28px;font-weight:800;margin-bottom:8px}
+.auth-header p{color:var(--txt2);font-size:15px}
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:14px;font-weight:600;color:var(--txt2);margin-bottom:8px}
+.form-label .optional{color:var(--txt3);font-weight:400;font-size:12px;margin-right:6px}
+.form-input{width:100%;padding:14px 16px;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:10px;color:var(--txt);font-family:inherit;font-size:15px;transition:all .2s;outline:none}
+.form-input:focus{border-color:var(--purple);background:rgba(139,92,246,.05);box-shadow:0 0 0 4px rgba(139,92,246,.15)}
+.form-input::placeholder{color:var(--txt3)}
+.form-input.ltr{direction:ltr;text-align:left}
+.form-error{color:var(--red);font-size:13px;margin-top:6px;display:none;align-items:center;gap:6px}
+.form-error.show{display:flex}
+.code-inputs{display:flex;gap:10px;justify-content:center;direction:ltr;margin:28px 0}
+.code-input{width:52px;height:64px;text-align:center;font-size:26px;font-weight:800;font-family:'JetBrains Mono',monospace;background:rgba(255,255,255,.03);border:2px solid rgba(255,255,255,.08);border-radius:16px;color:var(--txt);outline:none;transition:all .2s}
+.code-input:focus{border-color:var(--purple);background:rgba(139,92,246,.08);box-shadow:0 0 0 4px rgba(139,92,246,.15);transform:translateY(-2px)}
+.code-input.filled{border-color:var(--purple);background:rgba(139,92,246,.1)}
+@media(max-width:420px){.code-input{width:44px;height:56px;font-size:22px}.auth-card{padding:28px 22px}}
+.alert{padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.6;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start}
+.alert-icon{flex-shrink:0;font-size:18px}
+.alert-info{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:var(--cyanL)}
+.alert-warning{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:#fbbf24}
+.alert-success{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--green)}
+.alert-error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red)}
+.password-strength{margin-top:10px}
+.strength-bars{display:flex;gap:6px;margin-bottom:8px}
+.strength-bar{flex:1;height:5px;background:rgba(255,255,255,.08);border-radius:999px;transition:all .3s}
+.strength-bar.active.weak{background:var(--red)}
+.strength-bar.active.medium{background:var(--amber)}
+.strength-bar.active.strong{background:var(--green)}
+.strength-text{font-size:12px;font-weight:600;display:flex;justify-content:space-between}
+.strength-text .label{color:var(--txt3)}
+.strength-text .value.weak{color:var(--red)}
+.strength-text .value.medium{color:var(--amber)}
+.strength-text .value.strong{color:var(--green)}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--txt2);text-decoration:none;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:20px;transition:color .2s;background:none;border:none;font-family:inherit}
+.back-link:hover{color:var(--purpleL)}
+.auth-switch{text-align:center;margin-top:24px;color:var(--txt2);font-size:14px}
+.auth-switch a{color:var(--purpleL);text-decoration:none;font-weight:700;cursor:pointer;margin-right:6px}
+.auth-switch a:hover{color:var(--cyan)}
+.forgot-link{display:block;text-align:left;color:var(--txt2);font-size:13px;margin-top:8px;cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:none}
+.forgot-link:hover{color:var(--purpleL);text-decoration:underline}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.success-screen{text-align:center;padding:20px 0}
+.success-icon{font-size:90px;margin-bottom:20px;animation:bounceIn .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.1)}100%{transform:scale(1)}}
+.success-screen h2{font-size:26px;font-weight:800;color:var(--green);margin-bottom:12px}
+.success-screen p{color:var(--txt2);margin-bottom:28px}
+.dashboard{display:grid;grid-template-columns:280px 1fr;min-height:100vh;position:relative;z-index:1}
+.dashboard-sidebar{background:var(--bg2);border-left:1px solid rgba(255,255,255,.05);padding:24px 16px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.dashboard-main{padding:32px 40px;min-height:100vh;overflow-x:hidden}
+.sidebar-user{padding:16px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:16px;margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.user-avatar{width:44px;height:44px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;box-shadow:0 0 20px rgba(139,92,246,.4)}
+.user-info{flex:1;min-width:0}
+.user-name{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-email{font-size:12px;color:var(--txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:ltr;text-align:right}
+.sidebar-nav{display:flex;flex-direction:column;gap:6px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;color:var(--txt2);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none;background:none;text-align:right;font-family:inherit;width:100%}
+.nav-item:hover{background:rgba(255,255,255,.04);color:var(--txt)}
+.nav-item.active{background:rgba(139,92,246,.15);color:var(--purpleL);border-right:3px solid var(--purple)}
+.nav-item .nav-icon{font-size:18px;width:22px;text-align:center;flex-shrink:0}
+.sidebar-footer{margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.05)}
+.nav-item.danger:hover{background:rgba(239,68,68,.1);color:var(--red)}
+.dashboard-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+.dashboard-header h1{font-size:32px;font-weight:800;margin-bottom:4px}
+.dashboard-header p{color:var(--txt2);font-size:14px}
+.tab-content{display:none;animation:fadeIn .3s ease-out}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:28px;margin-bottom:24px}
+.card-title{font-size:20px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.card-subtitle{color:var(--txt2);font-size:14px;margin-bottom:20px}
+.welcome-card{background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(6,182,212,.1));border:1px solid rgba(139,92,246,.3);border-radius:24px;padding:32px;margin-bottom:24px;position:relative;overflow:hidden}
+.welcome-card h2{font-size:26px;font-weight:800;margin-bottom:12px;position:relative}
+.welcome-card p{color:var(--txt2);line-height:1.8;position:relative;max-width:700px}
+.welcome-card p+p{margin-top:12px}
+.welcome-card .highlight{color:var(--purpleL);font-weight:700}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:24px}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;text-align:center}
+.stat-box .num{font-size:32px;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:6px}
+.stat-box .lbl{color:var(--txt2);font-size:13px;font-weight:500}
+.keys-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.key-item{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:20px;margin-bottom:12px;transition:all .2s}
+.key-item:hover{border-color:var(--borderH);background:rgba(139,92,246,.03)}
+.key-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.key-name{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.key-status{padding:4px 12px;border-radius:999px;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.key-value-wrapper{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 12px;margin-bottom:12px}
+.key-value{flex:1;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyanL);direction:ltr;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:.5px;min-width:0}
+.key-actions{display:flex;gap:6px;flex-shrink:0}
+.icon-btn{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .2s}
+.icon-btn:hover{background:rgba(139,92,246,.15);color:var(--purpleL);border-color:var(--purple)}
+.key-meta{display:flex;gap:20px;font-size:12px;color:var(--txt3);flex-wrap:wrap}
+.key-meta span{display:flex;align-items:center;gap:5px}
+.empty-state{text-align:center;padding:60px 20px}
+.empty-state .icon{font-size:80px;margin-bottom:20px;opacity:.4}
+.empty-state h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.empty-state p{color:var(--txt2);font-size:14px;margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto}
+.tunnel-item{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.tunnel-info{display:flex;align-items:center;gap:16px;flex:1;min-width:0}
+.tunnel-status{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);flex-shrink:0}
+.tunnel-slug{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;color:var(--cyanL);margin-bottom:4px;direction:ltr;text-align:right}
+.tunnel-url{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--txt3);direction:ltr;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tunnel-stats{display:flex;gap:24px;font-size:12px;color:var(--txt2);flex-shrink:0}
+.tunnel-stat{text-align:center}
+.tunnel-stat-value{font-weight:700;color:var(--txt);font-size:15px;font-family:'JetBrains Mono',monospace}
+.support-card{text-align:center;padding:60px 40px}
+.support-card .icon{font-size:90px;margin-bottom:20px}
+.support-card h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.support-card p{color:var(--txt2);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.8}
+.terms-content{line-height:1.9;color:var(--txt2)}
+.terms-content h3{color:var(--txt);font-size:18px;margin:24px 0 12px;font-weight:700}
+.terms-content p{margin-bottom:12px}
+.terms-content ul{padding-right:24px;margin-bottom:16px}
+.terms-content li{margin-bottom:8px}
+.settings-section{border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:28px;margin-bottom:28px}
+.settings-section:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.settings-title{font-size:17px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.settings-desc{color:var(--txt2);font-size:13px;margin-bottom:20px}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg3);border:1px solid var(--borderH);padding:14px 24px;border-radius:16px;color:var(--txt);font-size:14px;font-weight:600;box-shadow:0 20px 60px rgba(0,0,0,.5);transition:transform .4s cubic-bezier(.4,0,.2,1);z-index:9999;display:flex;align-items:center;gap:10px;max-width:90vw}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:var(--green)}
+.toast.error{border-color:var(--red)}
+.loading-overlay{position:fixed;inset:0;background:rgba(5,6,15,.9);backdrop-filter:blur(10px);z-index:9998;display:none;align-items:center;justify-content:center;flex-direction:column;gap:20px}
+.loading-overlay.show{display:flex}
+.loading-spinner{width:60px;height:60px;border:4px solid rgba(139,92,246,.2);border-top-color:var(--purple);border-radius:50%;animation:spin .8s linear infinite}
+.loading-text{color:var(--txt2);font-size:14px;font-weight:600}
+.mobile-menu-btn{display:none;width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--txt);font-size:20px;cursor:pointer;align-items:center;justify-content:center}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99}
+.sidebar-overlay.show{display:block}
+.brand-logos{display:flex;justify-content:center;gap:40px;margin-top:60px;flex-wrap:wrap;opacity:.4}
+.brand-logo{font-size:14px;font-weight:700;color:var(--txt2);display:flex;align-items:center;gap:8px}
+@media(max-width:900px){
+.dashboard{grid-template-columns:1fr}
+.dashboard-sidebar{position:fixed;top:0;right:-100%;width:280px;height:100vh;z-index:200;transition:right .3s;border-left:1px solid rgba(255,255,255,.05)}
+.dashboard-sidebar.open{right:0}
+.dashboard-main{padding:20px 16px}
+.mobile-menu-btn{display:flex}
+.stats-row{gap:30px}
+.stat-num{font-size:32px}
+.dashboard-header h1{font-size:24px}
+.key-value-wrapper{flex-wrap:wrap}
+.key-value{width:100%;margin-bottom:8px}
+}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(139,92,246,.3);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:var(--purple)}
+</style>
+</head>
+<body>
+
+<div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
+<div class="bg-grid"></div>
+
+<!-- ═══════════ Landing ═══════════ -->
+<div class="page active" id="page-landing">
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <div class="logo" onclick="showPage('landing')">
+                <div class="logo-icon">🚀</div>
+                <span>ZONE TUNNEL</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-ghost" onclick="showPage('login')">تسجيل دخول</button>
+                <button class="btn btn-primary" onclick="showPage('signup')">إنشاء حساب</button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero container">
+        <div class="hero-badge"><span class="dot"></span> خدمة مجانية 100% — بدون إعلانات</div>
+        <h1>أنفاق <span class="gradient">لا نهائية</span><br>للجميع بدون قيود</h1>
+        <p class="subtitle">ZONE TUNNEL منصة <strong>غير ربحية</strong> تمنحك أنفاقاً مجانية لربط سكربتاتك بالإنترنت. بدون حد يومي، بدون تعقيد، فقط أنشئ وابدأ.</p>
+        <div class="hero-buttons">
+            <button class="btn btn-primary btn-lg" onclick="showPage('signup')">🚀 ابدأ مجاناً الآن</button>
+            <button class="btn btn-ghost btn-lg" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">📖 اكتشف المزيد</button>
+        </div>
+        <div class="stats-row">
+            <div class="stat"><div class="stat-num">∞</div><div class="stat-label">نفق غير محدود</div></div>
+            <div class="stat"><div class="stat-num">99.9%</div><div class="stat-label">وقت التشغيل</div></div>
+            <div class="stat"><div class="stat-num">0$</div><div class="stat-label">التكلفة</div></div>
+            <div class="stat"><div class="stat-num">100%</div><div class="stat-label">مجاني للأبد</div></div>
+        </div>
+    </section>
+
+    <section class="features container" id="features">
+        <h2 class="section-title">لماذا <span class="gradient">ZONE TUNNEL</span>؟</h2>
+        <p class="section-subtitle">بنينا هذه الخدمة لأننا نؤمن أن الإنترنت يجب أن يكون حراً ومتاحاً للجميع</p>
+        <div class="features-grid">
+            <div class="feature-card"><div class="feature-icon">⚡</div><h3>سريع جداً</h3><p>بنية تحتية عالمية موزعة في أكثر من 10 مواقع لضمان أقل زمن استجابة ممكن.</p></div>
+            <div class="feature-card"><div class="feature-icon">🔒</div><h3>آمن ومشفر</h3><p>كل الأنفاق مشفرة من الطرفين بـ TLS 1.3 ومحمية من هجمات MITM.</p></div>
+            <div class="feature-card"><div class="feature-icon">♾️</div><h3>بدون حدود</h3><p>لا حدود على عدد الطلبات، حجم البيانات، أو عدد الأنفاق النشطة.</p></div>
+            <div class="feature-card"><div class="feature-icon">🎯</div><h3>سهل الاستخدام</h3><p>واجهة بسيطة، سطر واحد لتشغيل نفقك، ودعم تقني على مدار الساعة.</p></div>
+            <div class="feature-card"><div class="feature-icon">💚</div><h3>غير ربحي</h3><p>لا إعلانات، لا بيع بيانات، لا رسوم خفية. كل شيء مجاني للجميع للأبد.</p></div>
+            <div class="feature-card"><div class="feature-icon">🌍</div><h3>مفتوح للجميع</h3><p>سواء كنت مطوراً أو هاوياً أو شركة — الكل مرحب به بدون شروط.</p></div>
+        </div>
+    </section>
+
+    <footer class="footer container">
+        <p>© 2026 ZONE TUNNEL — كل الحقوق مفتوحة للجميع 💜</p>
+        <div class="footer-links">
+            <span>📧 الدعم: <a href="mailto:zonetunnel@gmail.com">zonetunnel@gmail.com</a></span>
+            <span>👑 المطور: <a href="https://t.me/LIEI_T" target="_blank">@LIEI_T</a></span>
+        </div>
+    </footer>
+</div>
+
+<!-- ═══════════ Login ═══════════ -->
+<div class="page" id="page-login">
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <button class="back-link" onclick="showPage('landing')">← العودة للرئيسية</button>
+            <div class="auth-header"><span class="icon">🔐</span><h2>مرحباً بعودتك</h2><p>سجل دخولك للمتابعة</p></div>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">البريد الإلكتروني</label>
+                    <input type="email" class="form-input ltr" id="login-email" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور</label>
+                    <input type="password" class="form-input ltr" id="login-password" placeholder="••••••••" required>
+                    <button type="button" class="forgot-link" onclick="showPage('forgot')">🔑 نسيت كلمة المرور؟</button>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn">تسجيل الدخول</button>
+            </form>
+            <div class="auth-switch">ليس لديك حساب؟<a onclick="showPage('signup')">أنشئ حساباً</a></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ Forgot Password — Step 1 (Email) ═══════════ -->
+<div class="page" id="page-forgot">
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <button class="back-link" onclick="showPage('login')">← العودة لتسجيل الدخول</button>
+            <div class="auth-header">
+                <span class="icon">🔑</span>
+                <h2>نسيت كلمة المرور؟</h2>
+                <p>أدخل بريدك الإلكتروني وسنرسل لك كود استعادة</p>
+            </div>
+            <form onsubmit="handleForgotPassword(event)">
+                <div class="form-group">
+                    <label class="form-label">البريد الإلكتروني</label>
+                    <input type="email" class="form-input ltr" id="forgot-email" placeholder="you@example.com" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full btn-lg" id="forgot-btn">📧 أرسل كود الاستعادة</button>
+            </form>
+            <div class="auth-switch">تذكرت كلمة المرور؟<a onclick="showPage('login')">سجل دخول</a></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ Forgot Password — Step 2 (Code + New Password) ═══════════ -->
+<div class="page" id="page-reset">
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <button class="back-link" onclick="showPage('forgot')">← رجوع</button>
+            <div class="auth-header">
+                <span class="icon">📩</span>
+                <h2>تحقق من بريدك</h2>
+                <p>أرسلنا كود الاستعادة إلى</p>
+                <p id="reset-email-display" style="color:var(--purpleL);font-weight:700;direction:ltr;font-family:'JetBrains Mono',monospace;font-size:14px;margin-top:6px"></p>
+            </div>
+            <div class="alert alert-warning">
+                <span class="alert-icon">⚠️</span>
+                <div><strong>لم تجد الكود؟</strong><br>تحقق من مجلد <strong>البريد غير المرغوب فيه (Spam)</strong>.</div>
+            </div>
+            <form onsubmit="handleResetPassword(event)">
+                <div class="form-group">
+                    <label class="form-label">كود التحقق</label>
+                    <div class="code-inputs" id="reset-code-inputs">
+                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="0">
+                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="1">
+                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="2">
+                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="3">
+                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="4">
+                        <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور الجديدة</label>
+                    <input type="password" class="form-input ltr" id="reset-password1" placeholder="••••••••" required minlength="8" oninput="updateResetStrength()">
+                    <div class="password-strength">
+                        <div class="strength-bars">
+                            <div class="strength-bar" id="rbar-1"></div>
+                            <div class="strength-bar" id="rbar-2"></div>
+                            <div class="strength-bar" id="rbar-3"></div>
+                            <div class="strength-bar" id="rbar-4"></div>
+                        </div>
+                        <div class="strength-text">
+                            <span class="label">قوة كلمة المرور:</span>
+                            <span class="value" id="reset-strength-label">—</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">تأكيد كلمة المرور</label>
+                    <input type="password" class="form-input ltr" id="reset-password2" placeholder="••••••••" required minlength="8" oninput="checkResetMatch()">
+                    <div class="form-error" id="reset-match-error"><span>❌</span> كلمتا المرور غير متطابقتين</div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full btn-lg" id="reset-btn" disabled>🔄 إعادة تعيين كلمة المرور</button>
+            </form>
+            <div style="text-align:center;margin-top:16px">
+                <button class="back-link" id="reset-resend-btn" onclick="handleForgotResend()" disabled style="margin:0;font-size:13px">إعادة إرسال الكود (<span id="reset-timer">60</span> ث)</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ Signup Step 1 ═══════════ -->
+<div class="page" id="page-signup">
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <button class="back-link" onclick="showPage('landing')">← العودة للرئيسية</button>
+            <div class="auth-header"><span class="icon">✨</span><h2>إنشاء حساب</h2><p>انضم لمجتمع ZONE TUNNEL في دقيقة</p></div>
+            <div style="display:flex;gap:6px;margin-bottom:28px">
+                <div style="flex:1;height:4px;border-radius:99px;background:var(--purple)"></div>
+                <div style="flex:1;height:4px;border-radius:99px;background:rgba(255,255,255,.08)"></div>
+                <div style="flex:1;height:4px;border-radius:99px;background:rgba(255,255,255,.08)"></div>
+            </div>
+            <form onsubmit="handleSignupStep1(event)">
+                <div class="form-group">
+                    <label class="form-label">الاسم الأساسي</label>
+                    <input type="text" class="form-input" id="signup-firstname" placeholder="مثال: أحمد" required minlength="2">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">اسم العائلة <span class="optional">(اختياري)</span></label>
+                    <input type="text" class="form-input" id="signup-lastname" placeholder="مثال: محمد">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">البريد الإلكتروني</label>
+                    <input type="email" class="form-input ltr" id="signup-email" placeholder="you@example.com" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full btn-lg" id="signup-btn1">التالي ←</button>
+            </form>
+            <div class="auth-switch">لديك حساب مسبقاً؟<a onclick="showPage('login')">سجل دخول</a></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ Verify ═══════════ -->
+<div class="page" id="page-verify">
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <button class="back-link" onclick="showPage('signup')">← رجوع</button>
+            <div class="auth-header">
+                <span class="icon">📩</span>
+                <h2>تحقق من بريدك</h2>
+                <p>أرسلنا كود التحقق إلى</p>
+                <p id="verify-email-display" style="color:var(--purpleL);font-weight:700;direction:ltr;font-family:'JetBrains Mono',monospace;font-size:14px;margin-top:6px"></p>
+            </div>
+            <div class="alert alert-warning">
+                <span class="alert-icon">⚠️</span>
+                <div><strong>لم تجد الكود؟</strong><br>تحقق من مجلد <strong>البريد غير المرغوب فيه (Spam)</strong> أو تبويب <strong>العروض الترويجية</strong>.</div>
+            </div>
+            <div class="code-inputs" id="verify-code-inputs">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="0">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="1">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="2">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="3">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="4">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="5">
+            </div>
+            <button class="btn btn-primary btn-full btn-lg" id="verify-btn" onclick="handleVerifyCode()">تحقق من الكود</button>
+            <div style="text-align:center;margin-top:16px">
+                <button class="back-link" id="resend-btn" onclick="handleResendCode()" disabled style="margin:0;font-size:13px">إعادة إرسال الكود (<span id="resend-timer">60</span> ث)</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ Password ═══════════ -->
+<div class="page" id="page-password">
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <button class="back-link" onclick="showPage('verify')">← رجوع</button>
+            <div class="auth-header"><span class="icon">🔑</span><h2>أنشئ كلمة مرور</h2><p>8 أحرف على الأقل</p></div>
+            <form onsubmit="handleCreatePassword(event)">
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور</label>
+                    <input type="password" class="form-input ltr" id="signup-password" placeholder="••••••••" required minlength="8" oninput="updatePasswordStrength()">
+                    <div class="password-strength">
+                        <div class="strength-bars">
+                            <div class="strength-bar" id="bar-1"></div>
+                            <div class="strength-bar" id="bar-2"></div>
+                            <div class="strength-bar" id="bar-3"></div>
+                            <div class="strength-bar" id="bar-4"></div>
+                        </div>
+                        <div class="strength-text">
+                            <span class="label">قوة كلمة المرور:</span>
+                            <span class="value" id="strength-label">—</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">تأكيد كلمة المرور</label>
+                    <input type="password" class="form-input ltr" id="signup-password2" placeholder="••••••••" required minlength="8" oninput="checkPasswordMatch()">
+                    <div class="form-error" id="password-match-error"><span>❌</span> كلمتا المرور غير متطابقتين</div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full btn-lg" id="signup-final-btn" disabled>إنشاء الحساب 🎉</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ Welcome ═══════════ -->
+<div class="page" id="page-welcome">
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="success-screen">
+                <div class="success-icon">🎉</div>
+                <h2>مرحباً بك في ZONE TUNNEL!</h2>
+                <p>شكراً لانضمامك لمنصتنا. حسابك جاهز الآن، يمكنك البدء بإنشاء أنفاقك المجانية فوراً.</p>
+                <div class="alert alert-info" style="text-align:right;margin-bottom:24px">
+                    <span class="alert-icon">💬</span>
+                    <div>لأي مشكلة أو استفسار، تواصل معنا عبر <strong>zonetunnel@gmail.com</strong></div>
+                </div>
+                <a href="mailto:zonetunnel@gmail.com" class="btn btn-primary btn-full btn-lg" style="margin-bottom:12px">📧 تواصل مع الدعم</a>
+                <button class="btn btn-ghost btn-full" onclick="goToDashboard()">الانتقال إلى لوحة التحكم →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ Reset Success ═══════════ -->
+<div class="page" id="page-reset-success">
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="success-screen">
+                <div class="success-icon">✅</div>
+                <h2>تم تغيير كلمة المرور!</h2>
+                <p>يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة. لأمانك، تم إلغاء جميع الجلسات السابقة.</p>
+                <button class="btn btn-primary btn-full btn-lg" onclick="showPage('login')">🔐 تسجيل الدخول الآن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ Dashboard ═══════════ -->
+<div class="page" id="page-dashboard">
+    <div class="dashboard">
+        <aside class="dashboard-sidebar" id="sidebar">
+            <div class="sidebar-user">
+                <div class="user-avatar" id="user-avatar">؟</div>
+                <div class="user-info">
+                    <div class="user-name" id="user-name-display">المستخدم</div>
+                    <div class="user-email" id="user-email-display">user@example.com</div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-tab="home" onclick="switchTab('home')"><span class="nav-icon">🏠</span> البداية</button>
+                <button class="nav-item" data-tab="keys" onclick="switchTab('keys')"><span class="nav-icon">🔑</span> مفاتيح API</button>
+                <button class="nav-item" data-tab="tunnels" onclick="switchTab('tunnels')"><span class="nav-icon">🌐</span> الأنفاق النشطة</button>
+                <button class="nav-item" data-tab="settings" onclick="switchTab('settings')"><span class="nav-icon">⚙️</span> إعدادات الحساب</button>
+                <button class="nav-item" data-tab="support" onclick="switchTab('support')"><span class="nav-icon">💬</span> الدعم الفني</button>
+                <button class="nav-item" data-tab="terms" onclick="switchTab('terms')"><span class="nav-icon">📋</span> الشروط والأحكام</button>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="nav-item danger" onclick="handleLogout()"><span class="nav-icon">🚪</span> تسجيل الخروج</button>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <main class="dashboard-main">
+            <div class="dashboard-header">
+                <div style="display:flex;align-items:center;gap:16px">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+                    <div>
+                        <h1 id="page-title">البداية</h1>
+                        <p id="page-subtitle">مرحباً بك في ZONE TUNNEL</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Home -->
+            <div class="tab-content active" id="tab-home">
+                <div class="welcome-card">
+                    <h2>💜 مرحباً بك في ZONE TUNNEL</h2>
+                    <p><strong>ZONE TUNNEL</strong> منصة <span class="highlight">غير ربحية</span> أنشأناها لخدمة المطورين والمستخدمين العرب. هدفنا أن نوفر <span class="highlight">أنفاقاً مجانية</span> لربط سكربتاتك بالعالم الخارجي بدون أي تكاليف أو قيود.</p>
+                    <p>لا نطلب منك بطاقة بنكية، لا نعرض إعلانات مزعجة، ولا نبيع بياناتك لأي جهة. كل ما نطلبه هو استخدام مسؤول للخدمة.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-box"><div class="num" id="stat-keys">0</div><div class="lbl">مفاتيح API</div></div>
+                    <div class="stat-box"><div class="num" id="stat-tunnels">0</div><div class="lbl">أنفاق نشطة</div></div>
+                    <div class="stat-box"><div class="num" id="stat-requests">0</div><div class="lbl">إجمالي الطلبات</div></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🚀 ابدأ الآن</div>
+                    <div class="card-subtitle">اختر ما تريد فعله:</div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+                        <button class="btn btn-primary" onclick="switchTab('keys')">🔑 إنشاء مفتاح API</button>
+                        <button class="btn btn-ghost" onclick="switchTab('tunnels')">🌐 عرض الأنفاق</button>
+                        <button class="btn btn-ghost" onclick="switchTab('settings')">⚙️ إعدادات الحساب</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">📖 كيف يعمل ZONE TUNNEL؟</div>
+                    <ol style="padding-right:24px;line-height:2;color:var(--txt2)">
+                        <li>أنشئ مفتاح API خاص بك من صفحة <strong>مفاتيح API</strong></li>
+                        <li>استخدم المفتاح في سكربتك للاتصال بالمنصة</li>
+                        <li>سيتم توليد رابط فريد لك تلقائياً</li>
+                        <li>شارك الرابط مع أي شخص ليصل لسكربتك</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Tab: Keys -->
+            <div class="tab-content" id="tab-keys">
+                <div class="card">
+                    <div class="keys-header">
+                        <div>
+                            <div class="card-title">🔑 مفاتيح API</div>
+                            <div class="card-subtitle" style="margin:0">استخدم هذه المفاتيح لربط سكربتاتك بالمنصة</div>
+                        </div>
+                        <button class="btn btn-primary" id="create-key-btn" onclick="createApiKey()" style="display:none">➕ إنشاء مفتاح جديد</button>
+                    </div>
+                    <div id="keys-list"></div>
+                </div>
+            </div>
+
+            <!-- Tab: Tunnels -->
+            <div class="tab-content" id="tab-tunnels">
+                <div class="card">
+                    <div class="card-title">🌐 الأنفاق النشطة</div>
+                    <div class="card-subtitle">جميع الأنفاق التي تعمل حالياً على حسابك</div>
+                    <div id="tunnels-list"></div>
+                </div>
+            </div>
+
+            <!-- Tab: Settings -->
+            <div class="tab-content" id="tab-settings">
+                <!-- تحديث المعلومات -->
+                <div class="card">
+                    <div class="settings-section">
+                        <div class="settings-title">👤 المعلومات الشخصية</div>
+                        <div class="settings-desc">تحديث اسمك في المنصة</div>
+                        <form onsubmit="handleUpdateInfo(event)">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+                                <div class="form-group" style="margin:0">
+                                    <label class="form-label">الاسم الأساسي</label>
+                                    <input type="text" class="form-input" id="settings-firstname" placeholder="الاسم" minlength="2">
+                                </div>
+                                <div class="form-group" style="margin:0">
+                                    <label class="form-label">اسم العائلة</label>
+                                    <input type="text" class="form-input" id="settings-lastname" placeholder="العائلة">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="update-info-btn">💾 حفظ التغييرات</button>
+                        </form>
+                    </div>
+
+                    <!-- تغيير كلمة المرور -->
+                    <div class="settings-section">
+                        <div class="settings-title">🔒 تغيير كلمة المرور</div>
+                        <div class="settings-desc">يُنصح بتغيير كلمة المرور بشكل دوري لحماية حسابك</div>
+                        <form onsubmit="handleChangePassword(event)">
+                            <div class="form-group">
+                                <label class="form-label">كلمة المرور الحالية</label>
+                                <input type="password" class="form-input ltr" id="settings-old-password" placeholder="••••••••" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">كلمة المرور الجديدة</label>
+                                <input type="password" class="form-input ltr" id="settings-new-password" placeholder="••••••••" required minlength="8">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">تأكيد كلمة المرور الجديدة</label>
+                                <input type="password" class="form-input ltr" id="settings-new-password2" placeholder="••••••••" required minlength="8">
+                                <div class="form-error" id="settings-pass-error"><span>❌</span> كلمتا المرور غير متطابقتين</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="change-password-btn">🔄 تغيير كلمة المرور</button>
+                        </form>
+                    </div>
+
+                    <!-- معلومة الحساب -->
+                    <div class="settings-section">
+                        <div class="settings-title">📅 معلومات الحساب</div>
+                        <div class="settings-desc">بيانات حسابك الأساسية</div>
+                        <div style="background:rgba(0,0,0,.2);border-radius:12px;padding:16px;direction:ltr;text-align:left;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--txt2)">
+                            <div style="margin-bottom:8px"><span style="color:var(--txt3)">ID:</span> <span id="settings-user-id">—</span></div>
+                            <div style="margin-bottom:8px"><span style="color:var(--txt3)">Email:</span> <span id="settings-user-email">—</span></div>
+                            <div><span style="color:var(--txt3)">Joined:</span> <span id="settings-user-joined">—</span></div>
+                        </div>
+                    </div>
+
+                    <!-- منطقة الخطر -->
+                    <div class="settings-section">
+                        <div class="settings-title" style="color:var(--red)">⚠️ منطقة الخطر</div>
+                        <div class="settings-desc">حذف حسابك نهائياً — لا يمكن التراجع</div>
+                        <button class="btn btn-danger" onclick="handleDeleteAccount()">🗑️ حذف حسابي نهائياً</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Support -->
+            <div class="tab-content" id="tab-support">
+                <div class="card support-card">
+                    <div class="icon">💬</div>
+                    <h2>نحن هنا لمساعدتك</h2>
+                    <p>فريق ZONE TUNNEL متاح على مدار الساعة للإجابة على استفساراتك، حل مشاكلك التقنية، والاستماع لاقتراحاتك.</p>
+                    <a href="mailto:zonetunnel@gmail.com" class="btn btn-primary btn-lg">📧 تواصل معنا</a>
+                    <p style="margin-top:24px;font-size:14px;color:var(--txt2)">البريد: <strong style="color:var(--purpleL)">zonetunnel@gmail.com</strong></p>
+                    <p style="margin-top:8px;font-size:13px;color:var(--txt3)">👑 المطور: <a href="https://t.me/LIEI_T" target="_blank" style="color:var(--purpleL);text-decoration:none">@LIEI_T</a></p>
+                </div>
+            </div>
+
+            <!-- Tab: Terms -->
+            <div class="tab-content" id="tab-terms">
+                <div class="card">
+                    <div class="card-title">📋 الشروط والأحكام</div>
+                    <div class="card-subtitle">آخر تحديث: يناير 2026</div>
+                    <div class="terms-content">
+                        <h3>1. مقدمة</h3>
+                        <p>باستخدامك لمنصة ZONE TUNNEL فإنك توافق على هذه الشروط. المنصة <strong>غير ربحية</strong> وتهدف لخدمة المجتمع التقني.</p>
+                        <h3>2. الاستخدام المسموح</h3>
+                        <ul>
+                            <li>تطوير التطبيقات والمواقع الشخصية</li>
+                            <li>اختبار الخوادم والأدوات</li>
+                            <li>ربط الأجهزة والخدمات المنزلية</li>
+                            <li>أي استخدام قانوني وشريف</li>
+                        </ul>
+                        <h3>3. الاستخدام الممنوع</h3>
+                        <ul>
+                            <li>استضافة محتوى غير قانوني</li>
+                            <li>الإضرار بالبنية التحتية</li>
+                            <li>انتحال هوية الآخرين</li>
+                            <li>بيع الحسابات أو المفاتيح</li>
+                        </ul>
+                        <h3>4. الخصوصية</h3>
+                        <p>نحن <strong>لا نجمع</strong> أي بيانات شخصية إلا البريد الإلكتروني. <strong>لا نبيع</strong> أو نشارك بياناتك مع أي طرف ثالث.</p>
+                        <h3>5. إخلاء المسؤولية</h3>
+                        <p>الخدمة مقدمة "كما هي" بدون أي ضمانات. غير مسؤولين عن أي أضرار مباشرة أو غير مباشرة ناتجة عن استخدام الخدمة.</p>
+                        <h3>6. التواصل</h3>
+                        <p>لأي استفسار: <strong>zonetunnel@gmail.com</strong></p>
+                        <p>المطور: <strong>@LIEI_T</strong></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div class="toast" id="toast">
+    <span class="icon" id="toast-icon">✅</span>
+    <span id="toast-text">تم بنجاح</span>
+</div>
+
+<div class="loading-overlay" id="loading">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loading-text">جاري المعالجة...</div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   🛡️  حماية DevTools & Inspect
+   ═══════════════════════════════════════════════════════ */
+(function() {
+    // منع القائمة اليمنى
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // منع اختصارات المفاتيح
+    document.addEventListener('keydown', e => {
+        // F12
+        if (e.key === 'F12') { e.preventDefault(); return false; }
+        // Ctrl+Shift+I / J / C
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+            e.preventDefault(); return false;
+        }
+        // Ctrl+U (view source)
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) { e.preventDefault(); return false; }
+    });
+
+    // Anti-debug (يعمل فقط عند فتح DevTools — لكنه غير مزعج)
+    const antiDebug = () => {
+        const start = performance.now();
+        debugger;
+        const end = performance.now();
+        if (end - start > 100) {
+            // DevTools مفتوح — لكن لا نعاقب بشدة
+            console.clear();
+        }
+    };
+    // تفعيل خفيف: مرة كل 3 ثواني فقط
+    setInterval(antiDebug, 3000);
+})();
+
+/* ═══════════════════════════════════════════════════════
+   ⚙️ الإعدادات
+   ═══════════════════════════════════════════════════════ */
+const API = "https://pedigree-hankering-unmixable.ngrok-free.dev";
+
+let currentUser = null;
+let signupData = { firstName: '', lastName: '', email: '' };
+let resetData = { email: '' };
+
+/* ═══════════════════════════════════════════════════════
+   🌐 تفعيل ngrok
+   ═══════════════════════════════════════════════════════ */
+async function warmupNgrok() {
+    try {
+        const res = await fetch(API + "/api/warmup", {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-store',
+            headers: { "Content-Type": "text/plain;charset=UTF-8" },
+            body: "{}"
+        });
+        const ct = (res.headers.get("content-type") || "").toLowerCase();
+        if (ct.includes("json")) {
+            console.log('✅ ngrok ready');
+            return true;
+        }
+        console.warn('⚠️ ngrok warmup: non-JSON response');
+        return false;
+    } catch (e) {
+        console.warn('⚠️ ngrok warmup failed');
+        return false;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   🔧 دالة fetch موحّدة — كل الطلبات POST
+   ═══════════════════════════════════════════════════════ */
+async function api(endpoint, options = {}) {
+    const token = localStorage.getItem('zt_session');
+
+    let bodyData = {};
+    if (options.body) {
+        try { bodyData = JSON.parse(options.body); } catch { bodyData = {}; }
+    }
+    if (token) bodyData._token = token;
+
+    const fetchOpts = {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-store',
+        headers: { "Content-Type": "text/plain;charset=UTF-8" },
+        body: JSON.stringify(bodyData)
+    };
+
+    let res;
+    try {
+        res = await fetch(API + endpoint, fetchOpts);
+    } catch (err) {
+        console.error('❌ network error:', err.message);
+        throw new Error("تعذر الاتصال بالسيرفر");
+    }
+
+    const ct = (res.headers.get("content-type") || "").toLowerCase();
+    if (!ct.includes("json")) {
+        const txt = await res.text();
+        console.error('❌ non-JSON:', txt.slice(0, 200));
+        if (txt.includes("ngrok") || txt.includes("ERR_NGROK") || txt.includes("about to visit")) {
+            throw new Error("⚠️ ngrok يحتاج تفعيل — افتح: " + API + "/api/health?ngrok-skip-browser-warning=1");
+        }
+        throw new Error("استجابة غير متوقعة (" + res.status + ")");
+    }
+
+    let data;
+    try {
+        data = await res.json();
+    } catch (e) {
+        throw new Error("JSON غير صالح (" + res.status + ")");
+    }
+
+    if (!res.ok) {
+        throw new Error(data.detail || data.message || ("خطأ " + res.status));
+    }
+    return data;
+}
+
+/* ═══════════════════════════════════════════════════════
+   🗂️ إدارة الصفحات
+   ═══════════════════════════════════════════════════════ */
+function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const el = document.getElementById('page-' + name);
+    if (el) el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ═══════════════════════════════════════════════════════
+   🔐 تسجيل الدخول
+   ═══════════════════════════════════════════════════════ */
+async function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const btn = document.getElementById('login-btn');
+    btn.disabled = true;
+
+    setLoading(true, 'جاري تسجيل الدخول...');
+    try {
+        const data = await api('/api/auth/login', {
+            body: JSON.stringify({ email, password })
+        });
+        currentUser = data.user;
+        localStorage.setItem('zt_session', data.session_token);
+        localStorage.setItem('zt_user', JSON.stringify(data.user));
+        setLoading(false);
+        showToast('✅ مرحباً ' + data.user.first_name);
+        goToDashboard();
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+        btn.disabled = false;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   🔑 نسيت كلمة المرور — الخطوة 1
+   ═══════════════════════════════════════════════════════ */
+async function handleForgotPassword(event) {
+    event.preventDefault();
+    const email = document.getElementById('forgot-email').value.trim();
+    const btn = document.getElementById('forgot-btn');
+    btn.disabled = true;
+
+    setLoading(true, 'جاري إرسال كود الاستعادة...');
+    try {
+        await api('/api/auth/forgot-password', {
+            body: JSON.stringify({ email })
+        });
+        resetData.email = email;
+        document.getElementById('reset-email-display').textContent = email;
+        setLoading(false);
+        showToast('📧 تم إرسال كود الاستعادة');
+        showPage('reset');
+        startResetTimer();
+        setTimeout(() => focusResetCodeInput(), 200);
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+        btn.disabled = false;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   🔑 نسيت كلمة المرور — الخطوة 2 (كود + كلمة جديدة)
+   ═══════════════════════════════════════════════════════ */
+async function handleResetPassword(event) {
+    event.preventDefault();
+    const inputs = document.querySelectorAll('#reset-code-inputs .code-input');
+    const code = Array.from(inputs).map(i => i.value).join('');
+    const new_password = document.getElementById('reset-password1').value;
+    const confirm = document.getElementById('reset-password2').value;
+
+    if (code.length !== 6) {
+        return showToast('❌ أدخل الكود كاملاً (6 أرقام)', 'error');
+    }
+    if (new_password !== confirm) {
+        return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
+    }
+    if (new_password.length < 8) {
+        return showToast('❌ كلمة المرور قصيرة', 'error');
+    }
+
+    const btn = document.getElementById('reset-btn');
+    btn.disabled = true;
+    setLoading(true, 'جاري تغيير كلمة المرور...');
+
+    try {
+        await api('/api/auth/reset-password', {
+            body: JSON.stringify({
+                email: resetData.email,
+                code: code,
+                new_password: new_password
+            })
+        });
+        setLoading(false);
+        showPage('reset-success');
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+        inputs.forEach(i => { i.value = ''; i.classList.remove('filled'); });
+        inputs[0].focus();
+        btn.disabled = false;
+    }
+}
+
+async function handleForgotResend() {
+    try {
+        await api('/api/auth/forgot-password', {
+            body: JSON.stringify({ email: resetData.email })
+        });
+        showToast('📧 تم إرسال كود جديد');
+    } catch (e) {
+        showToast('❌ ' + e.message, 'error');
+        return;
+    }
+    startResetTimer();
+}
+
+let resetTimerInterval = null;
+function startResetTimer() {
+    const btn = document.getElementById('reset-resend-btn');
+    let t = 60;
+    btn.disabled = true;
+    btn.textContent = 'إعادة إرسال الكود (' + t + ' ث)';
+    if (resetTimerInterval) clearInterval(resetTimerInterval);
+    resetTimerInterval = setInterval(() => {
+        t--;
+        if (t <= 0) {
+            clearInterval(resetTimerInterval);
+            btn.disabled = false;
+            btn.textContent = '🔄 إعادة إرسال الكود';
+        } else {
+            btn.textContent = 'إعادة إرسال الكود (' + t + ' ث)';
+        }
+    }, 1000);
+}
+
+function focusResetCodeInput() {
+    const first = document.querySelector('#reset-code-inputs .code-input');
+    if (first) first.focus();
+}
+
+/* ═══════════════════════════════════════════════════════
+   ✨ الخطوة 1: إرسال الكود (تسجيل)
+   ═══════════════════════════════════════════════════════ */
+async function handleSignupStep1(event) {
+    event.preventDefault();
+    signupData.firstName = document.getElementById('signup-firstname').value.trim();
+    signupData.lastName = document.getElementById('signup-lastname').value.trim();
+    signupData.email = document.getElementById('signup-email').value.trim();
+
+    if (signupData.firstName.length < 2) {
+        return showToast('❌ الاسم قصير جداً', 'error');
+    }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signupData.email)) {
+        return showToast('❌ الإيميل غير صالح', 'error');
+    }
+
+    document.getElementById('verify-email-display').textContent = signupData.email;
+    const btn = document.getElementById('signup-btn1');
+    btn.disabled = true;
+
+    setLoading(true, 'جاري إرسال الكود...');
+    try {
+        await api('/api/auth/send-code', {
+            body: JSON.stringify({ email: signupData.email, purpose: 'signup' })
+        });
+        setLoading(false);
+        showToast('📧 تم إرسال الكود إلى بريدك');
+        showPage('verify');
+        startResendTimer();
+        focusFirstCodeInput();
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+        btn.disabled = false;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   📩 الخطوة 2: التحقق
+   ═══════════════════════════════════════════════════════ */
+async function handleVerifyCode() {
+    const inputs = document.querySelectorAll('#verify-code-inputs .code-input');
+    const code = Array.from(inputs).map(i => i.value).join('');
+
+    if (code.length !== 6) {
+        return showToast('❌ أدخل الكود كاملاً (6 أرقام)', 'error');
+    }
+
+    const btn = document.getElementById('verify-btn');
+    btn.disabled = true;
+    setLoading(true, 'جاري التحقق...');
+
+    try {
+        await api('/api/auth/verify-code', {
+            body: JSON.stringify({ email: signupData.email, code, purpose: 'signup' })
+        });
+        setLoading(false);
+        showToast('✅ تم التحقق من البريد');
+        showPage('password');
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+        inputs.forEach(i => { i.value = ''; i.classList.remove('filled'); });
+        inputs[0].focus();
+        btn.disabled = false;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   🔄 إعادة إرسال (تسجيل)
+   ═══════════════════════════════════════════════════════ */
+async function handleResendCode() {
+    try {
+        await api('/api/auth/send-code', {
+            body: JSON.stringify({ email: signupData.email, purpose: 'signup' })
+        });
+        showToast('📧 تم إرسال كود جديد');
+    } catch (e) {
+        showToast('❌ ' + e.message, 'error');
+        return;
+    }
+    startResendTimer();
+}
+
+let resendTimerInterval = null;
+function startResendTimer() {
+    const btn = document.getElementById('resend-btn');
+    let t = 60;
+    btn.disabled = true;
+    btn.textContent = 'إعادة إرسال الكود (' + t + ' ث)';
+    if (resendTimerInterval) clearInterval(resendTimerInterval);
+    resendTimerInterval = setInterval(() => {
+        t--;
+        if (t <= 0) {
+            clearInterval(resendTimerInterval);
+            btn.disabled = false;
+            btn.textContent = '🔄 إعادة إرسال الكود';
+        } else {
+            btn.textContent = 'إعادة إرسال الكود (' + t + ' ث)';
+        }
+    }, 1000);
+}
+
+function focusFirstCodeInput() {
+    setTimeout(() => {
+        const first = document.querySelector('#verify-code-inputs .code-input');
+        if (first) first.focus();
+    }, 200);
+}
+
+/* ═══════════════════════════════════════════════════════
+   🔑 قوة كلمة المرور
+   ═══════════════════════════════════════════════════════ */
+const COMMON_PASSWORDS = new Set([
+    '12345678', '123456789', '1234567890', 'password',
+    'password1', 'qwerty123', '11111111', '00000000',
+    'aaaaaaaa', 'iloveyou', 'admin123', 'welcome1'
+]);
+
+function calculatePasswordStrength(pwd) {
+    if (!pwd) return { score: 0, level: 'weak', label: '—' };
+    if (pwd.length < 8) return { score: 1, level: 'weak', label: 'قصيرة جداً' };
+    if (COMMON_PASSWORDS.has(pwd.toLowerCase())) return { score: 1, level: 'weak', label: 'شائعة جداً' };
+
+    let score = 1;
+    if (pwd.length >= 10) score++;
+    if (pwd.length >= 14) score++;
+    if (/[A-Z]/.test(pwd) || /[^a-zA-Z0-9]/.test(pwd)) score++;
+
+    if (score <= 1) return { score: 1, level: 'medium', label: 'مقبولة' };
+    if (score <= 3) return { score: 2, level: 'medium', label: 'جيدة' };
+    return { score: 4, level: 'strong', label: 'قوية' };
+}
+
+function updatePasswordStrength() {
+    const pwd = document.getElementById('signup-password').value;
+    const s = calculatePasswordStrength(pwd);
+    const bars = [1,2,3,4].map(i => document.getElementById('bar-' + i));
+    const label = document.getElementById('strength-label');
+
+    bars.forEach(b => b.classList.remove('active', 'weak', 'medium', 'strong'));
+
+    if (!pwd) {
+        label.textContent = '—';
+        label.className = 'value';
+        checkPasswordMatch();
+        return;
+    }
+
+    const activeCount = Math.max(1, s.score);
+    for (let i = 0; i < activeCount; i++) {
+        bars[i].classList.add('active', s.level);
+    }
+    label.textContent = s.label;
+    label.className = 'value ' + s.level;
+    checkPasswordMatch();
+}
+
+function updateResetStrength() {
+    const pwd = document.getElementById('reset-password1').value;
+    const s = calculatePasswordStrength(pwd);
+    const bars = [1,2,3,4].map(i => document.getElementById('rbar-' + i));
+    const label = document.getElementById('reset-strength-label');
+
+    bars.forEach(b => b.classList.remove('active', 'weak', 'medium', 'strong'));
+
+    if (!pwd) {
+        label.textContent = '—';
+        label.className = 'value';
+        checkResetMatch();
+        return;
+    }
+
+    const activeCount = Math.max(1, s.score);
+    for (let i = 0; i < activeCount; i++) {
+        bars[i].classList.add('active', s.level);
+    }
+    label.textContent = s.label;
+    label.className = 'value ' + s.level;
+    checkResetMatch();
+}
+
+function checkPasswordMatch() {
+    const p1 = document.getElementById('signup-password').value;
+    const p2 = document.getElementById('signup-password2').value;
+    const err = document.getElementById('password-match-error');
+    const btn = document.getElementById('signup-final-btn');
+
+    const valid = p1.length >= 8 && p1 === p2;
+
+    if (p2 && p1 !== p2) err.classList.add('show');
+    else err.classList.remove('show');
+
+    btn.disabled = !valid;
+}
+
+function checkResetMatch() {
+    const p1 = document.getElementById('reset-password1').value;
+    const p2 = document.getElementById('reset-password2').value;
+    const err = document.getElementById('reset-match-error');
+    const btn = document.getElementById('reset-btn');
+
+    const valid = p1.length >= 8 && p1 === p2;
+
+    if (p2 && p1 !== p2) err.classList.add('show');
+    else err.classList.remove('show');
+
+    btn.disabled = !valid;
+}
+
+/* ═══════════════════════════════════════════════════════
+   🎉 الخطوة 3: إنشاء الحساب
+   ═══════════════════════════════════════════════════════ */
+async function handleCreatePassword(event) {
+    event.preventDefault();
+    const pwd1 = document.getElementById('signup-password').value;
+    const pwd2 = document.getElementById('signup-password2').value;
+
+    if (pwd1.length < 8) {
+        return showToast('❌ كلمة المرور قصيرة (8 أحرف على الأقل)', 'error');
+    }
+    if (pwd1 !== pwd2) {
+        return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
+    }
+
+    setLoading(true, 'جاري إنشاء الحساب...');
+    try {
+        const data = await api('/api/auth/signup', {
+            body: JSON.stringify({
+                email: signupData.email,
+                first_name: signupData.firstName,
+                last_name: signupData.lastName,
+                password: pwd1
+            })
+        });
+        currentUser = data.user;
+        localStorage.setItem('zt_session', data.session_token);
+        localStorage.setItem('zt_user', JSON.stringify(data.user));
+        setLoading(false);
+        showPage('welcome');
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   🎛️ لوحة التحكم
+   ═══════════════════════════════════════════════════════ */
+function goToDashboard() {
+    if (!currentUser) {
+        const stored = localStorage.getItem('zt_user');
+        if (stored) {
+            try { currentUser = JSON.parse(stored); } catch {}
+        }
+    }
+    if (!currentUser) {
+        showPage('login');
+        return;
+    }
+    updateUserUI();
+    showPage('dashboard');
+    switchTab('home');
+    loadStats();
+}
+
+function updateUserUI() {
+    if (!currentUser) return;
+    const initial = (currentUser.first_name || '؟').charAt(0).toUpperCase();
+    document.getElementById('user-avatar').textContent = initial;
+    document.getElementById('user-name-display').textContent =
+        (currentUser.first_name + ' ' + (currentUser.last_name || '')).trim() || 'المستخدم';
+    document.getElementById('user-email-display').textContent = currentUser.email || '';
+
+    // Settings
+    document.getElementById('settings-firstname').value = currentUser.first_name || '';
+    document.getElementById('settings-lastname').value = currentUser.last_name || '';
+    document.getElementById('settings-user-id').textContent = currentUser.id || '—';
+    document.getElementById('settings-user-email').textContent = currentUser.email || '—';
+    document.getElementById('settings-user-joined').textContent = currentUser.created_at
+        ? new Date(currentUser.created_at).toLocaleDateString('ar-EG')
+        : '—';
+}
+
+function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.nav-item[data-tab]').forEach(n => n.classList.remove('active'));
+    document.getElementById('tab-' + tab)?.classList.add('active');
+    document.querySelector('.nav-item[data-tab="' + tab + '"]')?.classList.add('active');
+
+    const titles = {
+        home: ['البداية', 'مرحباً بك في ZONE TUNNEL'],
+        keys: ['مفاتيح API', 'إدارة مفاتيح الوصول الخاصة بك'],
+        tunnels: ['الأنفاق النشطة', 'جميع الأنفاق التي تعمل حالياً'],
+        settings: ['إعدادات الحساب', 'إدارة حسابك وكلمة المرور'],
+        support: ['الدعم الفني', 'نحن هنا لمساعدتك'],
+        terms: ['الشروط والأحكام', 'يرجى قراءة الشروط بعناية']
+    };
+    document.getElementById('page-title').textContent = titles[tab][0];
+    document.getElementById('page-subtitle').textContent = titles[tab][1];
+
+    if (tab === 'keys') loadKeys();
+    if (tab === 'tunnels') loadTunnels();
+    if (tab === 'home') loadStats();
+    if (window.innerWidth <= 900) toggleSidebar(false);
+}
+
+/* ═══════════════════════════════════════════════════════
+   📊 الإحصائيات
+   ═══════════════════════════════════════════════════════ */
+async function loadStats() {
+    try {
+        const data = await api('/api/stats');
+        document.getElementById('stat-keys').textContent = data.stats.api_keys || 0;
+        document.getElementById('stat-tunnels').textContent = data.stats.tunnels_online || 0;
+        document.getElementById('stat-requests').textContent = data.stats.total_requests || 0;
+    } catch (e) {
+        // فشل صامت
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   🔑 إدارة المفاتيح
+   ═══════════════════════════════════════════════════════ */
+const keyVisibility = {};
+const keyCache = {};
+
+async function loadKeys() {
+    const list = document.getElementById('keys-list');
+    const createBtn = document.getElementById('create-key-btn');
+    createBtn.style.display = 'inline-flex';
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--txt2)">⏳ جاري التحميل...</div>';
+
+    try {
+        const data = await api('/api/keys/list');
+        if (!data.keys.length) {
+            list.innerHTML = '<div class="empty-state">' +
+                '<div class="icon">🔑</div>' +
+                '<h3>لا توجد مفاتيح بعد</h3>' +
+                '<p>أنشئ مفتاح API الأول الخاص بك للبدء في استخدام الأنفاق</p>' +
+                '<button class="btn btn-primary" onclick="createApiKey()">➕ إنشاء مفتاح جديد</button>' +
+                '</div>';
+            return;
+        }
+        list.innerHTML = data.keys.map(k => renderKeyItem(k)).join('');
+        data.keys.forEach(k => { keyVisibility[k.id] = false; });
+    } catch (e) {
+        list.innerHTML = '<div class="empty-state">' +
+            '<div class="icon">❌</div>' +
+            '<h3>خطأ</h3>' +
+            '<p>' + escapeHtml(e.message) + '</p>' +
+            '<button class="btn btn-primary" onclick="loadKeys()">🔄 إعادة المحاولة</button>' +
+            '</div>';
+    }
+}
+
+function renderKeyItem(key) {
+    keyCache[key.id] = key.key_value || key.key_preview;
+    const hidden = '•'.repeat(Math.min((key.key_value || '').length || 48, 48));
+    const created = new Date(key.created_at).toLocaleDateString('ar-EG');
+    const lastUsed = key.last_used ? new Date(key.last_used).toLocaleDateString('ar-EG') : 'لم يُستخدم';
+
+    return '<div class="key-item" data-key-id="' + key.id + '">' +
+        '<div class="key-header">' +
+            '<div class="key-name">🔑 ' + escapeHtml(key.name) + '</div>' +
+            '<div class="key-status">● نشط</div>' +
+        '</div>' +
+        '<div class="key-value-wrapper">' +
+            '<div class="key-value" id="key-val-' + key.id + '">' + hidden + '</div>' +
+            '<div class="key-actions">' +
+                '<button class="icon-btn" onclick="toggleKeyVisibility(' + key.id + ')" title="إظهار/إخفاء"><span id="eye-' + key.id + '">👁️</span></button>' +
+                '<button class="icon-btn" onclick="copyKey(' + key.id + ')" title="نسخ">📋</button>' +
+                '<button class="icon-btn" onclick="deleteKey(' + key.id + ')" title="حذف">🗑️</button>' +
+            '</div>' +
+        '</div>' +
+        '<div class="key-meta">' +
+            '<span>📅 أُنشئ: ' + created + '</span>' +
+            '<span>👁️ آخر استخدام: ' + lastUsed + '</span>' +
+            '<span>📊 عدد الطلبات: ' + (key.requests || 0) + '</span>' +
+        '</div>' +
+    '</div>';
+}
+
+function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+}
+
+async function createApiKey() {
+    const name = prompt('اسم المفتاح:', 'My Key ' + Date.now().toString(36).slice(-4));
+    if (!name || !name.trim()) return;
+
+    setLoading(true, 'جاري إنشاء المفتاح...');
+    try {
+        const data = await api('/api/keys', {
+            body: JSON.stringify({ name: name.trim() })
+        });
+        setLoading(false);
+        showToast('✅ تم إنشاء المفتاح');
+        keyCache[data.key.id] = data.key.key_value;
+        await loadKeys();
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+function toggleKeyVisibility(id) {
+    const el = document.getElementById('key-val-' + id);
+    const eye = document.getElementById('eye-' + id);
+    if (!el) return;
+
+    const value = keyCache[id] || '';
+    if (keyVisibility[id]) {
+        el.textContent = '•'.repeat(Math.min(value.length || 48, 48));
+        eye.textContent = '👁️';
+        keyVisibility[id] = false;
+    } else {
+        el.textContent = value;
+        eye.textContent = '🙈';
+        keyVisibility[id] = true;
+    }
+}
+
+function copyKey(id) {
+    const value = keyCache[id];
+    if (!value) return showToast('❌ المفتاح غير متاح', 'error');
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value)
+            .then(() => showToast('📋 تم نسخ المفتاح'))
+            .catch(() => fallbackCopy(value));
+    } else {
+        fallbackCopy(value);
+    }
+}
+
+function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+        document.execCommand('copy');
+        showToast('📋 تم نسخ المفتاح');
+    } catch {
+        showToast('❌ فشل النسخ', 'error');
+    }
+    document.body.removeChild(ta);
+}
+
+async function deleteKey(id) {
+    if (!confirm('هل أنت متأكد من حذف هذا المفتاح؟ لا يمكن التراجع.')) return;
+
+    setLoading(true, 'جاري الحذف...');
+    try {
+        await api('/api/keys/delete', {
+            body: JSON.stringify({ id: id })
+        });
+        setLoading(false);
+        showToast('🗑️ تم حذف المفتاح');
+        delete keyCache[id];
+        await loadKeys();
+        loadStats();
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   🌐 الأنفاق
+   ═══════════════════════════════════════════════════════ */
+async function loadTunnels() {
+    const list = document.getElementById('tunnels-list');
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--txt2)">⏳ جاري التحميل...</div>';
+
+    try {
+        const data = await api('/api/tunnels/list');
+        if (!data.tunnels.length) {
+            list.innerHTML = '<div class="empty-state">' +
+                '<div class="icon">🌐</div>' +
+                '<h3>لا توجد أنفاق نشطة</h3>' +
+                '<p>ابدأ باستخدام مفتاح API في سكربتك، وسيظهر النفق هنا تلقائياً بمجرد الاتصال.</p>' +
+                '<button class="btn btn-primary" onclick="switchTab(\'keys\')">🔑 انتقل لمفاتيح API</button>' +
+                '</div>';
+            return;
+        }
+        list.innerHTML = data.tunnels.map(t => '<div class="tunnel-item">' +
+            '<div class="tunnel-info">' +
+                '<div class="tunnel-status" style="' + (t.is_online ? '' : 'background:var(--txt3);box-shadow:none') + '"></div>' +
+                '<div style="min-width:0;flex:1">' +
+                    '<div class="tunnel-slug">#' + escapeHtml(t.slug) + '</div>' +
+                    '<div class="tunnel-url">' + escapeHtml(t.url || '') + '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="tunnel-stats">' +
+                '<div class="tunnel-stat">' +
+                    '<div class="tunnel-stat-value">' + (t.requests || 0) + '</div>' +
+                    '<div>طلب</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>').join('');
+    } catch (e) {
+        list.innerHTML = '<div class="empty-state">' +
+            '<div class="icon">❌</div>' +
+            '<h3>خطأ</h3>' +
+            '<p>' + escapeHtml(e.message) + '</p>' +
+            '<button class="btn btn-primary" onclick="loadTunnels()">🔄 إعادة المحاولة</button>' +
+            '</div>';
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   ⚙️ تحديث معلومات المستخدم
+   ═══════════════════════════════════════════════════════ */
+async function handleUpdateInfo(event) {
+    event.preventDefault();
+    const first_name = document.getElementById('settings-firstname').value.trim();
+    const last_name = document.getElementById('settings-lastname').value.trim();
+
+    if (!first_name || first_name.length < 2) {
+        return showToast('❌ الاسم قصير جداً', 'error');
+    }
+
+    const btn = document.getElementById('update-info-btn');
+    btn.disabled = true;
+
+    setLoading(true, 'جاري الحفظ...');
+    try {
+        const data = await api('/api/user/update', {
+            body: JSON.stringify({ first_name, last_name })
+        });
+        currentUser = { ...currentUser, ...data.user };
+        localStorage.setItem('zt_user', JSON.stringify(currentUser));
+        updateUserUI();
+        setLoading(false);
+        showToast('✅ تم تحديث معلوماتك');
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    } finally {
+        btn.disabled = false;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   🔒 تغيير كلمة المرور
+   ═══════════════════════════════════════════════════════ */
+async function handleChangePassword(event) {
+    event.preventDefault();
+    const old_password = document.getElementById('settings-old-password').value;
+    const new_password = document.getElementById('settings-new-password').value;
+    const new_password2 = document.getElementById('settings-new-password2').value;
+    const err = document.getElementById('settings-pass-error');
+
+    if (new_password !== new_password2) {
+        err.classList.add('show');
+        return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
+    }
+    err.classList.remove('show');
+
+    if (new_password.length < 8) {
+        return showToast('❌ كلمة المرور الجديدة قصيرة (8 على الأقل)', 'error');
+    }
+    if (old_password === new_password) {
+        return showToast('❌ كلمة المرور الجديدة يجب أن تختلف عن القديمة', 'error');
+    }
+
+    const btn = document.getElementById('change-password-btn');
+    btn.disabled = true;
+    setLoading(true, 'جاري تغيير كلمة المرور...');
+
+    try {
+        await api('/api/auth/change-password', {
+            body: JSON.stringify({ old_password, new_password })
+        });
+        setLoading(false);
+        showToast('✅ تم تغيير كلمة المرور بنجاح');
+        document.getElementById('settings-old-password').value = '';
+        document.getElementById('settings-new-password').value = '';
+        document.getElementById('settings-new-password2').value = '';
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    } finally {
+        btn.disabled = false;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   🗑️  حذف الحساب
+   ═══════════════════════════════════════════════════════ */
+async function handleDeleteAccount() {
+    if (!confirm('⚠️ تحذير: سيتم حذف حسابك نهائياً مع كل المفاتيح والأنفاق. لا يمكن التراجع!')) return;
+
+    const password = prompt('أدخل كلمة المرور للتأكيد:');
+    if (!password) return;
+
+    const confirmText = prompt('اكتب DELETE للتأكيد النهائي:');
+    if (confirmText !== 'DELETE') {
+        return showToast('❌ تم الإلغاء', 'error');
+    }
+
+    setLoading(true, 'جاري حذف الحساب...');
+    try {
+        await api('/api/user/delete', {
+            body: JSON.stringify({ password, confirm: 'DELETE' })
+        });
+        localStorage.removeItem('zt_session');
+        localStorage.removeItem('zt_user');
+        currentUser = null;
+        setLoading(false);
+        showToast('🗑️ تم حذف حسابك');
+        setTimeout(() => showPage('landing'), 800);
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   🚪 تسجيل الخروج
+   ═══════════════════════════════════════════════════════ */
+async function handleLogout() {
+    if (!confirm('هل تريد تسجيل الخروج؟')) return;
+
+    try {
+        await api('/api/auth/logout');
+    } catch {}
+
+    localStorage.removeItem('zt_session');
+    localStorage.removeItem('zt_user');
+    currentUser = null;
+
+    showToast('👋 تم تسجيل الخروج');
+    setTimeout(() => showPage('landing'), 400);
+}
+
+/* ═══════════════════════════════════════════════════════
+   🛠️ أدوات
+   ═══════════════════════════════════════════════════════ */
+function showToast(msg, type) {
+    type = type || 'success';
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-text').textContent = msg;
+    document.getElementById('toast-icon').textContent =
+        type === 'error' ? '❌' : (type === 'warning' ? '⚠️' : '✅');
+    toast.className = 'toast show ' + (type === 'error' ? 'error' : type);
+    clearTimeout(toast._tid);
+    toast._tid = setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
+function setLoading(show, text) {
+    const el = document.getElementById('loading');
+    document.getElementById('loading-text').textContent = text || 'جاري المعالجة...';
+    if (show) el.classList.add('show');
+    else el.classList.remove('show');
+}
+
+function toggleSidebar(force) {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const open = typeof force === 'boolean' ? force : !sidebar.classList.contains('open');
+    sidebar.classList.toggle('open', open);
+    overlay.classList.toggle('show', open);
+}
+
+/* ═══════════════════════════════════════════════════════
+   🎯 خانات الكود (يعمل مع أي مجموعة)
+   ═══════════════════════════════════════════════════════ */
+function setupCodeInputs(containerId, onComplete) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const inputs = container.querySelectorAll('.code-input');
+
+    inputs.forEach((inp, i) => {
+        inp.addEventListener('input', e => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(-1);
+            if (e.target.value) {
+                e.target.classList.add('filled');
+                if (i < inputs.length - 1) inputs[i + 1].focus();
+                else if (onComplete) setTimeout(onComplete, 250);
+            } else {
+                e.target.classList.remove('filled');
+            }
+        });
+
+        inp.addEventListener('keydown', e => {
+            if (e.key === 'Backspace' && !e.target.value && i > 0) {
+                inputs[i - 1].focus();
+                inputs[i - 1].value = '';
+                inputs[i - 1].classList.remove('filled');
+            }
+            if (e.key === 'Enter' && onComplete) onComplete();
+        });
+
+        inp.addEventListener('paste', e => {
+            e.preventDefault();
+            const text = (e.clipboardData || window.clipboardData).getData('text');
+            const digits = text.replace(/[^0-9]/g, '').slice(0, 6);
+            digits.split('').forEach((d, j) => {
+                if (inputs[j]) {
+                    inputs[j].value = d;
+                    inputs[j].classList.add('filled');
+                }
+            });
+            if (digits.length === 6 && onComplete) setTimeout(onComplete, 200);
+        });
+
+        inp.addEventListener('focus', e => e.target.select());
+    });
+}
+
+// إعداد خانات التسجيل
+setupCodeInputs('verify-code-inputs', handleVerifyCode);
+// إعداد خانات الاستعادة
+setupCodeInputs('reset-code-inputs', () => {
+    document.getElementById('reset-password1')?.focus();
+});
+
+/* ═══════════════════════════════════════════════════════
+   🚀 التهيئة
+   ═══════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', async () => {
+    await warmupNgrok();
+
+    const token = localStorage.getItem('zt_session');
+    const storedUser = localStorage.getItem('zt_user');
+
+    if (token && storedUser) {
+        try {
+            const data = await api('/api/user/me');
+            currentUser = data.user;
+            updateUserUI();
+            showToast('👋 مرحباً بعودتك ' + currentUser.first_name);
+            setTimeout(() => goToDashboard(), 400);
+            return;
+        } catch (e) {
+            localStorage.removeItem('zt_session');
+            localStorage.removeItem('zt_user');
+        }
+    }
+
+    showPage('landing');
+    console.log('%c🚀 ZONE TUNNEL', 'font-size:24px;font-weight:bold;color:#8b5cf6');
+    console.log('%c📧 Support: zonetunnel@gmail.com', 'color:#06b6d4');
+    console.log('%c👑 Dev: @LIEI_T', 'color:#8b5cf6');
+});
+</script>
+</body>
+</html>
