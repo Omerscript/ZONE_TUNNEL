@@ -19,7 +19,7 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg);color:var(--txt);line-height:1.6;overflow-x:hidden;min-height:100%}
 body{min-height:100vh;user-select:none}
-input,textarea{user-select:text}
+input,textarea,.code-block,.key-value,.modal-input{user-select:text}
 .bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.35;animation:float 25s ease-in-out infinite}
 .orb-1{width:500px;height:500px;background:var(--purple);top:-200px;right:-150px}
@@ -28,7 +28,8 @@ input,textarea{user-select:text}
 @keyframes float{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(50px,-30px) scale(1.05)}50%{transform:translate(-30px,50px) scale(.95)}75%{transform:translate(30px,30px) scale(1.02)}}
 .bg-grid{position:fixed;inset:0;background-image:radial-gradient(circle,rgba(139,92,246,.08) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;mask-image:radial-gradient(ellipse at center,black 30%,transparent 75%)}
 .page{display:none;min-height:100vh;position:relative;z-index:1}
-.page.active{display:block}
+.page.active{display:block;animation:pageIn .35s cubic-bezier(.4,0,.2,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
 .navbar{position:sticky;top:0;z-index:100;padding:20px 0;backdrop-filter:blur(20px);background:rgba(5,6,15,.7);border-bottom:1px solid rgba(255,255,255,.05)}
 .nav-inner{display:flex;justify-content:space-between;align-items:center}
@@ -120,8 +121,6 @@ input,textarea{user-select:text}
 .auth-switch a:hover{color:var(--cyan)}
 .forgot-link{display:block;text-align:left;color:var(--txt2);font-size:13px;margin-top:8px;cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:none}
 .forgot-link:hover{color:var(--purpleL);text-decoration:underline}
-.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
 .success-screen{text-align:center;padding:20px 0}
 .success-icon{font-size:90px;margin-bottom:20px;animation:bounceIn .6s cubic-bezier(.34,1.56,.64,1)}
 @keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.1)}100%{transform:scale(1)}}
@@ -205,6 +204,7 @@ input,textarea{user-select:text}
 .loading-overlay{position:fixed;inset:0;background:rgba(5,6,15,.9);backdrop-filter:blur(10px);z-index:9998;display:none;align-items:center;justify-content:center;flex-direction:column;gap:20px}
 .loading-overlay.show{display:flex}
 .loading-spinner{width:60px;height:60px;border:4px solid rgba(139,92,246,.2);border-top-color:var(--purple);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .loading-text{color:var(--txt2);font-size:14px;font-weight:600}
 .mobile-menu-btn{display:none;width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--txt);font-size:20px;cursor:pointer;align-items:center;justify-content:center}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99}
@@ -212,6 +212,44 @@ input,textarea{user-select:text}
 .code-block{background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--cyanL);direction:ltr;text-align:left;overflow-x:auto;line-height:1.75;margin:0 0 4px;white-space:pre}
 .code-block::-webkit-scrollbar{height:6px}
 .inline-code{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:var(--purpleL);font-family:'JetBrains Mono',monospace;font-size:12px;padding:2px 8px;border-radius:6px;direction:ltr;display:inline-block}
+
+/* ═══ أزرار نسخ الأكواد ═══ */
+.code-wrap{position:relative;margin-bottom:4px}
+.code-wrap .code-block{margin-bottom:0}
+.code-copy-btn{position:absolute;top:8px;right:8px;padding:5px 12px;border-radius:8px;border:1px solid rgba(139,92,246,.35);background:rgba(20,22,42,.85);color:var(--purpleL);font-family:'Tajawal',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;backdrop-filter:blur(6px);z-index:2}
+.code-copy-btn:hover{background:rgba(139,92,246,.25);color:#fff}
+.code-copy-btn.done{color:var(--green);border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.15)}
+
+/* ═══ 404 Page ═══ */
+.notfound-wrapper{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.notfound-card{max-width:560px;width:100%;text-align:center;background:var(--card);backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:32px;padding:60px 40px;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 80px rgba(139,92,246,.15);position:relative;overflow:hidden}
+.notfound-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+.nf-code{font-size:clamp(90px,20vw,160px);font-weight:900;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:glitch 3s ease-in-out infinite}
+@keyframes glitch{0%,90%,100%{transform:translate(0)}92%{transform:translate(-4px,2px)}94%{transform:translate(4px,-2px)}96%{transform:translate(-2px,-2px)}98%{transform:translate(2px,2px)}}
+.nf-title{font-size:28px;font-weight:800;margin:16px 0 12px}
+.nf-desc{color:var(--txt2);margin-bottom:32px;font-size:15px;line-height:1.7}
+.nf-path{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--txt3);background:rgba(0,0,0,.3);padding:8px 14px;border-radius:8px;display:inline-block;margin-bottom:24px;direction:ltr;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ═══ Modal ═══ */
+.modal-overlay{position:fixed;inset:0;background:rgba(5,6,15,.75);backdrop-filter:blur(10px);z-index:9500;display:none;align-items:center;justify-content:center;padding:20px;animation:modalFadeIn .25s ease-out}
+.modal-overlay.show{display:flex}
+@keyframes modalFadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--bg2);border:1px solid var(--borderH);border-radius:24px;max-width:480px;width:100%;max-height:90vh;overflow-y:auto;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 60px rgba(139,92,246,.2);animation:modalIn .3s cubic-bezier(.4,0,.2,1);position:relative}
+@keyframes modalIn{from{opacity:0;transform:scale(.92) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:12px}
+.modal-title{font-size:20px;font-weight:800;display:flex;align-items:center;gap:10px}
+.modal-close{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--txt2);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.modal-close:hover{background:rgba(239,68,68,.15);color:var(--red);border-color:rgba(239,68,68,.4)}
+.modal-body{color:var(--txt2);font-size:14px;line-height:1.7;margin-bottom:22px}
+.modal-icon{font-size:56px;text-align:center;margin-bottom:12px;display:block}
+.modal-footer{display:flex;gap:10px;flex-wrap:wrap}
+.modal-footer .btn{flex:1;min-width:120px}
+.modal-input-wrap{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.modal-input{width:100%;background:transparent;border:none;outline:none;color:var(--txt);font-family:inherit;font-size:15px;font-weight:600}
+.modal-input.ltr{direction:ltr;text-align:left;font-family:'JetBrains Mono',monospace}
+.modal-input::placeholder{color:var(--txt3);font-weight:400}
+.modal-hint{font-size:12px;color:var(--txt3);margin-top:6px}
+
 @media(max-width:900px){
 .dashboard{grid-template-columns:1fr}
 .dashboard-sidebar{position:fixed;top:0;right:-100%;width:280px;height:100vh;z-index:200;transition:right .3s;border-left:1px solid rgba(255,255,255,.05)}
@@ -243,13 +281,13 @@ input,textarea{user-select:text}
 <div class="page active" id="page-landing">
     <nav class="navbar">
         <div class="container nav-inner">
-            <div class="logo" onclick="showPage('landing')">
+            <div class="logo" onclick="navigate('/')">
                 <div class="logo-icon"><img src="https://plain-eeur-prod-public.komododecks.com/202609/26/zVVRlpyXgXpPSpdiW4aa/image.png" alt="ZONE TUNNEL"></div>
                 <span>ZONE TUNNEL</span>
             </div>
             <div class="nav-actions">
-                <button class="btn btn-ghost" onclick="showPage('login')">تسجيل دخول</button>
-                <button class="btn btn-primary" onclick="showPage('signup')">إنشاء حساب</button>
+                <button class="btn btn-ghost" onclick="navigate('/login')">تسجيل دخول</button>
+                <button class="btn btn-primary" onclick="navigate('/signup')">إنشاء حساب</button>
             </div>
         </div>
     </nav>
@@ -259,7 +297,7 @@ input,textarea{user-select:text}
         <h1>أنفاق <span class="gradient">لا نهائية</span><br>للجميع بدون قيود</h1>
         <p class="subtitle">ZONE TUNNEL منصة <strong>غير ربحية</strong> تمنحك أنفاقاً مجانية لربط سكربتاتك بالإنترنت. بدون حد يومي، بدون تعقيد، فقط أنشئ وابدأ.</p>
         <div class="hero-buttons">
-            <button class="btn btn-primary btn-lg" onclick="showPage('signup')">🚀 ابدأ مجاناً الآن</button>
+            <button class="btn btn-primary btn-lg" onclick="navigate('/signup')">🚀 ابدأ مجاناً الآن</button>
             <button class="btn btn-ghost btn-lg" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">📖 اكتشف المزيد</button>
         </div>
         <div class="stats-row">
@@ -296,7 +334,7 @@ input,textarea{user-select:text}
 <div class="page" id="page-login">
     <div class="auth-wrapper">
         <div class="auth-card">
-            <button class="back-link" onclick="showPage('landing')">← العودة للرئيسية</button>
+            <button class="back-link" onclick="navigate('/')">← العودة للرئيسية</button>
             <div class="auth-header"><span class="icon">🔐</span><h2>مرحباً بعودتك</h2><p>سجل دخولك للمتابعة</p></div>
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
@@ -306,11 +344,11 @@ input,textarea{user-select:text}
                 <div class="form-group">
                     <label class="form-label">كلمة المرور</label>
                     <input type="password" class="form-input ltr" id="login-password" placeholder="••••••••" required>
-                    <button type="button" class="forgot-link" onclick="showPage('forgot')">🔑 نسيت كلمة المرور؟</button>
+                    <button type="button" class="forgot-link" onclick="navigate('/forgot')">🔑 نسيت كلمة المرور؟</button>
                 </div>
                 <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn">تسجيل الدخول</button>
             </form>
-            <div class="auth-switch">ليس لديك حساب؟<a onclick="showPage('signup')">أنشئ حساباً</a></div>
+            <div class="auth-switch">ليس لديك حساب؟<a onclick="navigate('/signup')">أنشئ حساباً</a></div>
         </div>
     </div>
 </div>
@@ -319,7 +357,7 @@ input,textarea{user-select:text}
 <div class="page" id="page-forgot">
     <div class="auth-wrapper">
         <div class="auth-card">
-            <button class="back-link" onclick="showPage('login')">← العودة لتسجيل الدخول</button>
+            <button class="back-link" onclick="navigate('/login')">← العودة لتسجيل الدخول</button>
             <div class="auth-header">
                 <span class="icon">🔑</span>
                 <h2>نسيت كلمة المرور؟</h2>
@@ -332,16 +370,16 @@ input,textarea{user-select:text}
                 </div>
                 <button type="submit" class="btn btn-primary btn-full btn-lg" id="forgot-btn">📧 أرسل كود الاستعادة</button>
             </form>
-            <div class="auth-switch">تذكرت كلمة المرور؟<a onclick="showPage('login')">سجل دخول</a></div>
+            <div class="auth-switch">تذكرت كلمة المرور؟<a onclick="navigate('/login')">سجل دخول</a></div>
         </div>
     </div>
 </div>
 
-<!-- ═══════════ Forgot Password — Step 2 (Code only) ═══════════ -->
+<!-- ═══════════ Reset — Step 1 (Code) ═══════════ -->
 <div class="page" id="page-reset-code">
     <div class="auth-wrapper">
         <div class="auth-card">
-            <button class="back-link" onclick="showPage('forgot')">← رجوع</button>
+            <button class="back-link" onclick="navigate('/forgot')">← رجوع</button>
             <div class="auth-header">
                 <span class="icon">📩</span>
                 <h2>تحقق من بريدك</h2>
@@ -353,14 +391,14 @@ input,textarea{user-select:text}
                 <div><strong>لم تجد الكود؟</strong><br>تحقق من مجلد <strong>البريد غير المرغوب فيه (Spam)</strong>.</div>
             </div>
             <div class="code-inputs" id="reset-code-inputs">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="0">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="1">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="2">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="3">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="4">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="5">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
             </div>
-            <button class="btn btn-primary btn-full btn-lg" id="reset-verify-btn" onclick="handleResetVerifyCode()">تحقق من الكود</button>
+            <button class="btn btn-primary btn-full btn-lg" id="reset-code-btn" onclick="handleResetCodeNext()">التالي ←</button>
             <div style="text-align:center;margin-top:16px">
                 <button class="back-link" id="reset-resend-btn" onclick="handleForgotResend()" disabled style="margin:0;font-size:13px">إعادة إرسال الكود (<span id="reset-timer">60</span> ث)</button>
             </div>
@@ -368,11 +406,11 @@ input,textarea{user-select:text}
     </div>
 </div>
 
-<!-- ═══════════ Forgot Password — Step 3 (New Password only) ═══════════ -->
+<!-- ═══════════ Reset — Step 2 (New Password) ═══════════ -->
 <div class="page" id="page-reset-password">
     <div class="auth-wrapper">
         <div class="auth-card">
-            <button class="back-link" onclick="showPage('reset-code')">← رجوع</button>
+            <button class="back-link" onclick="navigate('/reset')">← رجوع</button>
             <div class="auth-header">
                 <span class="icon">🔐</span>
                 <h2>كلمة المرور الجديدة</h2>
@@ -380,7 +418,7 @@ input,textarea{user-select:text}
             </div>
             <div class="alert alert-success">
                 <span class="alert-icon">✅</span>
-                <div>تم التحقق من الكود بنجاح. أدخل كلمة المرور الجديدة.</div>
+                <div>تم استلام الكود. أدخل كلمة المرور الجديدة الآن.</div>
             </div>
             <form onsubmit="handleResetPassword(event)">
                 <div class="form-group">
@@ -414,7 +452,7 @@ input,textarea{user-select:text}
 <div class="page" id="page-signup">
     <div class="auth-wrapper">
         <div class="auth-card">
-            <button class="back-link" onclick="showPage('landing')">← العودة للرئيسية</button>
+            <button class="back-link" onclick="navigate('/')">← العودة للرئيسية</button>
             <div class="auth-header"><span class="icon">✨</span><h2>إنشاء حساب</h2><p>انضم لمجتمع ZONE TUNNEL في دقيقة</p></div>
             <div style="display:flex;gap:6px;margin-bottom:28px">
                 <div style="flex:1;height:4px;border-radius:99px;background:var(--purple)"></div>
@@ -436,7 +474,7 @@ input,textarea{user-select:text}
                 </div>
                 <button type="submit" class="btn btn-primary btn-full btn-lg" id="signup-btn1">التالي ←</button>
             </form>
-            <div class="auth-switch">لديك حساب مسبقاً؟<a onclick="showPage('login')">سجل دخول</a></div>
+            <div class="auth-switch">لديك حساب مسبقاً؟<a onclick="navigate('/login')">سجل دخول</a></div>
         </div>
     </div>
 </div>
@@ -445,7 +483,7 @@ input,textarea{user-select:text}
 <div class="page" id="page-verify">
     <div class="auth-wrapper">
         <div class="auth-card">
-            <button class="back-link" onclick="showPage('signup')">← رجوع</button>
+            <button class="back-link" onclick="navigate('/signup')">← رجوع</button>
             <div class="auth-header">
                 <span class="icon">📩</span>
                 <h2>تحقق من بريدك</h2>
@@ -457,12 +495,12 @@ input,textarea{user-select:text}
                 <div><strong>لم تجد الكود؟</strong><br>تحقق من مجلد <strong>البريد غير المرغوب فيه (Spam)</strong> أو تبويب <strong>العروض الترويجية</strong>.</div>
             </div>
             <div class="code-inputs" id="verify-code-inputs">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="0">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="1">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="2">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="3">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="4">
-                <input type="text" class="code-input" maxlength="1" inputmode="numeric" data-i="5">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
+                <input type="text" class="code-input" maxlength="1" inputmode="numeric">
             </div>
             <button class="btn btn-primary btn-full btn-lg" id="verify-btn" onclick="handleVerifyCode()">تحقق من الكود</button>
             <div style="text-align:center;margin-top:16px">
@@ -476,7 +514,7 @@ input,textarea{user-select:text}
 <div class="page" id="page-password">
     <div class="auth-wrapper">
         <div class="auth-card">
-            <button class="back-link" onclick="showPage('verify')">← رجوع</button>
+            <button class="back-link" onclick="navigate('/signup')">← رجوع</button>
             <div class="auth-header"><span class="icon">🔑</span><h2>أنشئ كلمة مرور</h2><p>8 أحرف على الأقل</p></div>
             <form onsubmit="handleCreatePassword(event)">
                 <div class="form-group">
@@ -518,8 +556,8 @@ input,textarea{user-select:text}
                     <span class="alert-icon">💬</span>
                     <div>لأي مشكلة أو استفسار، تواصل معنا عبر <strong>zonetunnel@gmail.com</strong></div>
                 </div>
-                <a href="mailto:zonetunnel@gmail.com" class="btn btn-primary btn-full btn-lg" style="margin-bottom:12px">📧 تواصل مع الدعم</a>
-                <button class="btn btn-ghost btn-full" onclick="goToDashboard()">الانتقال إلى لوحة التحكم →</button>
+                <button class="btn btn-primary btn-full btn-lg" style="margin-bottom:12px" onclick="navigate('/KEYS')">🔑 إنشاء أول مفتاح API</button>
+                <button class="btn btn-ghost btn-full" onclick="navigate('/dashboard')">الانتقال إلى لوحة التحكم →</button>
             </div>
         </div>
     </div>
@@ -533,7 +571,7 @@ input,textarea{user-select:text}
                 <div class="success-icon">✅</div>
                 <h2>تم تغيير كلمة المرور!</h2>
                 <p>يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة. لأمانك، تم إلغاء جميع الجلسات السابقة.</p>
-                <button class="btn btn-primary btn-full btn-lg" onclick="showPage('login')">🔐 تسجيل الدخول الآن</button>
+                <button class="btn btn-primary btn-full btn-lg" onclick="navigate('/login')">🔐 تسجيل الدخول الآن</button>
             </div>
         </div>
     </div>
@@ -551,12 +589,12 @@ input,textarea{user-select:text}
                 </div>
             </div>
             <nav class="sidebar-nav">
-                <button class="nav-item active" data-tab="home" onclick="switchTab('home')"><span class="nav-icon">🏠</span> البداية</button>
-                <button class="nav-item" data-tab="keys" onclick="switchTab('keys')"><span class="nav-icon">🔑</span> مفاتيح API</button>
-                <button class="nav-item" data-tab="tunnels" onclick="switchTab('tunnels')"><span class="nav-icon">🌐</span> الأنفاق النشطة</button>
-                <button class="nav-item" data-tab="settings" onclick="switchTab('settings')"><span class="nav-icon">⚙️</span> إعدادات الحساب</button>
-                <button class="nav-item" data-tab="support" onclick="switchTab('support')"><span class="nav-icon">💬</span> الدعم الفني</button>
-                <button class="nav-item" data-tab="terms" onclick="switchTab('terms')"><span class="nav-icon">📋</span> الشروط والأحكام</button>
+                <button class="nav-item" data-tab="home" onclick="navigate('/dashboard')"><span class="nav-icon">🏠</span> البداية</button>
+                <button class="nav-item" data-tab="keys" onclick="navigate('/KEYS')"><span class="nav-icon">🔑</span> مفاتيح API</button>
+                <button class="nav-item" data-tab="tunnels" onclick="navigate('/TUNNELS')"><span class="nav-icon">🌐</span> الأنفاق النشطة</button>
+                <button class="nav-item" data-tab="settings" onclick="navigate('/SETTINGS')"><span class="nav-icon">⚙️</span> إعدادات الحساب</button>
+                <button class="nav-item" data-tab="support" onclick="navigate('/SUPPORT')"><span class="nav-icon">💬</span> الدعم الفني</button>
+                <button class="nav-item" data-tab="terms" onclick="navigate('/TERMS')"><span class="nav-icon">📋</span> الشروط والأحكام</button>
             </nav>
             <div class="sidebar-footer">
                 <button class="nav-item danger" onclick="handleLogout()"><span class="nav-icon">🚪</span> تسجيل الخروج</button>
@@ -576,7 +614,7 @@ input,textarea{user-select:text}
             </div>
 
             <!-- Tab: Home -->
-            <div class="tab-content active" id="tab-home">
+            <div class="tab-content" id="tab-home">
                 <div class="welcome-card">
                     <h2>💜 مرحباً بك في ZONE TUNNEL</h2>
                     <p><strong>ZONE TUNNEL</strong> منصة <span class="highlight">غير ربحية</span> أنشأناها لخدمة المطورين والمستخدمين العرب. هدفنا أن نوفر <span class="highlight">أنفاقاً مجانية</span> لربط سكربتاتك بالعالم الخارجي بدون أي تكاليف أو قيود.</p>
@@ -591,9 +629,9 @@ input,textarea{user-select:text}
                     <div class="card-title">🚀 ابدأ الآن</div>
                     <div class="card-subtitle">اختر ما تريد فعله:</div>
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
-                        <button class="btn btn-primary" onclick="switchTab('keys')">🔑 إنشاء مفتاح API</button>
-                        <button class="btn btn-ghost" onclick="switchTab('tunnels')">🌐 عرض الأنفاق</button>
-                        <button class="btn btn-ghost" onclick="switchTab('settings')">⚙️ إعدادات الحساب</button>
+                        <button class="btn btn-primary" onclick="navigate('/KEYS')">🔑 إنشاء مفتاح API</button>
+                        <button class="btn btn-ghost" onclick="navigate('/TUNNELS')">🌐 عرض الأنفاق</button>
+                        <button class="btn btn-ghost" onclick="navigate('/SETTINGS')">⚙️ إعدادات الحساب</button>
                     </div>
                 </div>
                 <div class="card">
@@ -615,12 +653,11 @@ input,textarea{user-select:text}
                             <div class="card-title">🔑 مفاتيح API</div>
                             <div class="card-subtitle" style="margin:0">استخدم هذه المفاتيح لربط سكربتاتك بالمنصة</div>
                         </div>
-                        <button class="btn btn-primary" id="create-key-btn" onclick="createApiKey()" style="display:none">➕ إنشاء مفتاح جديد</button>
+                        <button class="btn btn-primary" id="create-key-btn" onclick="openCreateKeyModal()" style="display:none">➕ إنشاء مفتاح جديد</button>
                     </div>
                     <div id="keys-list"></div>
                 </div>
 
-                <!-- ═══ بطاقة: كيف تستخدم مفتاح API ═══ -->
                 <div class="card" id="api-guide-card">
                     <div class="card-title">📖 كيف تستخدم مفتاح API؟</div>
                     <div class="card-subtitle">دليل سريع لربط سكربتك بالمنصة</div>
@@ -629,9 +666,9 @@ input,textarea{user-select:text}
                         <div class="settings-title">🌐 عنوان السيرفر (Base URL)</div>
                         <div class="settings-desc">هذا هو العنوان الذي سيتصل به سكربتك في كل الطلبات</div>
                         <div class="key-value-wrapper">
-                            <div class="key-value" id="api-url-display">https://pedigree-hankering-unmixable.ngrok-free.dev</div>
+                            <div class="key-value" id="api-url-display"></div>
                             <div class="key-actions">
-                                <button class="icon-btn" onclick="copyText('https://pedigree-hankering-unmixable.ngrok-free.dev')" title="نسخ">📋</button>
+                                <button class="icon-btn" onclick="copyText(API, '📋 تم نسخ العنوان')" title="نسخ">📋</button>
                             </div>
                         </div>
                     </div>
@@ -648,7 +685,6 @@ input,textarea{user-select:text}
 
                     <div class="settings-section">
                         <div class="settings-title">🐍 مثال بلغة Python</div>
-                        <div class="settings-desc">استخدم مكتبة requests</div>
 <pre class="code-block">import requests
 
 API_URL = "https://pedigree-hankering-unmixable.ngrok-free.dev"
@@ -659,7 +695,6 @@ headers = {
     "ngrok-skip-browser-warning": "true"
 }
 
-# مثال: التحقق من حالة الحساب
 response = requests.post(
     API_URL + "/api/user/me",
     headers=headers,
@@ -670,7 +705,6 @@ print(response.json())</pre>
 
                     <div class="settings-section">
                         <div class="settings-title">🌐 مثال بلغة JavaScript</div>
-                        <div class="settings-desc">يعمل في المتصفح أو Node.js</div>
 <pre class="code-block">const API_URL = "https://pedigree-hankering-unmixable.ngrok-free.dev";
 const API_KEY = "ضع_مفتاحك_هنا";
 
@@ -762,7 +796,7 @@ fetch(API_URL + "/api/user/me", {
                     <div class="settings-section">
                         <div class="settings-title" style="color:var(--red)">⚠️ منطقة الخطر</div>
                         <div class="settings-desc">حذف حسابك نهائياً — لا يمكن التراجع</div>
-                        <button class="btn btn-danger" onclick="handleDeleteAccount()">🗑️ حذف حسابي نهائياً</button>
+                        <button class="btn btn-danger" onclick="openDeleteAccountModal()">🗑️ حذف حسابي نهائياً</button>
                     </div>
                 </div>
             </div>
@@ -815,6 +849,34 @@ fetch(API_URL + "/api/user/me", {
     </div>
 </div>
 
+<!-- ═══════════ 404 Not Found ═══════════ -->
+<div class="page" id="page-notfound">
+    <div class="notfound-wrapper">
+        <div class="notfound-card">
+            <div class="nf-code">404</div>
+            <h2 class="nf-title">الصفحة غير موجودة</h2>
+            <p class="nf-desc">يبدو أنك وصلت لرابط غير صحيح أو تم حذف الصفحة. تأكد من الرابط أو عد إلى الرئيسية.</p>
+            <div class="nf-path" id="nf-path">/unknown</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+                <button class="btn btn-primary" onclick="navigate('/')">🏠 العودة للرئيسية</button>
+                <button class="btn btn-ghost" onclick="navigate('/dashboard')">📊 لوحة التحكم</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ Modal ═══════════ -->
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="modal-title">عنوان</div>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-footer" id="modal-footer"></div>
+    </div>
+</div>
+
 <div class="toast" id="toast">
     <span class="icon" id="toast-icon">✅</span>
     <span id="toast-text">تم بنجاح</span>
@@ -827,22 +889,20 @@ fetch(API_URL + "/api/user/me", {
 
 <script>
 /* ═══════════════════════════════════════════════════════
-   🛡️  حماية DevTools & Inspect
+   🛡️  حماية DevTools (مع السماح بالنسخ)
    ═══════════════════════════════════════════════════════ */
 (function() {
-    document.addEventListener('contextmenu', e => e.preventDefault());
+    // ✅ نسمح بالزر الأيمن على العناصر القابلة للنسخ فقط
+    document.addEventListener('contextmenu', e => {
+        if (e.target.closest('input, textarea, .code-block, .key-value, .modal-input, .copyable')) return;
+        e.preventDefault();
+    });
     document.addEventListener('keydown', e => {
         if (e.key === 'F12') { e.preventDefault(); return false; }
         if (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) { e.preventDefault(); return false; }
         if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) { e.preventDefault(); return false; }
+        // Ctrl+C و Ctrl+A مسموحان — النسخ يعمل عادي
     });
-    const antiDebug = () => {
-        const start = performance.now();
-        debugger;
-        const end = performance.now();
-        if (end - start > 100) console.clear();
-    };
-    setInterval(antiDebug, 3000);
 })();
 
 /* ═══════════════════════════════════════════════════════
@@ -854,75 +914,48 @@ let currentUser = null;
 let signupData = { firstName: '', lastName: '', email: '' };
 let resetData = { email: '', code: '' };
 
-/* ═══════════════════════════════════════════════════════
-   🌐 تفعيل ngrok
-   ═══════════════════════════════════════════════════════ */
-async function warmupNgrok() {
-    try {
-        const res = await fetch(API + "/api/warmup", {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-store',
-            headers: { "Content-Type": "text/plain;charset=UTF-8" },
-            body: "{}"
-        });
-        const ct = (res.headers.get("content-type") || "").toLowerCase();
-        if (ct.includes("json")) {
-            console.log('✅ ngrok ready');
-            return true;
-        }
-        console.warn('⚠️ ngrok warmup: non-JSON response');
-        return false;
-    } catch (e) {
-        console.warn('⚠️ ngrok warmup failed');
-        return false;
-    }
-}
+// املأ عنوان السيرفر في واجهة الدليل
+document.getElementById('api-url-display').textContent = API;
 
 /* ═══════════════════════════════════════════════════════
-   🔧 دالة fetch موحّدة — كل الطلبات POST
+   🔧 دالة fetch موحّدة
    ═══════════════════════════════════════════════════════ */
 async function api(endpoint, options = {}) {
     const token = localStorage.getItem('zt_session');
-
     let bodyData = {};
     if (options.body) {
         try { bodyData = JSON.parse(options.body); } catch { bodyData = {}; }
     }
     if (token) bodyData._token = token;
 
-    const fetchOpts = {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-store',
-        headers: { "Content-Type": "text/plain;charset=UTF-8" },
-        body: JSON.stringify(bodyData)
-    };
-
     let res;
     try {
-        res = await fetch(API + endpoint, fetchOpts);
+        res = await fetch(API + endpoint, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-store',
+            headers: {
+                "Content-Type": "text/plain;charset=UTF-8",
+                "ngrok-skip-browser-warning": "true"
+            },
+            body: JSON.stringify(bodyData)
+        });
     } catch (err) {
-        console.error('❌ network error:', err.message);
         throw new Error("تعذر الاتصال بالسيرفر");
     }
 
     const ct = (res.headers.get("content-type") || "").toLowerCase();
     if (!ct.includes("json")) {
         const txt = await res.text();
-        console.error('❌ non-JSON:', txt.slice(0, 200));
-        if (txt.includes("ngrok") || txt.includes("ERR_NGROK") || txt.includes("about to visit")) {
+        if (txt.includes("ngrok") || txt.includes("ERR_NGROK")) {
             throw new Error("⚠️ ngrok يحتاج تفعيل — افتح: " + API + "/api/health?ngrok-skip-browser-warning=1");
         }
         throw new Error("استجابة غير متوقعة (" + res.status + ")");
     }
 
     let data;
-    try {
-        data = await res.json();
-    } catch (e) {
-        throw new Error("JSON غير صالح (" + res.status + ")");
-    }
+    try { data = await res.json(); }
+    catch { throw new Error("JSON غير صالح (" + res.status + ")"); }
 
     if (!res.ok) {
         throw new Error(data.detail || data.message || ("خطأ " + res.status));
@@ -931,13 +964,353 @@ async function api(endpoint, options = {}) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   🗂️ إدارة الصفحات
+   🧭 Router — Hash-based Routing
    ═══════════════════════════════════════════════════════ */
+const ROUTES = {
+    '/':              { page: 'landing' },
+    '/login':         { page: 'login', auth: false },
+    '/signup':        { page: 'signup', auth: false },
+    '/forgot':        { page: 'forgot', auth: false },
+    '/reset':         { page: 'reset-code', auth: false },
+    '/reset-password':{ page: 'reset-password', auth: false },
+    '/welcome':       { page: 'welcome' },
+    '/reset-success': { page: 'reset-success' },
+    '/dashboard':     { page: 'dashboard', auth: true, tab: 'home' },
+    '/keys':          { page: 'dashboard', auth: true, tab: 'keys' },
+    '/tunnels':       { page: 'dashboard', auth: true, tab: 'tunnels' },
+    '/settings':      { page: 'dashboard', auth: true, tab: 'settings' },
+    '/support':       { page: 'dashboard', auth: true, tab: 'support' },
+    '/terms':         { page: 'dashboard', auth: true, tab: 'terms' },
+};
+
+const TAB_TITLES = {
+    home: ['البداية', 'مرحباً بك في ZONE TUNNEL'],
+    keys: ['مفاتيح API', 'إدارة مفاتيح الوصول الخاصة بك'],
+    tunnels: ['الأنفاق النشطة', 'جميع الأنفاق التي تعمل حالياً'],
+    settings: ['إعدادات الحساب', 'إدارة حسابك وكلمة المرور'],
+    support: ['الدعم الفني', 'نحن هنا لمساعدتك'],
+    terms: ['الشروط والأحكام', 'يرجى قراءة الشروط بعناية']
+};
+
+function getRoute() {
+    let hash = location.hash.replace(/^#/, '');
+    if (!hash) hash = '/';
+    return hash.toLowerCase();
+}
+
+function navigate(path) {
+    const h = path.startsWith('/') ? path : '/' + path;
+    if (location.hash === '#' + h) {
+        handleRoute();
+    } else {
+        location.hash = h;
+    }
+}
+
 function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const el = document.getElementById('page-' + name);
     if (el) el.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.nav-item[data-tab]').forEach(n => n.classList.remove('active'));
+    document.getElementById('tab-' + tab)?.classList.add('active');
+    document.querySelector('.nav-item[data-tab="' + tab + '"]')?.classList.add('active');
+
+    const titles = TAB_TITLES[tab] || ['', ''];
+    document.getElementById('page-title').textContent = titles[0];
+    document.getElementById('page-subtitle').textContent = titles[1];
+
+    if (tab === 'keys') loadKeys();
+    if (tab === 'tunnels') loadTunnels();
+    if (tab === 'home') loadStats();
+    if (window.innerWidth <= 900) toggleSidebar(false);
+}
+
+function handleRoute() {
+    const path = getRoute();
+    const route = ROUTES[path];
+
+    // 404 — route غير معروف
+    if (!route) {
+        document.getElementById('nf-path').textContent = path;
+        showPage('notfound');
+        return;
+    }
+
+    // إذا محمي والمستخدم غير مسجل → تسجيل الدخول
+    if (route.auth && !currentUser) {
+        showToast('⚠️ يجب تسجيل الدخول أولاً', 'error');
+        if (path !== '/login') {
+            location.hash = '/login';
+            return;
+        }
+    }
+
+    // إذا مسجل ويحاول دخول صفحات auth → dashboard
+    if (currentUser && (path === '/login' || path === '/signup')) {
+        location.hash = '/dashboard';
+        return;
+    }
+
+    // اعرض الصفحة
+    if (route.tab) {
+        updateUserUI();
+        showPage('dashboard');
+        switchTab(route.tab);
+    } else {
+        showPage(route.page);
+    }
+}
+
+window.addEventListener('hashchange', handleRoute);
+
+/* ═══════════════════════════════════════════════════════
+   🪟 نظام Modal
+   ═══════════════════════════════════════════════════════ */
+let modalResolve = null;
+
+function openModal({ title, icon, bodyHTML, buttons }) {
+    document.getElementById('modal-title').innerHTML =
+        (icon ? '<span style="font-size:24px">' + icon + '</span> ' : '') + escapeHtml(title);
+    document.getElementById('modal-body').innerHTML = bodyHTML || '';
+    const footer = document.getElementById('modal-footer');
+    footer.innerHTML = '';
+
+    (buttons || []).forEach(btn => {
+        const b = document.createElement('button');
+        b.className = 'btn ' + (btn.className || 'btn-primary');
+        b.textContent = btn.label;
+        if (btn.disabled) b.disabled = true;
+        b.onclick = () => {
+            if (btn.onClick) btn.onClick();
+            if (btn.close !== false) closeModal();
+        };
+        footer.appendChild(b);
+    });
+
+    document.getElementById('modal-overlay').classList.add('show');
+    setTimeout(() => {
+        const inp = document.querySelector('#modal-body input, #modal-body textarea');
+        if (inp) inp.focus();
+    }, 200);
+}
+
+function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('show');
+    if (modalResolve) { modalResolve(null); modalResolve = null; }
+}
+
+// إغلاق عند الضغط خارج المودال
+document.getElementById('modal-overlay').addEventListener('click', e => {
+    if (e.target.id === 'modal-overlay') closeModal();
+});
+// ESC يغلق المودال
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.getElementById('modal-overlay').classList.contains('show')) {
+        closeModal();
+    }
+});
+
+/* ─── Modal: مخصص لإنشاء مفتاح API ─── */
+function openCreateKeyModal() {
+    openModal({
+        title: 'إنشاء مفتاح API جديد',
+        icon: '🔑',
+        bodyHTML:
+            '<p style="margin-bottom:14px">اختر اسماً وصفياً للمفتاح حتى تتذكره لاحقاً:</p>' +
+            '<div class="modal-input-wrap">' +
+                '<input type="text" class="modal-input" id="modal-key-name" placeholder="مثال: My Bot Key" maxlength="60">' +
+            '</div>' +
+            '<div class="modal-hint">💡 يُنصح باسم يعبر عن الاستخدام (بوت تيليجرام، سكربت الموقع، …)</div>',
+        buttons: [
+            { label: 'إلغاء', className: 'btn-ghost' },
+            { label: '➕ إنشاء المفتاح', className: 'btn-primary', onClick: confirmCreateKey }
+        ]
+    });
+}
+
+async function confirmCreateKey() {
+    const input = document.getElementById('modal-key-name');
+    const name = (input?.value || '').trim();
+    if (name.length < 2) {
+        return showToast('❌ الاسم قصير جداً (حرفان على الأقل)', 'error');
+    }
+
+    setLoading(true, 'جاري إنشاء المفتاح...');
+    try {
+        const data = await api('/api/keys', { body: JSON.stringify({ name }) });
+        setLoading(false);
+        showToast('✅ تم إنشاء المفتاح بنجاح');
+        keyCache[data.key.id] = data.key.key_value;
+        await loadKeys();
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+/* ─── Modal: تأكيد الحذف (عام) ─── */
+function openConfirmModal({ title, icon, message, confirmLabel, confirmClass, onConfirm }) {
+    openModal({
+        title, icon,
+        bodyHTML: '<p>' + message + '</p>',
+        buttons: [
+            { label: 'إلغاء', className: 'btn-ghost' },
+            { label: confirmLabel || 'تأكيد', className: confirmClass || 'btn-danger', onClick: onConfirm }
+        ]
+    });
+}
+
+/* ─── Modal: حذف مفتاح ─── */
+function openDeleteKeyModal(keyId, keyName) {
+    openConfirmModal({
+        title: 'حذف المفتاح؟',
+        icon: '🗑️',
+        message: 'هل أنت متأكد من حذف المفتاح <strong style="color:var(--purpleL)">' + escapeHtml(keyName) + '</strong>؟<br><br><span style="color:var(--red);font-size:13px">لا يمكن التراجع عن هذا الإجراء.</span>',
+        confirmLabel: '🗑️ نعم، احذف',
+        confirmClass: 'btn-danger',
+        onConfirm: () => confirmDeleteKey(keyId)
+    });
+}
+
+async function confirmDeleteKey(keyId) {
+    setLoading(true, 'جاري الحذف...');
+    try {
+        await api('/api/keys/delete', { body: JSON.stringify({ id: keyId }) });
+        setLoading(false);
+        showToast('🗑️ تم حذف المفتاح');
+        delete keyCache[keyId];
+        await loadKeys();
+        loadStats();
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+/* ─── Modal: إعادة إنشاء المفتاح ─── */
+function openRegenerateKeyModal(keyId, keyName) {
+    openModal({
+        title: 'إعادة إنشاء المفتاح',
+        icon: '🔄',
+        bodyHTML:
+            '<div class="alert alert-warning" style="margin-bottom:16px">' +
+                '<span class="alert-icon">⚠️</span>' +
+                '<div>سيتم <strong>حذف المفتاح الحالي</strong> وإنشاء مفتاح جديد بالاسم الذي تختاره.<br>أي سكربت يستخدم المفتاح القديم سيتوقف عن العمل فوراً.</div>' +
+            '</div>' +
+            '<p style="margin-bottom:10px">أدخل اسم المفتاح الجديد:</p>' +
+            '<div class="modal-input-wrap">' +
+                '<input type="text" class="modal-input" id="modal-regen-name" value="' + escapeHtml(keyName) + '" maxlength="60" placeholder="مثال: My Bot Key">' +
+            '</div>' +
+            '<div class="modal-hint">💡 يمكنك الإبقاء على نفس الاسم أو تغييره.</div>',
+        buttons: [
+            { label: 'إلغاء', className: 'btn-ghost' },
+            { label: '🔄 إعادة الإنشاء', className: 'btn-primary', onClick: () => confirmRegenerateKey(keyId) }
+        ]
+    });
+}
+
+async function confirmRegenerateKey(keyId) {
+    const name = (document.getElementById('modal-regen-name')?.value || '').trim();
+    if (name.length < 2) {
+        return showToast('❌ الاسم قصير جداً (حرفان على الأقل)', 'error');
+    }
+
+    setLoading(true, 'جاري إعادة إنشاء المفتاح...');
+    try {
+        // حذف القديم ثم إنشاء جديد بنفس الاسم/الاسم الجديد
+        await api('/api/keys/delete', { body: JSON.stringify({ id: keyId }) });
+        delete keyCache[keyId];
+
+        const data = await api('/api/keys', { body: JSON.stringify({ name }) });
+        setLoading(false);
+        showToast('✅ تم إعادة إنشاء المفتاح');
+
+        if (data && data.key && data.key.key_value) {
+            keyCache[data.key.id] = data.key.key_value;
+        }
+        await loadKeys();
+        loadStats();
+
+        // إظهار المفتاح الجديد للمستخدم فوراً
+        if (data && data.key && data.key.key_value) {
+            openShowKeyModal(data.key.key_value, data.key.name || name);
+        }
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+/* ─── Modal: حذف الحساب (متعدد الخطوات) ─── */
+function openDeleteAccountModal() {
+    openModal({
+        title: 'حذف الحساب نهائياً',
+        icon: '⚠️',
+        bodyHTML:
+            '<div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:14px;margin-bottom:16px">' +
+                '<p style="color:var(--red);font-weight:700;margin-bottom:6px">⚠️ تحذير نهائي</p>' +
+                '<p style="font-size:13px;line-height:1.7">سيتم حذف حسابك مع كل المفاتيح والأنفاق والبيانات. لا يمكن التراجع.</p>' +
+            '</div>' +
+            '<p style="margin-bottom:10px">أدخل كلمة المرور للتأكيد:</p>' +
+            '<div class="modal-input-wrap">' +
+                '<input type="password" class="modal-input ltr" id="modal-delete-password" placeholder="••••••••">' +
+            '</div>' +
+            '<p style="margin-top:14px;margin-bottom:10px">اكتب <span class="inline-code" style="color:var(--red)">DELETE</span> للتأكيد النهائي:</p>' +
+            '<div class="modal-input-wrap">' +
+                '<input type="text" class="modal-input ltr" id="modal-delete-confirm" placeholder="DELETE">' +
+            '</div>',
+        buttons: [
+            { label: 'إلغاء', className: 'btn-ghost' },
+            { label: '🗑️ حذف نهائي', className: 'btn-danger', onClick: confirmDeleteAccount }
+        ]
+    });
+}
+
+async function confirmDeleteAccount() {
+    const password = document.getElementById('modal-delete-password')?.value || '';
+    const confirm = document.getElementById('modal-delete-confirm')?.value || '';
+
+    if (!password) return showToast('❌ أدخل كلمة المرور', 'error');
+    if (confirm !== 'DELETE') return showToast('❌ اكتب DELETE بالضبط', 'error');
+
+    setLoading(true, 'جاري حذف الحساب...');
+    try {
+        await api('/api/user/delete', { body: JSON.stringify({ password, confirm: 'DELETE' }) });
+        localStorage.removeItem('zt_session');
+        localStorage.removeItem('zt_user');
+        currentUser = null;
+        setLoading(false);
+        showToast('🗑️ تم حذف حسابك');
+        setTimeout(() => navigate('/'), 800);
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+/* ─── Modal: عرض مفتاح جديد ─── */
+function openShowKeyModal(keyValue, keyName) {
+    openModal({
+        title: 'تم إنشاء المفتاح!',
+        icon: '✅',
+        bodyHTML:
+            '<p style="margin-bottom:14px">احفظ هذا المفتاح في مكان آمن. لن تستطيع رؤيته بهذا الشكل مرة أخرى.</p>' +
+            '<div class="modal-input-wrap" style="background:rgba(6,182,212,.08);border-color:rgba(6,182,212,.3)">' +
+                '<input type="text" class="modal-input ltr" id="modal-new-key" value="' + escapeHtml(keyValue) + '" readonly>' +
+            '</div>' +
+            '<div class="modal-hint">💡 اضغط نسخ أو انسخ يدوياً الآن.</div>',
+        buttons: [
+            { label: '📋 نسخ', className: 'btn-ghost', close: false, onClick: () => {
+                copyText(keyValue, '📋 تم نسخ المفتاح');
+            }},
+            { label: 'تم، فهمت', className: 'btn-primary' }
+        ]
+    });
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -952,15 +1325,13 @@ async function handleLogin(event) {
 
     setLoading(true, 'جاري تسجيل الدخول...');
     try {
-        const data = await api('/api/auth/login', {
-            body: JSON.stringify({ email, password })
-        });
+        const data = await api('/api/auth/login', { body: JSON.stringify({ email, password }) });
         currentUser = data.user;
         localStorage.setItem('zt_session', data.session_token);
         localStorage.setItem('zt_user', JSON.stringify(data.user));
         setLoading(false);
         showToast('✅ مرحباً ' + data.user.first_name);
-        goToDashboard();
+        navigate('/dashboard');
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
@@ -969,7 +1340,7 @@ async function handleLogin(event) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   🔑 نسيت كلمة المرور — الخطوة 1 (بريد)
+   🔑 نسيت كلمة المرور — إرسال كود
    ═══════════════════════════════════════════════════════ */
 async function handleForgotPassword(event) {
     event.preventDefault();
@@ -979,22 +1350,19 @@ async function handleForgotPassword(event) {
 
     setLoading(true, 'جاري إرسال كود الاستعادة...');
     try {
-        await api('/api/auth/forgot-password', {
-            body: JSON.stringify({ email })
-        });
+        await api('/api/auth/forgot-password', { body: JSON.stringify({ email }) });
         resetData.email = email;
         resetData.code = '';
         document.getElementById('reset-email-display').textContent = email;
-        // نظف خانات الكود
         document.querySelectorAll('#reset-code-inputs .code-input').forEach(i => {
             i.value = '';
             i.classList.remove('filled');
         });
         setLoading(false);
         showToast('📧 تم إرسال كود الاستعادة');
-        showPage('reset-code');
+        navigate('/reset');
         startResetTimer();
-        focusResetCodeInput();
+        setTimeout(() => document.querySelector('#reset-code-inputs .code-input')?.focus(), 250);
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
@@ -1003,9 +1371,9 @@ async function handleForgotPassword(event) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   🔑 نسيت كلمة المرور — الخطوة 2 (تحقق من الكود فقط)
+   🔑 Reset — الخطوة 2: استلام الكود والانتقال للباسورد
    ═══════════════════════════════════════════════════════ */
-async function handleResetVerifyCode() {
+function handleResetCodeNext() {
     const inputs = document.querySelectorAll('#reset-code-inputs .code-input');
     const code = Array.from(inputs).map(i => i.value).join('');
 
@@ -1013,43 +1381,21 @@ async function handleResetVerifyCode() {
         return showToast('❌ أدخل الكود كاملاً (6 أرقام)', 'error');
     }
 
-    const btn = document.getElementById('reset-verify-btn');
-    btn.disabled = true;
-    setLoading(true, 'جاري التحقق من الكود...');
-
-    try {
-        await api('/api/auth/verify-code', {
-            body: JSON.stringify({
-                email: resetData.email,
-                code: code,
-                purpose: 'reset'
-            })
-        });
-        resetData.code = code;
-        setLoading(false);
-        showToast('✅ تم التحقق من الكود');
-        // نظف حقول الباسورد
-        document.getElementById('reset-password1').value = '';
-        document.getElementById('reset-password2').value = '';
-        document.getElementById('reset-strength-label').textContent = '—';
-        document.getElementById('reset-strength-label').className = 'value';
-        [1,2,3,4].forEach(i => {
-            const b = document.getElementById('rbar-' + i);
-            b.classList.remove('active', 'weak', 'medium', 'strong');
-        });
-        document.getElementById('reset-btn').disabled = true;
-        showPage('reset-password');
-    } catch (e) {
-        setLoading(false);
-        showToast('❌ ' + e.message, 'error');
-        inputs.forEach(i => { i.value = ''; i.classList.remove('filled'); });
-        inputs[0].focus();
-        btn.disabled = false;
-    }
+    resetData.code = code;
+    document.getElementById('reset-password1').value = '';
+    document.getElementById('reset-password2').value = '';
+    document.getElementById('reset-strength-label').textContent = '—';
+    document.getElementById('reset-strength-label').className = 'value';
+    [1,2,3,4].forEach(i => {
+        document.getElementById('rbar-' + i).classList.remove('active', 'weak', 'medium', 'strong');
+    });
+    document.getElementById('reset-btn').disabled = true;
+    navigate('/reset-password');
+    setTimeout(() => document.getElementById('reset-password1')?.focus(), 250);
 }
 
 /* ═══════════════════════════════════════════════════════
-   🔑 نسيت كلمة المرور — الخطوة 3 (كلمة المرور الجديدة)
+   🔑 Reset — الخطوة 3: إرسال الكود + الباسورد معاً
    ═══════════════════════════════════════════════════════ */
 async function handleResetPassword(event) {
     event.preventDefault();
@@ -1062,9 +1408,9 @@ async function handleResetPassword(event) {
     if (new_password.length < 8) {
         return showToast('❌ كلمة المرور قصيرة (8 أحرف على الأقل)', 'error');
     }
-    if (!resetData.code) {
+    if (!resetData.code || !resetData.email) {
         showToast('❌ انتهت الجلسة، أعد المحاولة', 'error');
-        showPage('forgot');
+        navigate('/forgot');
         return;
     }
 
@@ -1080,11 +1426,10 @@ async function handleResetPassword(event) {
                 new_password: new_password
             })
         });
-        // امسح البيانات الحساسة
         resetData.email = '';
         resetData.code = '';
         setLoading(false);
-        showPage('reset-success');
+        navigate('/reset-success');
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
@@ -1094,9 +1439,7 @@ async function handleResetPassword(event) {
 
 async function handleForgotResend() {
     try {
-        await api('/api/auth/forgot-password', {
-            body: JSON.stringify({ email: resetData.email })
-        });
+        await api('/api/auth/forgot-password', { body: JSON.stringify({ email: resetData.email }) });
         showToast('📧 تم إرسال كود جديد');
     } catch (e) {
         showToast('❌ ' + e.message, 'error');
@@ -1124,15 +1467,8 @@ function startResetTimer() {
     }, 1000);
 }
 
-function focusResetCodeInput() {
-    setTimeout(() => {
-        const first = document.querySelector('#reset-code-inputs .code-input');
-        if (first) first.focus();
-    }, 200);
-}
-
 /* ═══════════════════════════════════════════════════════
-   ✨ الخطوة 1: إرسال الكود (تسجيل)
+   ✨ تسجيل — إرسال الكود
    ═══════════════════════════════════════════════════════ */
 async function handleSignupStep1(event) {
     event.preventDefault();
@@ -1140,12 +1476,8 @@ async function handleSignupStep1(event) {
     signupData.lastName = document.getElementById('signup-lastname').value.trim();
     signupData.email = document.getElementById('signup-email').value.trim();
 
-    if (signupData.firstName.length < 2) {
-        return showToast('❌ الاسم قصير جداً', 'error');
-    }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signupData.email)) {
-        return showToast('❌ الإيميل غير صالح', 'error');
-    }
+    if (signupData.firstName.length < 2) return showToast('❌ الاسم قصير جداً', 'error');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signupData.email)) return showToast('❌ الإيميل غير صالح', 'error');
 
     document.getElementById('verify-email-display').textContent = signupData.email;
     const btn = document.getElementById('signup-btn1');
@@ -1158,9 +1490,10 @@ async function handleSignupStep1(event) {
         });
         setLoading(false);
         showToast('📧 تم إرسال الكود إلى بريدك');
+        navigate('/signup');
         showPage('verify');
         startResendTimer();
-        focusFirstCodeInput();
+        setTimeout(() => document.querySelector('#verify-code-inputs .code-input')?.focus(), 250);
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
@@ -1169,15 +1502,13 @@ async function handleSignupStep1(event) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   📩 الخطوة 2: التحقق (تسجيل)
+   📩 التحقق من الكود (تسجيل)
    ═══════════════════════════════════════════════════════ */
 async function handleVerifyCode() {
     const inputs = document.querySelectorAll('#verify-code-inputs .code-input');
     const code = Array.from(inputs).map(i => i.value).join('');
 
-    if (code.length !== 6) {
-        return showToast('❌ أدخل الكود كاملاً (6 أرقام)', 'error');
-    }
+    if (code.length !== 6) return showToast('❌ أدخل الكود كاملاً (6 أرقام)', 'error');
 
     const btn = document.getElementById('verify-btn');
     btn.disabled = true;
@@ -1190,6 +1521,7 @@ async function handleVerifyCode() {
         setLoading(false);
         showToast('✅ تم التحقق من البريد');
         showPage('password');
+        setTimeout(() => document.getElementById('signup-password')?.focus(), 250);
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
@@ -1199,9 +1531,6 @@ async function handleVerifyCode() {
     }
 }
 
-/* ═══════════════════════════════════════════════════════
-   🔄 إعادة إرسال (تسجيل)
-   ═══════════════════════════════════════════════════════ */
 async function handleResendCode() {
     try {
         await api('/api/auth/send-code', {
@@ -1234,32 +1563,22 @@ function startResendTimer() {
     }, 1000);
 }
 
-function focusFirstCodeInput() {
-    setTimeout(() => {
-        const first = document.querySelector('#verify-code-inputs .code-input');
-        if (first) first.focus();
-    }, 200);
-}
-
 /* ═══════════════════════════════════════════════════════
    🔑 قوة كلمة المرور
    ═══════════════════════════════════════════════════════ */
 const COMMON_PASSWORDS = new Set([
-    '12345678', '123456789', '1234567890', 'password',
-    'password1', 'qwerty123', '11111111', '00000000',
-    'aaaaaaaa', 'iloveyou', 'admin123', 'welcome1'
+    '12345678','123456789','1234567890','password','password1',
+    'qwerty123','11111111','00000000','aaaaaaaa','iloveyou','admin123','welcome1'
 ]);
 
 function calculatePasswordStrength(pwd) {
     if (!pwd) return { score: 0, level: 'weak', label: '—' };
     if (pwd.length < 8) return { score: 1, level: 'weak', label: 'قصيرة جداً' };
     if (COMMON_PASSWORDS.has(pwd.toLowerCase())) return { score: 1, level: 'weak', label: 'شائعة جداً' };
-
     let score = 1;
     if (pwd.length >= 10) score++;
     if (pwd.length >= 14) score++;
     if (/[A-Z]/.test(pwd) || /[^a-zA-Z0-9]/.test(pwd)) score++;
-
     if (score <= 1) return { score: 1, level: 'medium', label: 'مقبولة' };
     if (score <= 3) return { score: 2, level: 'medium', label: 'جيدة' };
     return { score: 4, level: 'strong', label: 'قوية' };
@@ -1270,20 +1589,11 @@ function updatePasswordStrength() {
     const s = calculatePasswordStrength(pwd);
     const bars = [1,2,3,4].map(i => document.getElementById('bar-' + i));
     const label = document.getElementById('strength-label');
-
-    bars.forEach(b => b.classList.remove('active', 'weak', 'medium', 'strong'));
-
+    bars.forEach(b => b.classList.remove('active','weak','medium','strong'));
     if (!pwd) {
-        label.textContent = '—';
-        label.className = 'value';
-        checkPasswordMatch();
-        return;
+        label.textContent = '—'; label.className = 'value'; checkPasswordMatch(); return;
     }
-
-    const activeCount = Math.max(1, s.score);
-    for (let i = 0; i < activeCount; i++) {
-        bars[i].classList.add('active', s.level);
-    }
+    for (let i = 0; i < Math.max(1, s.score); i++) bars[i].classList.add('active', s.level);
     label.textContent = s.label;
     label.className = 'value ' + s.level;
     checkPasswordMatch();
@@ -1294,20 +1604,11 @@ function updateResetStrength() {
     const s = calculatePasswordStrength(pwd);
     const bars = [1,2,3,4].map(i => document.getElementById('rbar-' + i));
     const label = document.getElementById('reset-strength-label');
-
-    bars.forEach(b => b.classList.remove('active', 'weak', 'medium', 'strong'));
-
+    bars.forEach(b => b.classList.remove('active','weak','medium','strong'));
     if (!pwd) {
-        label.textContent = '—';
-        label.className = 'value';
-        checkResetMatch();
-        return;
+        label.textContent = '—'; label.className = 'value'; checkResetMatch(); return;
     }
-
-    const activeCount = Math.max(1, s.score);
-    for (let i = 0; i < activeCount; i++) {
-        bars[i].classList.add('active', s.level);
-    }
+    for (let i = 0; i < Math.max(1, s.score); i++) bars[i].classList.add('active', s.level);
     label.textContent = s.label;
     label.className = 'value ' + s.level;
     checkResetMatch();
@@ -1318,12 +1619,8 @@ function checkPasswordMatch() {
     const p2 = document.getElementById('signup-password2').value;
     const err = document.getElementById('password-match-error');
     const btn = document.getElementById('signup-final-btn');
-
     const valid = p1.length >= 8 && p1 === p2;
-
-    if (p2 && p1 !== p2) err.classList.add('show');
-    else err.classList.remove('show');
-
+    if (p2 && p1 !== p2) err.classList.add('show'); else err.classList.remove('show');
     btn.disabled = !valid;
 }
 
@@ -1332,29 +1629,21 @@ function checkResetMatch() {
     const p2 = document.getElementById('reset-password2').value;
     const err = document.getElementById('reset-match-error');
     const btn = document.getElementById('reset-btn');
-
     const valid = p1.length >= 8 && p1 === p2;
-
-    if (p2 && p1 !== p2) err.classList.add('show');
-    else err.classList.remove('show');
-
+    if (p2 && p1 !== p2) err.classList.add('show'); else err.classList.remove('show');
     btn.disabled = !valid;
 }
 
 /* ═══════════════════════════════════════════════════════
-   🎉 الخطوة 3: إنشاء الحساب
+   🎉 إنشاء الحساب
    ═══════════════════════════════════════════════════════ */
 async function handleCreatePassword(event) {
     event.preventDefault();
     const pwd1 = document.getElementById('signup-password').value;
     const pwd2 = document.getElementById('signup-password2').value;
 
-    if (pwd1.length < 8) {
-        return showToast('❌ كلمة المرور قصيرة (8 أحرف على الأقل)', 'error');
-    }
-    if (pwd1 !== pwd2) {
-        return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
-    }
+    if (pwd1.length < 8) return showToast('❌ كلمة المرور قصيرة (8 أحرف على الأقل)', 'error');
+    if (pwd1 !== pwd2) return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
 
     setLoading(true, 'جاري إنشاء الحساب...');
     try {
@@ -1370,7 +1659,7 @@ async function handleCreatePassword(event) {
         localStorage.setItem('zt_session', data.session_token);
         localStorage.setItem('zt_user', JSON.stringify(data.user));
         setLoading(false);
-        showPage('welcome');
+        navigate('/welcome');
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
@@ -1380,23 +1669,6 @@ async function handleCreatePassword(event) {
 /* ═══════════════════════════════════════════════════════
    🎛️ لوحة التحكم
    ═══════════════════════════════════════════════════════ */
-function goToDashboard() {
-    if (!currentUser) {
-        const stored = localStorage.getItem('zt_user');
-        if (stored) {
-            try { currentUser = JSON.parse(stored); } catch {}
-        }
-    }
-    if (!currentUser) {
-        showPage('login');
-        return;
-    }
-    updateUserUI();
-    showPage('dashboard');
-    switchTab('home');
-    loadStats();
-}
-
 function updateUserUI() {
     if (!currentUser) return;
     const initial = (currentUser.first_name || '؟').charAt(0).toUpperCase();
@@ -1412,29 +1684,6 @@ function updateUserUI() {
     document.getElementById('settings-user-joined').textContent = currentUser.created_at
         ? new Date(currentUser.created_at).toLocaleDateString('ar-EG')
         : '—';
-}
-
-function switchTab(tab) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.nav-item[data-tab]').forEach(n => n.classList.remove('active'));
-    document.getElementById('tab-' + tab)?.classList.add('active');
-    document.querySelector('.nav-item[data-tab="' + tab + '"]')?.classList.add('active');
-
-    const titles = {
-        home: ['البداية', 'مرحباً بك في ZONE TUNNEL'],
-        keys: ['مفاتيح API', 'إدارة مفاتيح الوصول الخاصة بك'],
-        tunnels: ['الأنفاق النشطة', 'جميع الأنفاق التي تعمل حالياً'],
-        settings: ['إعدادات الحساب', 'إدارة حسابك وكلمة المرور'],
-        support: ['الدعم الفني', 'نحن هنا لمساعدتك'],
-        terms: ['الشروط والأحكام', 'يرجى قراءة الشروط بعناية']
-    };
-    document.getElementById('page-title').textContent = titles[tab][0];
-    document.getElementById('page-subtitle').textContent = titles[tab][1];
-
-    if (tab === 'keys') loadKeys();
-    if (tab === 'tunnels') loadTunnels();
-    if (tab === 'home') loadStats();
-    if (window.innerWidth <= 900) toggleSidebar(false);
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1458,17 +1707,20 @@ const keyCache = {};
 async function loadKeys() {
     const list = document.getElementById('keys-list');
     const createBtn = document.getElementById('create-key-btn');
-    createBtn.style.display = 'inline-flex';
+    createBtn.style.display = 'none';
     list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--txt2)">⏳ جاري التحميل...</div>';
 
     try {
         const data = await api('/api/keys/list');
+        // 🔒 مفتاح واحد فقط: إخفاء زر الإنشاء إذا وُجد مفتاح
+        createBtn.style.display = data.keys.length ? 'none' : 'inline-flex';
+
         if (!data.keys.length) {
             list.innerHTML = '<div class="empty-state">' +
                 '<div class="icon">🔑</div>' +
                 '<h3>لا توجد مفاتيح بعد</h3>' +
-                '<p>أنشئ مفتاح API الأول الخاص بك للبدء في استخدام الأنفاق</p>' +
-                '<button class="btn btn-primary" onclick="createApiKey()">➕ إنشاء مفتاح جديد</button>' +
+                '<p>أنشئ مفتاح API الخاص بك للبدء في استخدام الأنفاق</p>' +
+                '<button class="btn btn-primary" onclick="openCreateKeyModal()">➕ إنشاء مفتاح جديد</button>' +
                 '</div>';
             return;
         }
@@ -1486,7 +1738,7 @@ async function loadKeys() {
 
 function renderKeyItem(key) {
     keyCache[key.id] = key.key_value || key.key_preview;
-    const hidden = '•'.repeat(Math.min((key.key_value || '').length || 48, 48));
+    const hidden = '•'.repeat(48);
     const created = new Date(key.created_at).toLocaleDateString('ar-EG');
     const lastUsed = key.last_used ? new Date(key.last_used).toLocaleDateString('ar-EG') : 'لم يُستخدم';
 
@@ -1500,7 +1752,8 @@ function renderKeyItem(key) {
             '<div class="key-actions">' +
                 '<button class="icon-btn" onclick="toggleKeyVisibility(' + key.id + ')" title="إظهار/إخفاء"><span id="eye-' + key.id + '">👁️</span></button>' +
                 '<button class="icon-btn" onclick="copyKey(' + key.id + ')" title="نسخ">📋</button>' +
-                '<button class="icon-btn" onclick="deleteKey(' + key.id + ')" title="حذف">🗑️</button>' +
+                '<button class="icon-btn" onclick="openRegenerateKeyModal(' + key.id + ', \'' + escapeHtml(key.name).replace(/'/g, "\\'") + '\')" title="إعادة إنشاء المفتاح">🔄</button>' +
+                '<button class="icon-btn" onclick="openDeleteKeyModal(' + key.id + ', \'' + escapeHtml(key.name).replace(/'/g, "\\'") + '\')" title="حذف">🗑️</button>' +
             '</div>' +
         '</div>' +
         '<div class="key-meta">' +
@@ -1517,33 +1770,13 @@ function escapeHtml(s) {
     }[c]));
 }
 
-async function createApiKey() {
-    const name = prompt('اسم المفتاح:', 'My Key ' + Date.now().toString(36).slice(-4));
-    if (!name || !name.trim()) return;
-
-    setLoading(true, 'جاري إنشاء المفتاح...');
-    try {
-        const data = await api('/api/keys', {
-            body: JSON.stringify({ name: name.trim() })
-        });
-        setLoading(false);
-        showToast('✅ تم إنشاء المفتاح');
-        keyCache[data.key.id] = data.key.key_value;
-        await loadKeys();
-    } catch (e) {
-        setLoading(false);
-        showToast('❌ ' + e.message, 'error');
-    }
-}
-
 function toggleKeyVisibility(id) {
     const el = document.getElementById('key-val-' + id);
     const eye = document.getElementById('eye-' + id);
     if (!el) return;
-
     const value = keyCache[id] || '';
     if (keyVisibility[id]) {
-        el.textContent = '•'.repeat(Math.min(value.length || 48, 48));
+        el.textContent = '•'.repeat(48);
         eye.textContent = '👁️';
         keyVisibility[id] = false;
     } else {
@@ -1585,25 +1818,6 @@ function fallbackCopy(text, successMsg) {
     document.body.removeChild(ta);
 }
 
-async function deleteKey(id) {
-    if (!confirm('هل أنت متأكد من حذف هذا المفتاح؟ لا يمكن التراجع.')) return;
-
-    setLoading(true, 'جاري الحذف...');
-    try {
-        await api('/api/keys/delete', {
-            body: JSON.stringify({ id: id })
-        });
-        setLoading(false);
-        showToast('🗑️ تم حذف المفتاح');
-        delete keyCache[id];
-        await loadKeys();
-        loadStats();
-    } catch (e) {
-        setLoading(false);
-        showToast('❌ ' + e.message, 'error');
-    }
-}
-
 /* ═══════════════════════════════════════════════════════
    🌐 الأنفاق
    ═══════════════════════════════════════════════════════ */
@@ -1618,7 +1832,7 @@ async function loadTunnels() {
                 '<div class="icon">🌐</div>' +
                 '<h3>لا توجد أنفاق نشطة</h3>' +
                 '<p>ابدأ باستخدام مفتاح API في سكربتك، وسيظهر النفق هنا تلقائياً بمجرد الاتصال.</p>' +
-                '<button class="btn btn-primary" onclick="switchTab(\'keys\')">🔑 انتقل لمفاتيح API</button>' +
+                '<button class="btn btn-primary" onclick="navigate(\'/KEYS\')">🔑 انتقل لمفاتيح API</button>' +
                 '</div>';
             return;
         }
@@ -1648,25 +1862,20 @@ async function loadTunnels() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   ⚙️ تحديث معلومات المستخدم
+   ⚙️ تحديث المعلومات
    ═══════════════════════════════════════════════════════ */
 async function handleUpdateInfo(event) {
     event.preventDefault();
     const first_name = document.getElementById('settings-firstname').value.trim();
     const last_name = document.getElementById('settings-lastname').value.trim();
 
-    if (!first_name || first_name.length < 2) {
-        return showToast('❌ الاسم قصير جداً', 'error');
-    }
+    if (!first_name || first_name.length < 2) return showToast('❌ الاسم قصير جداً', 'error');
 
     const btn = document.getElementById('update-info-btn');
     btn.disabled = true;
-
     setLoading(true, 'جاري الحفظ...');
     try {
-        const data = await api('/api/user/update', {
-            body: JSON.stringify({ first_name, last_name })
-        });
+        const data = await api('/api/user/update', { body: JSON.stringify({ first_name, last_name }) });
         currentUser = { ...currentUser, ...data.user };
         localStorage.setItem('zt_user', JSON.stringify(currentUser));
         updateUserUI();
@@ -1695,24 +1904,16 @@ async function handleChangePassword(event) {
         return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
     }
     err.classList.remove('show');
-
-    if (new_password.length < 8) {
-        return showToast('❌ كلمة المرور الجديدة قصيرة (8 على الأقل)', 'error');
-    }
-    if (old_password === new_password) {
-        return showToast('❌ كلمة المرور الجديدة يجب أن تختلف عن القديمة', 'error');
-    }
+    if (new_password.length < 8) return showToast('❌ كلمة المرور الجديدة قصيرة', 'error');
+    if (old_password === new_password) return showToast('❌ يجب أن تختلف عن القديمة', 'error');
 
     const btn = document.getElementById('change-password-btn');
     btn.disabled = true;
     setLoading(true, 'جاري تغيير كلمة المرور...');
-
     try {
-        await api('/api/auth/change-password', {
-            body: JSON.stringify({ old_password, new_password })
-        });
+        await api('/api/auth/change-password', { body: JSON.stringify({ old_password, new_password }) });
         setLoading(false);
-        showToast('✅ تم تغيير كلمة المرور بنجاح');
+        showToast('✅ تم تغيير كلمة المرور');
         document.getElementById('settings-old-password').value = '';
         document.getElementById('settings-new-password').value = '';
         document.getElementById('settings-new-password2').value = '';
@@ -1725,52 +1926,24 @@ async function handleChangePassword(event) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   🗑️  حذف الحساب
-   ═══════════════════════════════════════════════════════ */
-async function handleDeleteAccount() {
-    if (!confirm('⚠️ تحذير: سيتم حذف حسابك نهائياً مع كل المفاتيح والأنفاق. لا يمكن التراجع!')) return;
-
-    const password = prompt('أدخل كلمة المرور للتأكيد:');
-    if (!password) return;
-
-    const confirmText = prompt('اكتب DELETE للتأكيد النهائي:');
-    if (confirmText !== 'DELETE') {
-        return showToast('❌ تم الإلغاء', 'error');
-    }
-
-    setLoading(true, 'جاري حذف الحساب...');
-    try {
-        await api('/api/user/delete', {
-            body: JSON.stringify({ password, confirm: 'DELETE' })
-        });
-        localStorage.removeItem('zt_session');
-        localStorage.removeItem('zt_user');
-        currentUser = null;
-        setLoading(false);
-        showToast('🗑️ تم حذف حسابك');
-        setTimeout(() => showPage('landing'), 800);
-    } catch (e) {
-        setLoading(false);
-        showToast('❌ ' + e.message, 'error');
-    }
-}
-
-/* ═══════════════════════════════════════════════════════
    🚪 تسجيل الخروج
    ═══════════════════════════════════════════════════════ */
-async function handleLogout() {
-    if (!confirm('هل تريد تسجيل الخروج؟')) return;
-
-    try {
-        await api('/api/auth/logout');
-    } catch {}
-
-    localStorage.removeItem('zt_session');
-    localStorage.removeItem('zt_user');
-    currentUser = null;
-
-    showToast('👋 تم تسجيل الخروج');
-    setTimeout(() => showPage('landing'), 400);
+function handleLogout() {
+    openConfirmModal({
+        title: 'تسجيل الخروج؟',
+        icon: '🚪',
+        message: 'هل تريد تسجيل الخروج من حسابك الحالي؟',
+        confirmLabel: 'نعم، اخرج',
+        confirmClass: 'btn-danger',
+        onConfirm: async () => {
+            try { await api('/api/auth/logout'); } catch {}
+            localStorage.removeItem('zt_session');
+            localStorage.removeItem('zt_user');
+            currentUser = null;
+            showToast('👋 تم تسجيل الخروج');
+            navigate('/');
+        }
+    });
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1803,7 +1976,7 @@ function toggleSidebar(force) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   🎯 خانات الكود (تسجيل + استعادة)
+   🎯 خانات الكود
    ═══════════════════════════════════════════════════════ */
 function setupCodeInputs(containerId, onComplete) {
     const container = document.getElementById(containerId);
@@ -1821,7 +1994,6 @@ function setupCodeInputs(containerId, onComplete) {
                 e.target.classList.remove('filled');
             }
         });
-
         inp.addEventListener('keydown', e => {
             if (e.key === 'Backspace' && !e.target.value && i > 0) {
                 inputs[i - 1].focus();
@@ -1830,7 +2002,6 @@ function setupCodeInputs(containerId, onComplete) {
             }
             if (e.key === 'Enter' && onComplete) onComplete();
         });
-
         inp.addEventListener('paste', e => {
             e.preventDefault();
             const text = (e.clipboardData || window.clipboardData).getData('text');
@@ -1843,22 +2014,46 @@ function setupCodeInputs(containerId, onComplete) {
             });
             if (digits.length === 6 && onComplete) setTimeout(onComplete, 200);
         });
-
         inp.addEventListener('focus', e => e.target.select());
     });
 }
 
-// إعداد خانات التسجيل — عند اكتمال الكود يتحقق تلقائياً
 setupCodeInputs('verify-code-inputs', handleVerifyCode);
-// إعداد خانات الاستعادة — عند اكتمال الكود يتحقق تلقائياً
-setupCodeInputs('reset-code-inputs', handleResetVerifyCode);
+setupCodeInputs('reset-code-inputs', handleResetCodeNext);
+
+/* ═══════════════════════════════════════════════════════
+   📋 إضافة زر نسخ تلقائياً لكل بلوك كود
+   ═══════════════════════════════════════════════════════ */
+function enhanceCodeBlocks() {
+    document.querySelectorAll('.code-block').forEach(block => {
+        if (block.parentElement && block.parentElement.classList.contains('code-wrap')) return;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'code-wrap';
+        block.parentNode.insertBefore(wrap, block);
+        wrap.appendChild(block);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'code-copy-btn';
+        btn.textContent = '📋 نسخ';
+        btn.onclick = () => {
+            copyText(block.textContent.trim(), '📋 تم نسخ الكود');
+            btn.textContent = '✅ تم النسخ';
+            btn.classList.add('done');
+            setTimeout(() => {
+                btn.textContent = '📋 نسخ';
+                btn.classList.remove('done');
+            }, 1800);
+        };
+        wrap.appendChild(btn);
+    });
+}
 
 /* ═══════════════════════════════════════════════════════
    🚀 التهيئة
    ═══════════════════════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', async () => {
-    await warmupNgrok();
-
     const token = localStorage.getItem('zt_session');
     const storedUser = localStorage.getItem('zt_user');
 
@@ -1866,17 +2061,19 @@ window.addEventListener('DOMContentLoaded', async () => {
         try {
             const data = await api('/api/user/me');
             currentUser = data.user;
+            localStorage.setItem('zt_user', JSON.stringify(currentUser));
             updateUserUI();
             showToast('👋 مرحباً بعودتك ' + currentUser.first_name);
-            setTimeout(() => goToDashboard(), 400);
-            return;
         } catch (e) {
             localStorage.removeItem('zt_session');
             localStorage.removeItem('zt_user');
+            currentUser = null;
         }
     }
 
-    showPage('landing');
+    enhanceCodeBlocks();
+    handleRoute();
+
     console.log('%c🚀 ZONE TUNNEL', 'font-size:24px;font-weight:bold;color:#8b5cf6');
     console.log('%c📧 Support: zonetunnel@gmail.com', 'color:#06b6d4');
     console.log('%c👑 Dev: @LIEI_T', 'color:#8b5cf6');
