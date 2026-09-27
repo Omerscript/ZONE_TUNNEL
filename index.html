@@ -47,6 +47,7 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
 .btn-danger:hover{background:rgba(239,68,68,.25);border-color:var(--red)}
 .btn-lg{padding:16px 36px;font-size:17px;border-radius:16px}
 .btn-full{width:100%}
+.btn-sm{padding:8px 14px;font-size:13px;border-radius:8px}
 .hero{padding:80px 0 100px;text-align:center;position:relative}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:999px;color:var(--purpleL);font-size:14px;font-weight:600;margin-bottom:24px;animation:fadeUp .6s ease-out}
 .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
@@ -176,14 +177,6 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
 .empty-state .icon{font-size:80px;margin-bottom:20px;opacity:.4}
 .empty-state h3{font-size:20px;font-weight:700;margin-bottom:8px}
 .empty-state p{color:var(--txt2);font-size:14px;margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto}
-.tunnel-item{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.tunnel-info{display:flex;align-items:center;gap:16px;flex:1;min-width:0}
-.tunnel-status{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);flex-shrink:0}
-.tunnel-slug{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;color:var(--cyanL);margin-bottom:4px;direction:ltr;text-align:right}
-.tunnel-url{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--txt3);direction:ltr;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tunnel-stats{display:flex;gap:24px;font-size:12px;color:var(--txt2);flex-shrink:0}
-.tunnel-stat{text-align:center}
-.tunnel-stat-value{font-weight:700;color:var(--txt);font-size:15px;font-family:'JetBrains Mono',monospace}
 .support-card{text-align:center;padding:60px 40px}
 .support-card .icon{font-size:90px;margin-bottom:20px}
 .support-card h2{font-size:28px;font-weight:800;margin-bottom:12px}
@@ -213,14 +206,12 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
 .code-block::-webkit-scrollbar{height:6px}
 .inline-code{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:var(--purpleL);font-family:'JetBrains Mono',monospace;font-size:12px;padding:2px 8px;border-radius:6px;direction:ltr;display:inline-block}
 
-/* ═══ أزرار نسخ الأكواد ═══ */
 .code-wrap{position:relative;margin-bottom:4px}
 .code-wrap .code-block{margin-bottom:0}
 .code-copy-btn{position:absolute;top:8px;right:8px;padding:5px 12px;border-radius:8px;border:1px solid rgba(139,92,246,.35);background:rgba(20,22,42,.85);color:var(--purpleL);font-family:'Tajawal',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;backdrop-filter:blur(6px);z-index:2}
 .code-copy-btn:hover{background:rgba(139,92,246,.25);color:#fff}
 .code-copy-btn.done{color:var(--green);border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.15)}
 
-/* ═══ 404 Page ═══ */
 .notfound-wrapper{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px}
 .notfound-card{max-width:560px;width:100%;text-align:center;background:var(--card);backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:32px;padding:60px 40px;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 80px rgba(139,92,246,.15);position:relative;overflow:hidden}
 .notfound-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
@@ -230,7 +221,6 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
 .nf-desc{color:var(--txt2);margin-bottom:32px;font-size:15px;line-height:1.7}
 .nf-path{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--txt3);background:rgba(0,0,0,.3);padding:8px 14px;border-radius:8px;display:inline-block;margin-bottom:24px;direction:ltr;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-/* ═══ Modal ═══ */
 .modal-overlay{position:fixed;inset:0;background:rgba(5,6,15,.75);backdrop-filter:blur(10px);z-index:9500;display:none;align-items:center;justify-content:center;padding:20px;animation:modalFadeIn .25s ease-out}
 .modal-overlay.show{display:flex}
 @keyframes modalFadeIn{from{opacity:0}to{opacity:1}}
@@ -249,6 +239,47 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
 .modal-input.ltr{direction:ltr;text-align:left;font-family:'JetBrains Mono',monospace}
 .modal-input::placeholder{color:var(--txt3);font-weight:400}
 .modal-hint{font-size:12px;color:var(--txt3);margin-top:6px}
+
+/* ═══ TUNNELS ═══ */
+.tunnel-item{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:20px;margin-bottom:12px;transition:all .2s}
+.tunnel-item:hover{border-color:var(--borderH);background:rgba(139,92,246,.03)}
+.tunnel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.tunnel-name{font-weight:700;font-size:15px;display:flex;align-items:center;gap:10px}
+.tunnel-dot{width:10px;height:10px;border-radius:50%;background:var(--txt3);transition:all .3s;flex-shrink:0}
+.tunnel-dot.online{background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
+.tunnel-dot.offline{background:var(--txt3)}
+.tunnel-status-badge{padding:4px 12px;border-radius:999px;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:5px}
+.tunnel-status-badge.online{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.tunnel-status-badge.offline{background:rgba(107,107,138,.15);color:var(--txt3);border:1px solid rgba(107,107,138,.3)}
+.tunnel-url-wrapper{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 12px;margin-bottom:12px}
+.tunnel-url{flex:1;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--cyanL);direction:ltr;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.tunnel-meta{display:flex;gap:20px;font-size:12px;color:var(--txt3);flex-wrap:wrap;margin-bottom:14px}
+.tunnel-meta span{display:flex;align-items:center;gap:5px}
+.tunnel-meta .val{color:var(--txt);font-weight:600;font-family:'JetBrains Mono',monospace}
+.tunnel-actions{display:flex;gap:8px;flex-wrap:wrap}
+.tunnel-cmd{background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--cyanL);direction:ltr;text-align:left;overflow-x:auto;line-height:1.6;white-space:pre;margin-top:10px;position:relative}
+.tunnel-cmd-wrap{position:relative;margin-top:10px}
+.tunnel-cmd-copy{position:absolute;top:8px;right:8px;padding:4px 10px;border-radius:6px;border:1px solid rgba(139,92,246,.35);background:rgba(20,22,42,.85);color:var(--purpleL);font-family:'Tajawal',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;z-index:2}
+.tunnel-cmd-copy:hover{background:rgba(139,92,246,.25);color:#fff}
+.tunnel-cmd-copy.done{color:var(--green);border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.15)}
+
+/* ═══ Connecting Guide ═══ */
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--grad);color:#fff;font-weight:800;font-size:14px;flex-shrink:0}
+.step-title{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:700;margin-bottom:8px}
+.mode-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:16px}
+.mode-card{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.25);border-radius:16px;padding:20px;transition:all .3s}
+.mode-card:hover{background:rgba(139,92,246,.1);border-color:var(--borderH);transform:translateY(-3px)}
+.mode-card .mode-icon{font-size:32px;margin-bottom:10px}
+.mode-card .mode-title{font-weight:700;font-size:15px;margin-bottom:8px}
+.mode-card .mode-desc{font-size:13px;color:var(--txt2);line-height:1.7}
+.faq-item{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:all .2s}
+.faq-item:hover{border-color:var(--borderH)}
+.faq-item summary{padding:16px 20px;cursor:pointer;font-weight:600;font-size:14px;color:var(--txt);list-style:none;display:flex;align-items:center;gap:10px;user-select:none}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::before{content:'▸';color:var(--purpleL);font-size:16px;transition:transform .2s}
+.faq-item[open] summary::before{transform:rotate(90deg)}
+.faq-item .faq-answer{padding:0 20px 18px 20px;color:var(--txt2);font-size:13.5px;line-height:1.8;border-top:1px solid rgba(255,255,255,.04);padding-top:14px;margin-top:0}
+.faq-item .faq-answer code{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:var(--purpleL);font-family:'JetBrains Mono',monospace;font-size:12px;padding:2px 8px;border-radius:6px;direction:ltr;display:inline-block}
 
 @media(max-width:900px){
 .dashboard{grid-template-columns:1fr}
@@ -353,7 +384,7 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
     </div>
 </div>
 
-<!-- ═══════════ Forgot Password — Step 1 (Email) ═══════════ -->
+<!-- ═══════════ Forgot Password ═══════════ -->
 <div class="page" id="page-forgot">
     <div class="auth-wrapper">
         <div class="auth-card">
@@ -375,7 +406,7 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
     </div>
 </div>
 
-<!-- ═══════════ Reset — Step 1 (Code) ═══════════ -->
+<!-- ═══════════ Reset — Code ═══════════ -->
 <div class="page" id="page-reset-code">
     <div class="auth-wrapper">
         <div class="auth-card">
@@ -406,7 +437,7 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
     </div>
 </div>
 
-<!-- ═══════════ Reset — Step 2 (New Password) ═══════════ -->
+<!-- ═══════════ Reset — Password ═══════════ -->
 <div class="page" id="page-reset-password">
     <div class="auth-wrapper">
         <div class="auth-card">
@@ -592,6 +623,7 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
                 <button class="nav-item" data-tab="home" onclick="navigate('/dashboard')"><span class="nav-icon">🏠</span> البداية</button>
                 <button class="nav-item" data-tab="keys" onclick="navigate('/KEYS')"><span class="nav-icon">🔑</span> مفاتيح API</button>
                 <button class="nav-item" data-tab="tunnels" onclick="navigate('/TUNNELS')"><span class="nav-icon">🌐</span> الأنفاق النشطة</button>
+                <button class="nav-item" data-tab="connect" onclick="navigate('/CONNECT')"><span class="nav-icon">🔗</span> اربط سكربتك</button>
                 <button class="nav-item" data-tab="settings" onclick="navigate('/SETTINGS')"><span class="nav-icon">⚙️</span> إعدادات الحساب</button>
                 <button class="nav-item" data-tab="support" onclick="navigate('/SUPPORT')"><span class="nav-icon">💬</span> الدعم الفني</button>
                 <button class="nav-item" data-tab="terms" onclick="navigate('/TERMS')"><span class="nav-icon">📋</span> الشروط والأحكام</button>
@@ -630,18 +662,22 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
                     <div class="card-subtitle">اختر ما تريد فعله:</div>
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
                         <button class="btn btn-primary" onclick="navigate('/KEYS')">🔑 إنشاء مفتاح API</button>
-                        <button class="btn btn-ghost" onclick="navigate('/TUNNELS')">🌐 عرض الأنفاق</button>
-                        <button class="btn btn-ghost" onclick="navigate('/SETTINGS')">⚙️ إعدادات الحساب</button>
+                        <button class="btn btn-ghost" onclick="navigate('/TUNNELS')">🌐 إنشاء نفق جديد</button>
+                        <button class="btn btn-ghost" onclick="navigate('/CONNECT')">🔗 اربط سكربتك بنفق</button>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-title">📖 كيف يعمل ZONE TUNNEL؟</div>
                     <ol style="padding-right:24px;line-height:2;color:var(--txt2)">
                         <li>أنشئ مفتاح API خاص بك من صفحة <strong>مفاتيح API</strong></li>
-                        <li>استخدم المفتاح في سكربتك للاتصال بالمنصة</li>
-                        <li>سيتم توليد رابط فريد لك تلقائياً</li>
-                        <li>شارك الرابط مع أي شخص ليصل لسكربتك</li>
+                        <li>أنشئ نفقاً من صفحة <strong>الأنفاق النشطة</strong></li>
+                        <li>شغّل سكربتك المحلي على منفذ (مثلاً 5000)</li>
+                        <li>شغّل أمر <strong>zone client</strong> الذي سيظهر لك</li>
+                        <li>شارك رابط النفق مع أي شخص ليصل لسكربتك</li>
                     </ol>
+                    <div style="margin-top:16px">
+                        <button class="btn btn-ghost" onclick="navigate('/CONNECT')">📘 دليل الربط الكامل ←</button>
+                    </div>
                 </div>
             </div>
 
@@ -735,10 +771,322 @@ fetch(API_URL + "/api/user/me", {
             <!-- Tab: Tunnels -->
             <div class="tab-content" id="tab-tunnels">
                 <div class="card">
-                    <div class="card-title">🌐 الأنفاق النشطة</div>
-                    <div class="card-subtitle">جميع الأنفاق التي تعمل حالياً على حسابك</div>
+                    <div class="keys-header">
+                        <div>
+                            <div class="card-title">🌐 الأنفاق النشطة</div>
+                            <div class="card-subtitle" style="margin:0">أدِر أنفاقك، وشارك روابطها مع العالم</div>
+                        </div>
+                        <button class="btn btn-primary" id="create-tunnel-btn" onclick="openCreateTunnelModal()">➕ إنشاء نفق جديد</button>
+                    </div>
                     <div id="tunnels-list"></div>
                 </div>
+
+                <div class="card" id="tunnel-guide-card">
+                    <div class="card-title">📖 كيف يعمل النفق؟</div>
+                    <div class="card-subtitle">دليل سريع خطوة بخطوة</div>
+
+                    <div class="alert alert-info" style="margin-bottom:20px">
+                        <span class="alert-icon">💡</span>
+                        <div>ZONE TUNNEL يستخدم تقنية <strong>Long-Polling</strong> — كل الاتصالات HTTP عادية، بدون WebSocket. يعمل على ngrok المجاني بدون أي إعدادات خاصة.</div>
+                    </div>
+
+                    <div class="settings-section">
+                        <div class="settings-title">🎯 الفكرة</div>
+                        <div class="settings-desc">
+                            عندما ينشئ شخص رابطاً عاماً مثل
+                            <span class="inline-code">/t/abc123/</span>
+                            فإن أي طلب يصل إليه يُرسَل إلى جهازك عبر عميل zone، فينفذه سكربتك المحلي ويرد.
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <div class="settings-title">1️⃣ شغّل سكربتك المحلي</div>
+                        <div class="settings-desc">أي سكربت HTTP يستمع على منفذ محلي (مثلاً 5000):</div>
+<pre class="code-block">python -m http.server 5000
+# أو Flask / FastAPI / Express ... أي شيء</pre>
+                    </div>
+
+                    <div class="settings-section">
+                        <div class="settings-title">2️⃣ ثبّت httpx (مرة واحدة)</div>
+<pre class="code-block">pip install httpx</pre>
+                    </div>
+
+                    <div class="settings-section">
+                        <div class="settings-title">3️⃣ شغّل عميل zone</div>
+                        <div class="settings-desc">انسخ الأمر من صفحة النفق بعد إنشائه، مثال:</div>
+<pre class="code-block">python api_server.py --client https://pedigree-hankering-unmixable.ngrok-free.dev 1 tun_xxx 5000</pre>
+                    </div>
+
+                    <div class="settings-section" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
+                        <div class="settings-title">4️⃣ شارك الرابط</div>
+                        <div class="settings-desc">
+                            أي شخص يفتح
+                            <span class="inline-code">/t/{slug}/</span>
+                            سيصل إلى سكربتك المحلي فوراً.
+                        </div>
+                        <div style="margin-top:18px">
+                            <button class="btn btn-primary" onclick="navigate('/CONNECT')">📘 اذهب لدليل الربط الكامل</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ Tab: Connect — دليل الربط بنفق موجود ═══ -->
+            <div class="tab-content" id="tab-connect">
+
+                <!-- Hero -->
+                <div class="welcome-card">
+                    <h2>🔗 كيف تربط سكربتك بنفق موجود؟</h2>
+                    <p>عندك نفق جاهز في ZONE TUNNEL وتريد تربطه بسكربتك المحلي؟ <strong>اتبع 4 خطوات فقط</strong> وسيصبح رابطك العام جاهزاً للعالم.</p>
+                    <p>هذا الدليل يشرح الطريقة الكاملة — من الحصول على التوكن إلى اختبار الرابط.</p>
+                </div>
+
+                <!-- شرح الفكرة -->
+                <div class="card">
+                    <div class="card-title">🎯 الفكرة ببساطة</div>
+                    <div class="card-subtitle">ماذا يحدث فعلياً؟</div>
+
+                    <div style="background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:22px;direction:ltr;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--cyanL);overflow-x:auto;line-height:2.2;white-space:nowrap">
+                        <div style="color:var(--purpleL);font-weight:700;margin-bottom:14px;font-size:13px">⚡ FLOW</div>
+                        <div>🌍 <span style="color:#fff">الزائر</span>  →  <span style="color:var(--cyanL)">GET /t/{slug}/api/data</span></div>
+                        <div style="color:var(--txt3);margin:6px 0">↓</div>
+                        <div>🌐 <span style="color:#fff">ZONE Gateway</span>  →  <span style="color:var(--cyanL)">توجيه الطلب</span></div>
+                        <div style="color:var(--txt3);margin:6px 0">↓</div>
+                        <div>🔌 <span style="color:#fff">zone_client</span>  →  <span style="color:var(--cyanL)">على جهازك</span></div>
+                        <div style="color:var(--txt3);margin:6px 0">↓</div>
+                        <div>💻 <span style="color:#fff">سكربتك المحلي</span>  →  <span style="color:var(--cyanL)">localhost:5000</span></div>
+                        <div style="color:var(--txt3);margin:6px 0">↑</div>
+                        <div style="color:var(--green)">✅ الرد يرجع بنفس المسار للزائر</div>
+                    </div>
+                </div>
+
+                <!-- الخطوات -->
+                <div class="card">
+                    <div class="card-title">🚀 الخطوات الأربع</div>
+                    <div class="card-subtitle">اتبعها بالترتيب — من الصفر حتى التشغيل</div>
+
+                    <!-- Step 1 -->
+                    <div class="settings-section">
+                        <div class="step-title">
+                            <span class="step-num">1</span>
+                            احصل على معلومات النفق
+                        </div>
+                        <div class="settings-desc">
+                            من صفحة <strong>الأنفاق النشطة</strong>، اختر النفق الذي تريده. تحتاج إلى هذه المعلومات الأربع:
+                        </div>
+                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px;margin:12px 0;direction:ltr;text-align:left;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--txt2);line-height:2.2">
+                            <div><span style="color:var(--txt3)">Tunnel ID:  </span><span style="color:var(--cyanL)">1</span></div>
+                            <div><span style="color:var(--txt3)">Token:      </span><span style="color:var(--cyanL)">tun_xxxxxxxxxxxxxxxxxxxx</span></div>
+                            <div><span style="color:var(--txt3)">Local Port: </span><span style="color:var(--cyanL)">5000</span></div>
+                            <div><span style="color:var(--txt3)">Public URL: </span><span style="color:var(--cyanL)">https://.../t/{slug}/</span></div>
+                        </div>
+                        <div class="modal-hint">💡 اضغط "▶ عرض أمر التشغيل" أسفل كل نفق للحصول على الأمر جاهزاً بالكامل.</div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="settings-section">
+                        <div class="step-title">
+                            <span class="step-num">2</span>
+                            ثبّت المكتبة المطلوبة (مرة واحدة فقط)
+                        </div>
+                        <div class="settings-desc">افتح Terminal واكتب:</div>
+                        <div class="tunnel-cmd-wrap">
+                            <pre class="tunnel-cmd">pip install httpx</pre>
+                            <button class="tunnel-cmd-copy" onclick="copyText('pip install httpx', '📋 تم نسخ الأمر')">📋 نسخ</button>
+                        </div>
+                        <div class="modal-hint">💡 على Linux/Mac قد تحتاج إلى <span class="inline-code">pip3</span> بدل <span class="inline-code">pip</span>.</div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="settings-section">
+                        <div class="step-title">
+                            <span class="step-num">3</span>
+                            شغّل سكربتك المحلي
+                        </div>
+                        <div class="settings-desc">
+                            أي سكربت HTTP يعمل على المنفذ الذي اخترته (مثلاً 5000). هذا مثال سريع:
+                        </div>
+<pre class="code-block"># save as: my_server.py
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        body = b"Hello from my local server!"
+        self.send_response(200)
+        self.send_header("Content-Type", "text/plain")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def log_message(self, *a): pass
+
+print("Local server on port 5000")
+HTTPServer(("0.0.0.0", 5000), Handler).serve_forever()</pre>
+                        <div class="modal-hint">
+                            شغّله بـ: <span class="inline-code">python my_server.py</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="settings-section">
+                        <div class="step-title">
+                            <span class="step-num">4</span>
+                            شغّل عميل ZONE TUNNEL
+                        </div>
+                        <div class="settings-desc">
+                            في Terminal <strong>آخر</strong>، شغّل هذا الأمر — استبدل القيم من الخطوة 1:
+                        </div>
+                        <div class="tunnel-cmd-wrap">
+                            <pre class="tunnel-cmd">python api_server.py --client https://your-url.ngrok-free.dev 1 tun_xxxxxxxxxxxx 5000</pre>
+                            <button class="tunnel-cmd-copy" onclick="copyText('python api_server.py --client https://your-url.ngrok-free.dev 1 tun_xxxxxxxxxxxx 5000', '📋 تم نسخ الأمر')">📋 نسخ</button>
+                        </div>
+                        <div class="modal-hint">
+                            سيطبع: <span class="inline-code">✅ النفق فاضي — جاهز</span> ثم يبدأ بنقل الطلبات تلقائياً.
+                        </div>
+                    </div>
+
+                    <!-- Result -->
+                    <div class="settings-section" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
+                        <div class="step-title">
+                            <span class="step-num">✓</span>
+                            اختبر النتيجة
+                        </div>
+                        <div class="settings-desc">
+                            افتح رابط النفق العام
+                            <span class="inline-code">/t/{slug}/</span>
+                            من أي متصفح.
+                        </div>
+                        <div class="alert alert-success" style="margin-top:14px;margin-bottom:0">
+                            <span class="alert-icon">✅</span>
+                            <div>إذا ظهرت <strong>"Hello from my local server!"</strong> — فكل شيء يعمل بنجاح! 🎉</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- أوضاع الربط -->
+                <div class="card">
+                    <div class="card-title">🎛️ أوضاع الربط</div>
+                    <div class="card-subtitle">اختر الطريقة الأنسب لجهازك</div>
+
+                    <div class="mode-grid">
+                        <div class="mode-card">
+                            <div class="mode-icon">💻</div>
+                            <div class="mode-title">من كمبيوتر (Windows/Mac/Linux)</div>
+                            <div class="mode-desc">
+                                شغّل <span class="inline-code">api_server.py --client</span> في Terminal عادي.
+                                الأسرع والأبسط.
+                            </div>
+                        </div>
+                        <div class="mode-card">
+                            <div class="mode-icon">📱</div>
+                            <div class="mode-title">من هاتف أندرويد (Pydroid 3)</div>
+                            <div class="mode-desc">
+                                استخدم عميل ZONE TUNNEL بشكل مستقل + سيرفر محلي على منفذ مختلف.
+                                لا تحتاج root.
+                            </div>
+                        </div>
+                        <div class="mode-card">
+                            <div class="mode-icon">🐧</div>
+                            <div class="mode-title">من Linux / VPS</div>
+                            <div class="mode-desc">
+                                نفس الأمر، لكن مع <span class="inline-code">pip3</span> و
+                                <span class="inline-code">python3</span>.
+                            </div>
+                        </div>
+                        <div class="mode-card">
+                            <div class="mode-icon">🐳</div>
+                            <div class="mode-title">من Docker</div>
+                            <div class="mode-desc">
+                                شغّل الـ client داخل حاوية مع ربط منفذ السكربت المحلي.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div class="card">
+                    <div class="card-title">❓ أسئلة شائعة</div>
+                    <div class="card-subtitle">حلول لأكثر المشاكل تكراراً</div>
+
+                    <details class="faq-item">
+                        <summary>عميل zone يطبع "النفق مشغول" — ماذا أفعل؟</summary>
+                        <div class="faq-answer">
+                            يعني عميل آخر متصل بنفس النفق في مكان آخر. افتح <strong>الأنفاق النشطة</strong>،
+                            أنشئ نفقاً جديداً، واستخدم أمره. أو أوقف العميل القديم أولاً.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>"tunnel not found" عند فتح الرابط — لماذا؟</summary>
+                        <div class="faq-answer">
+                            الـ slug في الرابط غير موجود في قاعدة البيانات. تأكد من نسخ الرابط الكامل من صفحة
+                            <strong>الأنفاق النشطة</strong> بدقة.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>"tunnel offline" عند فتح الرابط — لماذا؟</summary>
+                        <div class="faq-answer">
+                            العميل (<span class="inline-code">zone_client</span>) غير شغال على جهازك.
+                            شغّله في Terminal واتركه مفتوحاً. سيصبح النفق online خلال ثوانٍ.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>ngrok يعرض صفحة تحذير (ERR_NGROK_6024) — هل هذا خطأ؟</summary>
+                        <div class="faq-answer">
+                            لا، هذه مجرد صفحة تحذير لمرة واحدة. اضغط زر <strong>"Visit Site"</strong> وستنتقل
+                            لصفحتك. العميل يضيف الهيدر تلقائياً، فلا تظهر له هذه الصفحة.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>"Connection refused" من العميل — لماذا؟</summary>
+                        <div class="faq-answer">
+                            يعني سكربتك المحلي غير شغال على المنفذ الذي أدخلته. تأكد أن
+                            <span class="inline-code">python my_server.py</span> شغال في Terminal آخر، وأنه يستمع على نفس المنفذ.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>كيف أعرف أن النفق يعمل بشكل صحيح؟</summary>
+                        <div class="faq-answer">
+                            من صفحة <strong>الأنفاق النشطة</strong>: النقطة الخضراء بجانب النفق = online.
+                            من Terminal العميل: اطبع <span class="inline-code">✅ النفق فاضي — جاهز</span>.
+                            من المتصفح: افتح الرابط وترى رد سكربتك المحلي.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>هل يعمل على شبكات الشركات؟</summary>
+                        <div class="faq-answer">
+                            نعم، طالما تسمح بالخروج على HTTPS (443). كل الاتصالات عادية POST/GET على 443.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>هل يمكن تشغيل أكثر من عميل لنفس النفق؟</summary>
+                        <div class="faq-answer">
+                            لا. نفق واحد = عميل واحد. إذا احتجت عدة أجهزة، أنشئ نفذاً لكل جهاز.
+                        </div>
+                    </details>
+                </div>
+
+                <!-- أمان -->
+                <div class="card">
+                    <div class="card-title">🔐 ملاحظات أمان مهمة</div>
+                    <div class="card-subtitle">اقرأها قبل النشر العام</div>
+                    <div class="settings-section" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
+                        <ul style="padding-right:24px;line-height:2.2;color:var(--txt2);font-size:14px">
+                            <li>🔒 <strong>لا تشارك</strong> التوكن (<span class="inline-code">tun_...</span>) مع أي شخص — من يملكه يسيطر على نفقك.</li>
+                            <li>🌐 الرابط العام <span class="inline-code">/t/{slug}/</span> مفتوح لأي شخص يعرفه. لا تضع فيه بيانات حساسة بدون حماية في سكربتك.</li>
+                            <li>🛡️ أضف authentication في سكربتك المحلي إذا كان النفق عاماً (header, token, IP whitelist).</li>
+                            <li>⚙️ لإيقاف نفق فوراً: أوقف العميل (<span class="inline-code">Ctrl+C</span>) أو احذف النفق من لوحة التحكم.</li>
+                            <li>🔁 إذا سربت التوكن، احذف النفق وأنشئ واحداً جديداً — التوكنات لا تُغيَّر.</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Tab: Settings -->
@@ -849,7 +1197,7 @@ fetch(API_URL + "/api/user/me", {
     </div>
 </div>
 
-<!-- ═══════════ 404 Not Found ═══════════ -->
+<!-- ═══════════ 404 ═══════════ -->
 <div class="page" id="page-notfound">
     <div class="notfound-wrapper">
         <div class="notfound-card">
@@ -888,11 +1236,7 @@ fetch(API_URL + "/api/user/me", {
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════════
-   🛡️  حماية DevTools (مع السماح بالنسخ)
-   ═══════════════════════════════════════════════════════ */
 (function() {
-    // ✅ نسمح بالزر الأيمن على العناصر القابلة للنسخ فقط
     document.addEventListener('contextmenu', e => {
         if (e.target.closest('input, textarea, .code-block, .key-value, .modal-input, .copyable')) return;
         e.preventDefault();
@@ -901,25 +1245,17 @@ fetch(API_URL + "/api/user/me", {
         if (e.key === 'F12') { e.preventDefault(); return false; }
         if (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) { e.preventDefault(); return false; }
         if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) { e.preventDefault(); return false; }
-        // Ctrl+C و Ctrl+A مسموحان — النسخ يعمل عادي
     });
 })();
 
-/* ═══════════════════════════════════════════════════════
-   ⚙️ الإعدادات
-   ═══════════════════════════════════════════════════════ */
 const API = "https://pedigree-hankering-unmixable.ngrok-free.dev";
 
 let currentUser = null;
 let signupData = { firstName: '', lastName: '', email: '' };
 let resetData = { email: '', code: '' };
 
-// املأ عنوان السيرفر في واجهة الدليل
 document.getElementById('api-url-display').textContent = API;
 
-/* ═══════════════════════════════════════════════════════
-   🔧 دالة fetch موحّدة
-   ═══════════════════════════════════════════════════════ */
 async function api(endpoint, options = {}) {
     const token = localStorage.getItem('zt_session');
     let bodyData = {};
@@ -963,9 +1299,6 @@ async function api(endpoint, options = {}) {
     return data;
 }
 
-/* ═══════════════════════════════════════════════════════
-   🧭 Router — Hash-based Routing
-   ═══════════════════════════════════════════════════════ */
 const ROUTES = {
     '/':              { page: 'landing' },
     '/login':         { page: 'login', auth: false },
@@ -978,6 +1311,7 @@ const ROUTES = {
     '/dashboard':     { page: 'dashboard', auth: true, tab: 'home' },
     '/keys':          { page: 'dashboard', auth: true, tab: 'keys' },
     '/tunnels':       { page: 'dashboard', auth: true, tab: 'tunnels' },
+    '/connect':       { page: 'dashboard', auth: true, tab: 'connect' },
     '/settings':      { page: 'dashboard', auth: true, tab: 'settings' },
     '/support':       { page: 'dashboard', auth: true, tab: 'support' },
     '/terms':         { page: 'dashboard', auth: true, tab: 'terms' },
@@ -986,7 +1320,8 @@ const ROUTES = {
 const TAB_TITLES = {
     home: ['البداية', 'مرحباً بك في ZONE TUNNEL'],
     keys: ['مفاتيح API', 'إدارة مفاتيح الوصول الخاصة بك'],
-    tunnels: ['الأنفاق النشطة', 'جميع الأنفاق التي تعمل حالياً'],
+    tunnels: ['الأنفاق النشطة', 'أنشئ وأدِر أنفاقك'],
+    connect: ['اربط سكربتك', 'دليل كامل لربط سكربتك بنفق موجود'],
     settings: ['إعدادات الحساب', 'إدارة حسابك وكلمة المرور'],
     support: ['الدعم الفني', 'نحن هنا لمساعدتك'],
     terms: ['الشروط والأحكام', 'يرجى قراءة الشروط بعناية']
@@ -1000,11 +1335,8 @@ function getRoute() {
 
 function navigate(path) {
     const h = path.startsWith('/') ? path : '/' + path;
-    if (location.hash === '#' + h) {
-        handleRoute();
-    } else {
-        location.hash = h;
-    }
+    if (location.hash === '#' + h) handleRoute();
+    else location.hash = h;
 }
 
 function showPage(name) {
@@ -1013,6 +1345,8 @@ function showPage(name) {
     if (el) el.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+let tunnelsPollTimer = null;
 
 function switchTab(tab) {
     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
@@ -1024,8 +1358,13 @@ function switchTab(tab) {
     document.getElementById('page-title').textContent = titles[0];
     document.getElementById('page-subtitle').textContent = titles[1];
 
+    if (tunnelsPollTimer && tab !== 'tunnels') {
+        clearInterval(tunnelsPollTimer);
+        tunnelsPollTimer = null;
+    }
+
     if (tab === 'keys') loadKeys();
-    if (tab === 'tunnels') loadTunnels();
+    if (tab === 'tunnels') { loadTunnels(); startTunnelsPolling(); }
     if (tab === 'home') loadStats();
     if (window.innerWidth <= 900) toggleSidebar(false);
 }
@@ -1034,29 +1373,19 @@ function handleRoute() {
     const path = getRoute();
     const route = ROUTES[path];
 
-    // 404 — route غير معروف
     if (!route) {
         document.getElementById('nf-path').textContent = path;
         showPage('notfound');
         return;
     }
-
-    // إذا محمي والمستخدم غير مسجل → تسجيل الدخول
     if (route.auth && !currentUser) {
         showToast('⚠️ يجب تسجيل الدخول أولاً', 'error');
-        if (path !== '/login') {
-            location.hash = '/login';
-            return;
-        }
+        if (path !== '/login') { location.hash = '/login'; return; }
     }
-
-    // إذا مسجل ويحاول دخول صفحات auth → dashboard
     if (currentUser && (path === '/login' || path === '/signup')) {
         location.hash = '/dashboard';
         return;
     }
-
-    // اعرض الصفحة
     if (route.tab) {
         updateUserUI();
         showPage('dashboard');
@@ -1068,18 +1397,12 @@ function handleRoute() {
 
 window.addEventListener('hashchange', handleRoute);
 
-/* ═══════════════════════════════════════════════════════
-   🪟 نظام Modal
-   ═══════════════════════════════════════════════════════ */
-let modalResolve = null;
-
 function openModal({ title, icon, bodyHTML, buttons }) {
     document.getElementById('modal-title').innerHTML =
         (icon ? '<span style="font-size:24px">' + icon + '</span> ' : '') + escapeHtml(title);
     document.getElementById('modal-body').innerHTML = bodyHTML || '';
     const footer = document.getElementById('modal-footer');
     footer.innerHTML = '';
-
     (buttons || []).forEach(btn => {
         const b = document.createElement('button');
         b.className = 'btn ' + (btn.className || 'btn-primary');
@@ -1091,7 +1414,6 @@ function openModal({ title, icon, bodyHTML, buttons }) {
         };
         footer.appendChild(b);
     });
-
     document.getElementById('modal-overlay').classList.add('show');
     setTimeout(() => {
         const inp = document.querySelector('#modal-body input, #modal-body textarea');
@@ -1101,21 +1423,15 @@ function openModal({ title, icon, bodyHTML, buttons }) {
 
 function closeModal() {
     document.getElementById('modal-overlay').classList.remove('show');
-    if (modalResolve) { modalResolve(null); modalResolve = null; }
 }
 
-// إغلاق عند الضغط خارج المودال
 document.getElementById('modal-overlay').addEventListener('click', e => {
     if (e.target.id === 'modal-overlay') closeModal();
 });
-// ESC يغلق المودال
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && document.getElementById('modal-overlay').classList.contains('show')) {
-        closeModal();
-    }
+    if (e.key === 'Escape' && document.getElementById('modal-overlay').classList.contains('show')) closeModal();
 });
 
-/* ─── Modal: مخصص لإنشاء مفتاح API ─── */
 function openCreateKeyModal() {
     openModal({
         title: 'إنشاء مفتاح API جديد',
@@ -1125,7 +1441,7 @@ function openCreateKeyModal() {
             '<div class="modal-input-wrap">' +
                 '<input type="text" class="modal-input" id="modal-key-name" placeholder="مثال: My Bot Key" maxlength="60">' +
             '</div>' +
-            '<div class="modal-hint">💡 يُنصح باسم يعبر عن الاستخدام (بوت تيليجرام، سكربت الموقع، …)</div>',
+            '<div class="modal-hint">💡 يُنصح باسم يعبر عن الاستخدام</div>',
         buttons: [
             { label: 'إلغاء', className: 'btn-ghost' },
             { label: '➕ إنشاء المفتاح', className: 'btn-primary', onClick: confirmCreateKey }
@@ -1134,17 +1450,13 @@ function openCreateKeyModal() {
 }
 
 async function confirmCreateKey() {
-    const input = document.getElementById('modal-key-name');
-    const name = (input?.value || '').trim();
-    if (name.length < 2) {
-        return showToast('❌ الاسم قصير جداً (حرفان على الأقل)', 'error');
-    }
-
+    const name = (document.getElementById('modal-key-name')?.value || '').trim();
+    if (name.length < 2) return showToast('❌ الاسم قصير جداً', 'error');
     setLoading(true, 'جاري إنشاء المفتاح...');
     try {
         const data = await api('/api/keys', { body: JSON.stringify({ name }) });
         setLoading(false);
-        showToast('✅ تم إنشاء المفتاح بنجاح');
+        showToast('✅ تم إنشاء المفتاح');
         keyCache[data.key.id] = data.key.key_value;
         await loadKeys();
     } catch (e) {
@@ -1153,7 +1465,6 @@ async function confirmCreateKey() {
     }
 }
 
-/* ─── Modal: تأكيد الحذف (عام) ─── */
 function openConfirmModal({ title, icon, message, confirmLabel, confirmClass, onConfirm }) {
     openModal({
         title, icon,
@@ -1165,14 +1476,12 @@ function openConfirmModal({ title, icon, message, confirmLabel, confirmClass, on
     });
 }
 
-/* ─── Modal: حذف مفتاح ─── */
 function openDeleteKeyModal(keyId, keyName) {
     openConfirmModal({
         title: 'حذف المفتاح؟',
         icon: '🗑️',
-        message: 'هل أنت متأكد من حذف المفتاح <strong style="color:var(--purpleL)">' + escapeHtml(keyName) + '</strong>؟<br><br><span style="color:var(--red);font-size:13px">لا يمكن التراجع عن هذا الإجراء.</span>',
+        message: 'هل أنت متأكد من حذف المفتاح <strong style="color:var(--purpleL)">' + escapeHtml(keyName) + '</strong>؟<br><br><span style="color:var(--red);font-size:13px">لا يمكن التراجع.</span>',
         confirmLabel: '🗑️ نعم، احذف',
-        confirmClass: 'btn-danger',
         onConfirm: () => confirmDeleteKey(keyId)
     });
 }
@@ -1192,7 +1501,6 @@ async function confirmDeleteKey(keyId) {
     }
 }
 
-/* ─── Modal: إعادة إنشاء المفتاح ─── */
 function openRegenerateKeyModal(keyId, keyName) {
     openModal({
         title: 'إعادة إنشاء المفتاح',
@@ -1200,13 +1508,12 @@ function openRegenerateKeyModal(keyId, keyName) {
         bodyHTML:
             '<div class="alert alert-warning" style="margin-bottom:16px">' +
                 '<span class="alert-icon">⚠️</span>' +
-                '<div>سيتم <strong>حذف المفتاح الحالي</strong> وإنشاء مفتاح جديد بالاسم الذي تختاره.<br>أي سكربت يستخدم المفتاح القديم سيتوقف عن العمل فوراً.</div>' +
+                '<div>سيتم <strong>حذف المفتاح الحالي</strong> وإنشاء جديد.<br>أي سكربت يستخدم القديم سيتوقف.</div>' +
             '</div>' +
-            '<p style="margin-bottom:10px">أدخل اسم المفتاح الجديد:</p>' +
+            '<p style="margin-bottom:10px">اسم المفتاح الجديد:</p>' +
             '<div class="modal-input-wrap">' +
-                '<input type="text" class="modal-input" id="modal-regen-name" value="' + escapeHtml(keyName) + '" maxlength="60" placeholder="مثال: My Bot Key">' +
-            '</div>' +
-            '<div class="modal-hint">💡 يمكنك الإبقاء على نفس الاسم أو تغييره.</div>',
+                '<input type="text" class="modal-input" id="modal-regen-name" value="' + escapeHtml(keyName) + '" maxlength="60">' +
+            '</div>',
         buttons: [
             { label: 'إلغاء', className: 'btn-ghost' },
             { label: '🔄 إعادة الإنشاء', className: 'btn-primary', onClick: () => confirmRegenerateKey(keyId) }
@@ -1216,113 +1523,227 @@ function openRegenerateKeyModal(keyId, keyName) {
 
 async function confirmRegenerateKey(keyId) {
     const name = (document.getElementById('modal-regen-name')?.value || '').trim();
-    if (name.length < 2) {
-        return showToast('❌ الاسم قصير جداً (حرفان على الأقل)', 'error');
-    }
-
-    setLoading(true, 'جاري إعادة إنشاء المفتاح...');
+    if (name.length < 2) return showToast('❌ الاسم قصير جداً', 'error');
+    setLoading(true, 'جاري إعادة الإنشاء...');
     try {
-        // حذف القديم ثم إنشاء جديد بنفس الاسم/الاسم الجديد
         await api('/api/keys/delete', { body: JSON.stringify({ id: keyId }) });
         delete keyCache[keyId];
-
         const data = await api('/api/keys', { body: JSON.stringify({ name }) });
         setLoading(false);
-        showToast('✅ تم إعادة إنشاء المفتاح');
-
-        if (data && data.key && data.key.key_value) {
+        showToast('✅ تم إعادة الإنشاء');
+        if (data?.key?.key_value) {
             keyCache[data.key.id] = data.key.key_value;
+            openShowKeyModal(data.key.key_value, data.key.name || name);
         }
         await loadKeys();
         loadStats();
-
-        // إظهار المفتاح الجديد للمستخدم فوراً
-        if (data && data.key && data.key.key_value) {
-            openShowKeyModal(data.key.key_value, data.key.name || name);
-        }
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
     }
 }
 
-/* ─── Modal: حذف الحساب (متعدد الخطوات) ─── */
-function openDeleteAccountModal() {
-    openModal({
-        title: 'حذف الحساب نهائياً',
-        icon: '⚠️',
-        bodyHTML:
-            '<div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:14px;margin-bottom:16px">' +
-                '<p style="color:var(--red);font-weight:700;margin-bottom:6px">⚠️ تحذير نهائي</p>' +
-                '<p style="font-size:13px;line-height:1.7">سيتم حذف حسابك مع كل المفاتيح والأنفاق والبيانات. لا يمكن التراجع.</p>' +
-            '</div>' +
-            '<p style="margin-bottom:10px">أدخل كلمة المرور للتأكيد:</p>' +
-            '<div class="modal-input-wrap">' +
-                '<input type="password" class="modal-input ltr" id="modal-delete-password" placeholder="••••••••">' +
-            '</div>' +
-            '<p style="margin-top:14px;margin-bottom:10px">اكتب <span class="inline-code" style="color:var(--red)">DELETE</span> للتأكيد النهائي:</p>' +
-            '<div class="modal-input-wrap">' +
-                '<input type="text" class="modal-input ltr" id="modal-delete-confirm" placeholder="DELETE">' +
-            '</div>',
-        buttons: [
-            { label: 'إلغاء', className: 'btn-ghost' },
-            { label: '🗑️ حذف نهائي', className: 'btn-danger', onClick: confirmDeleteAccount }
-        ]
-    });
-}
-
-async function confirmDeleteAccount() {
-    const password = document.getElementById('modal-delete-password')?.value || '';
-    const confirm = document.getElementById('modal-delete-confirm')?.value || '';
-
-    if (!password) return showToast('❌ أدخل كلمة المرور', 'error');
-    if (confirm !== 'DELETE') return showToast('❌ اكتب DELETE بالضبط', 'error');
-
-    setLoading(true, 'جاري حذف الحساب...');
-    try {
-        await api('/api/user/delete', { body: JSON.stringify({ password, confirm: 'DELETE' }) });
-        localStorage.removeItem('zt_session');
-        localStorage.removeItem('zt_user');
-        currentUser = null;
-        setLoading(false);
-        showToast('🗑️ تم حذف حسابك');
-        setTimeout(() => navigate('/'), 800);
-    } catch (e) {
-        setLoading(false);
-        showToast('❌ ' + e.message, 'error');
-    }
-}
-
-/* ─── Modal: عرض مفتاح جديد ─── */
 function openShowKeyModal(keyValue, keyName) {
     openModal({
         title: 'تم إنشاء المفتاح!',
         icon: '✅',
         bodyHTML:
-            '<p style="margin-bottom:14px">احفظ هذا المفتاح في مكان آمن. لن تستطيع رؤيته بهذا الشكل مرة أخرى.</p>' +
+            '<p style="margin-bottom:14px">احفظ هذا المفتاح في مكان آمن. لن تستطيع رؤيته مرة أخرى.</p>' +
             '<div class="modal-input-wrap" style="background:rgba(6,182,212,.08);border-color:rgba(6,182,212,.3)">' +
                 '<input type="text" class="modal-input ltr" id="modal-new-key" value="' + escapeHtml(keyValue) + '" readonly>' +
-            '</div>' +
-            '<div class="modal-hint">💡 اضغط نسخ أو انسخ يدوياً الآن.</div>',
+            '</div>',
         buttons: [
-            { label: '📋 نسخ', className: 'btn-ghost', close: false, onClick: () => {
-                copyText(keyValue, '📋 تم نسخ المفتاح');
-            }},
+            { label: '📋 نسخ', className: 'btn-ghost', close: false, onClick: () => copyText(keyValue, '📋 تم نسخ المفتاح') },
             { label: 'تم، فهمت', className: 'btn-primary' }
         ]
     });
 }
 
-/* ═══════════════════════════════════════════════════════
-   🔐 تسجيل الدخول
-   ═══════════════════════════════════════════════════════ */
+const tunnelCache = {};
+
+function openCreateTunnelModal() {
+    openModal({
+        title: 'إنشاء نفق جديد',
+        icon: '🌐',
+        bodyHTML:
+            '<p style="margin-bottom:14px">اختر اسماً للنفق والمنفذ المحلي الذي يعمل عليه سكربتك:</p>' +
+            '<div class="modal-input-wrap">' +
+                '<input type="text" class="modal-input" id="modal-tunnel-name" placeholder="مثال: بوت تيليجرام" maxlength="60">' +
+            '</div>' +
+            '<div class="modal-input-wrap" style="margin-top:10px">' +
+                '<input type="number" class="modal-input ltr" id="modal-tunnel-port" placeholder="5000" value="5000" min="1" max="65535">' +
+            '</div>' +
+            '<div class="modal-hint">💡 المنفذ هو الذي يشغّل عليه سكربتك المحلي (Flask/FastAPI/Express...)</div>',
+        buttons: [
+            { label: 'إلغاء', className: 'btn-ghost' },
+            { label: '➕ إنشاء النفق', className: 'btn-primary', onClick: confirmCreateTunnel }
+        ]
+    });
+}
+
+async function confirmCreateTunnel() {
+    const name = (document.getElementById('modal-tunnel-name')?.value || '').trim();
+    const port = parseInt(document.getElementById('modal-tunnel-port')?.value || '0', 10);
+
+    if (name.length < 2) return showToast('❌ الاسم قصير جداً', 'error');
+    if (!port || port < 1 || port > 65535) return showToast('❌ منفذ غير صالح', 'error');
+
+    setLoading(true, 'جاري إنشاء النفق...');
+    try {
+        const data = await api('/api/tunnels/create', {
+            body: JSON.stringify({ name, local_port: port })
+        });
+        setLoading(false);
+        showToast('🌐 تم إنشاء النفق');
+        await loadTunnels();
+        if (data.tunnel) {
+            openShowTunnelModal(data.tunnel, data.instructions);
+        }
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+function openShowTunnelModal(tunnel, instructions) {
+    const cmd = instructions?.step2 || `python api_server.py --client ${API} ${tunnel.id} ${tunnel.token} ${tunnel.local_port || 5000}`;
+    openModal({
+        title: 'النفق جاهز!',
+        icon: '🌐',
+        bodyHTML:
+            '<p style="margin-bottom:14px">انسخ هذا الأمر وشغّله على جهازك:</p>' +
+            '<div class="modal-input-wrap" style="background:rgba(6,182,212,.08);border-color:rgba(6,182,212,.3);direction:ltr;text-align:left">' +
+                '<input type="text" class="modal-input ltr" id="modal-tunnel-cmd" value="' + escapeHtml(cmd) + '" readonly>' +
+            '</div>' +
+            '<div class="modal-hint">💡 شغّل سكربتك المحلي على المنفذ <strong style="color:var(--cyanL)">' + (tunnel.local_port || 5000) + '</strong> قبل هذا الأمر.</div>' +
+            '<div class="modal-hint" style="margin-top:6px">🔗 الرابط العام: <span style="direction:ltr;display:inline-block;color:var(--cyanL)">' + escapeHtml(tunnel.public_url) + '</span></div>' +
+            '<div class="modal-hint" style="margin-top:14px">📘 للمزيد: افتح <strong>اربط سكربتك</strong> من القائمة الجانبية.</div>',
+        buttons: [
+            { label: '📋 نسخ الأمر', className: 'btn-ghost', close: false, onClick: () => copyText(cmd, '📋 تم نسخ الأمر') },
+            { label: 'تم', className: 'btn-primary' }
+        ]
+    });
+}
+
+async function loadTunnels() {
+    const list = document.getElementById('tunnels-list');
+    if (!list) return;
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--txt2)">⏳ جاري التحميل...</div>';
+
+    try {
+        const data = await api('/api/tunnels/list');
+        if (!data.tunnels.length) {
+            list.innerHTML = '<div class="empty-state">' +
+                '<div class="icon">🌐</div>' +
+                '<h3>لا توجد أنفاق بعد</h3>' +
+                '<p>أنشئ نفقك الأول وابدأ بربط سكربتك بالإنترنت</p>' +
+                '<button class="btn btn-primary" onclick="openCreateTunnelModal()">➕ إنشاء نفق جديد</button>' +
+                '</div>';
+            return;
+        }
+        list.innerHTML = data.tunnels.map(t => renderTunnelItem(t)).join('');
+        data.tunnels.forEach(t => { tunnelCache[t.id] = t; });
+    } catch (e) {
+        list.innerHTML = '<div class="empty-state">' +
+            '<div class="icon">❌</div>' +
+            '<h3>خطأ</h3>' +
+            '<p>' + escapeHtml(e.message) + '</p>' +
+            '<button class="btn btn-primary" onclick="loadTunnels()">🔄 إعادة المحاولة</button>' +
+            '</div>';
+    }
+}
+
+function renderTunnelItem(t) {
+    const isOnline = t.is_online === 1;
+    const dotClass = isOnline ? 'online' : 'offline';
+    const badgeClass = isOnline ? 'online' : 'offline';
+    const badgeText = isOnline ? '● متصل' : '○ غير متصل';
+    const cmd = `python api_server.py --client ${API} ${t.id} ${t.tunnel_token || tunnelCache[t.id]?.tunnel_token || 'tun_xxx'} ${t.local_port || 5000}`;
+    const connected = t.connected_at ? new Date(t.connected_at).toLocaleString('ar-EG') : '—';
+    const sinceSeen = t.seconds_since_seen != null ? t.seconds_since_seen + ' ث' : '—';
+
+    return '<div class="tunnel-item" data-tunnel-id="' + t.id + '">' +
+        '<div class="tunnel-header">' +
+            '<div class="tunnel-name"><span class="tunnel-dot ' + dotClass + '"></span> ' + escapeHtml(t.name || 'نفق بدون اسم') + ' <span style="color:var(--txt3);font-family:JetBrains Mono;font-size:12px">#' + t.id + '</span></div>' +
+            '<div class="tunnel-status-badge ' + badgeClass + '">' + badgeText + '</div>' +
+        '</div>' +
+        '<div class="tunnel-url-wrapper">' +
+            '<div class="tunnel-url">' + escapeHtml(t.url || t.public_url || '') + '</div>' +
+            '<div class="key-actions">' +
+                '<button class="icon-btn" title="نسخ الرابط" onclick="copyText(\'' + escapeHtml(t.url || t.public_url || '') + '\', \'📋 تم نسخ الرابط\')">📋</button>' +
+                '<button class="icon-btn" title="فتح في نافذة جديدة" onclick="window.open(\'' + escapeHtml(t.url || t.public_url || '') + '\',\'_blank\')">🔗</button>' +
+                '<button class="icon-btn" title="حذف النفق" onclick="openDeleteTunnelModal(' + t.id + ', \'' + escapeHtml(t.name).replace(/'/g,"\\'") + '\')">🗑️</button>' +
+            '</div>' +
+        '</div>' +
+        '<div class="tunnel-meta">' +
+            '<span>🔌 المنفذ: <span class="val">' + (t.local_port || '—') + '</span></span>' +
+            '<span>📊 الطلبات: <span class="val">' + (t.requests || 0) + '</span></span>' +
+            '<span>📥 IN: <span class="val">' + formatBytes(t.bytes_in || 0) + '</span></span>' +
+            '<span>📤 OUT: <span class="val">' + formatBytes(t.bytes_out || 0) + '</span></span>' +
+            (isOnline
+                ? '<span>⏱️ آخر نبضة: <span class="val">' + sinceSeen + '</span></span>'
+                : '<span>⏱️ آخر اتصال: <span class="val">' + connected + '</span></span>') +
+        '</div>' +
+        '<details style="margin-top:10px">' +
+            '<summary style="cursor:pointer;color:var(--purpleL);font-size:13px;font-weight:600;user-select:none">▶ عرض أمر التشغيل</summary>' +
+            '<div class="tunnel-cmd-wrap">' +
+                '<pre class="tunnel-cmd">' + escapeHtml(cmd) + '</pre>' +
+                '<button class="tunnel-cmd-copy" onclick="copyText(\'' + escapeHtml(cmd).replace(/'/g,"\\'") + '\', \'📋 تم نسخ الأمر\')">📋 نسخ</button>' +
+            '</div>' +
+        '</details>' +
+    '</div>';
+}
+
+function formatBytes(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1024*1024) return (b/1024).toFixed(1) + ' KB';
+    if (b < 1024*1024*1024) return (b/1024/1024).toFixed(2) + ' MB';
+    return (b/1024/1024/1024).toFixed(2) + ' GB';
+}
+
+function openDeleteTunnelModal(tid, name) {
+    openConfirmModal({
+        title: 'حذف النفق؟',
+        icon: '🗑️',
+        message: 'هل أنت متأكد من حذف النفق <strong style="color:var(--purpleL)">' + escapeHtml(name) + '</strong>؟<br><br><span style="color:var(--red);font-size:13px">سيتوقف الرابط العام فوراً.</span>',
+        confirmLabel: '🗑️ نعم، احذف',
+        onConfirm: () => confirmDeleteTunnel(tid)
+    });
+}
+
+async function confirmDeleteTunnel(tid) {
+    setLoading(true, 'جاري الحذف...');
+    try {
+        await api('/api/tunnels/delete', { body: JSON.stringify({ id: tid }) });
+        setLoading(false);
+        showToast('🗑️ تم حذف النفق');
+        delete tunnelCache[tid];
+        await loadTunnels();
+        loadStats();
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+function startTunnelsPolling() {
+    if (tunnelsPollTimer) return;
+    tunnelsPollTimer = setInterval(() => {
+        if (document.getElementById('tab-tunnels')?.classList.contains('active')) {
+            loadTunnels();
+        } else {
+            clearInterval(tunnelsPollTimer);
+            tunnelsPollTimer = null;
+        }
+    }, 8000);
+}
+
 async function handleLogin(event) {
     event.preventDefault();
     const email = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
     const btn = document.getElementById('login-btn');
     btn.disabled = true;
-
     setLoading(true, 'جاري تسجيل الدخول...');
     try {
         const data = await api('/api/auth/login', { body: JSON.stringify({ email, password }) });
@@ -1339,27 +1760,19 @@ async function handleLogin(event) {
     }
 }
 
-/* ═══════════════════════════════════════════════════════
-   🔑 نسيت كلمة المرور — إرسال كود
-   ═══════════════════════════════════════════════════════ */
 async function handleForgotPassword(event) {
     event.preventDefault();
     const email = document.getElementById('forgot-email').value.trim();
     const btn = document.getElementById('forgot-btn');
     btn.disabled = true;
-
-    setLoading(true, 'جاري إرسال كود الاستعادة...');
+    setLoading(true, 'جاري إرسال الكود...');
     try {
         await api('/api/auth/forgot-password', { body: JSON.stringify({ email }) });
-        resetData.email = email;
-        resetData.code = '';
+        resetData.email = email; resetData.code = '';
         document.getElementById('reset-email-display').textContent = email;
-        document.querySelectorAll('#reset-code-inputs .code-input').forEach(i => {
-            i.value = '';
-            i.classList.remove('filled');
-        });
+        document.querySelectorAll('#reset-code-inputs .code-input').forEach(i => { i.value = ''; i.classList.remove('filled'); });
         setLoading(false);
-        showToast('📧 تم إرسال كود الاستعادة');
+        showToast('📧 تم إرسال الكود');
         navigate('/reset');
         startResetTimer();
         setTimeout(() => document.querySelector('#reset-code-inputs .code-input')?.focus(), 250);
@@ -1370,64 +1783,36 @@ async function handleForgotPassword(event) {
     }
 }
 
-/* ═══════════════════════════════════════════════════════
-   🔑 Reset — الخطوة 2: استلام الكود والانتقال للباسورد
-   ═══════════════════════════════════════════════════════ */
 function handleResetCodeNext() {
     const inputs = document.querySelectorAll('#reset-code-inputs .code-input');
     const code = Array.from(inputs).map(i => i.value).join('');
-
-    if (code.length !== 6) {
-        return showToast('❌ أدخل الكود كاملاً (6 أرقام)', 'error');
-    }
-
+    if (code.length !== 6) return showToast('❌ أدخل الكود كاملاً', 'error');
     resetData.code = code;
     document.getElementById('reset-password1').value = '';
     document.getElementById('reset-password2').value = '';
     document.getElementById('reset-strength-label').textContent = '—';
     document.getElementById('reset-strength-label').className = 'value';
-    [1,2,3,4].forEach(i => {
-        document.getElementById('rbar-' + i).classList.remove('active', 'weak', 'medium', 'strong');
-    });
+    [1,2,3,4].forEach(i => document.getElementById('rbar-' + i).classList.remove('active','weak','medium','strong'));
     document.getElementById('reset-btn').disabled = true;
     navigate('/reset-password');
     setTimeout(() => document.getElementById('reset-password1')?.focus(), 250);
 }
 
-/* ═══════════════════════════════════════════════════════
-   🔑 Reset — الخطوة 3: إرسال الكود + الباسورد معاً
-   ═══════════════════════════════════════════════════════ */
 async function handleResetPassword(event) {
     event.preventDefault();
     const new_password = document.getElementById('reset-password1').value;
     const confirm = document.getElementById('reset-password2').value;
-
-    if (new_password !== confirm) {
-        return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
-    }
-    if (new_password.length < 8) {
-        return showToast('❌ كلمة المرور قصيرة (8 أحرف على الأقل)', 'error');
-    }
-    if (!resetData.code || !resetData.email) {
-        showToast('❌ انتهت الجلسة، أعد المحاولة', 'error');
-        navigate('/forgot');
-        return;
-    }
-
+    if (new_password !== confirm) return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
+    if (new_password.length < 8) return showToast('❌ كلمة المرور قصيرة', 'error');
+    if (!resetData.code || !resetData.email) { showToast('❌ انتهت الجلسة', 'error'); navigate('/forgot'); return; }
     const btn = document.getElementById('reset-btn');
     btn.disabled = true;
-    setLoading(true, 'جاري تغيير كلمة المرور...');
-
+    setLoading(true, 'جاري التغيير...');
     try {
         await api('/api/auth/reset-password', {
-            body: JSON.stringify({
-                email: resetData.email,
-                code: resetData.code,
-                new_password: new_password
-            })
+            body: JSON.stringify({ email: resetData.email, code: resetData.code, new_password })
         });
-        resetData.email = '';
-        resetData.code = '';
+        resetData.email = ''; resetData.code = '';
         setLoading(false);
         navigate('/reset-success');
     } catch (e) {
@@ -1441,11 +1826,10 @@ async function handleForgotResend() {
     try {
         await api('/api/auth/forgot-password', { body: JSON.stringify({ email: resetData.email }) });
         showToast('📧 تم إرسال كود جديد');
+        startResetTimer();
     } catch (e) {
         showToast('❌ ' + e.message, 'error');
-        return;
     }
-    startResetTimer();
 }
 
 let resetTimerInterval = null;
@@ -1467,29 +1851,21 @@ function startResetTimer() {
     }, 1000);
 }
 
-/* ═══════════════════════════════════════════════════════
-   ✨ تسجيل — إرسال الكود
-   ═══════════════════════════════════════════════════════ */
 async function handleSignupStep1(event) {
     event.preventDefault();
     signupData.firstName = document.getElementById('signup-firstname').value.trim();
     signupData.lastName = document.getElementById('signup-lastname').value.trim();
     signupData.email = document.getElementById('signup-email').value.trim();
-
-    if (signupData.firstName.length < 2) return showToast('❌ الاسم قصير جداً', 'error');
+    if (signupData.firstName.length < 2) return showToast('❌ الاسم قصير', 'error');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signupData.email)) return showToast('❌ الإيميل غير صالح', 'error');
-
     document.getElementById('verify-email-display').textContent = signupData.email;
     const btn = document.getElementById('signup-btn1');
     btn.disabled = true;
-
     setLoading(true, 'جاري إرسال الكود...');
     try {
-        await api('/api/auth/send-code', {
-            body: JSON.stringify({ email: signupData.email, purpose: 'signup' })
-        });
+        await api('/api/auth/send-code', { body: JSON.stringify({ email: signupData.email, purpose: 'signup' }) });
         setLoading(false);
-        showToast('📧 تم إرسال الكود إلى بريدك');
+        showToast('📧 تم إرسال الكود');
         navigate('/signup');
         showPage('verify');
         startResendTimer();
@@ -1501,25 +1877,19 @@ async function handleSignupStep1(event) {
     }
 }
 
-/* ═══════════════════════════════════════════════════════
-   📩 التحقق من الكود (تسجيل)
-   ═══════════════════════════════════════════════════════ */
 async function handleVerifyCode() {
     const inputs = document.querySelectorAll('#verify-code-inputs .code-input');
     const code = Array.from(inputs).map(i => i.value).join('');
-
-    if (code.length !== 6) return showToast('❌ أدخل الكود كاملاً (6 أرقام)', 'error');
-
+    if (code.length !== 6) return showToast('❌ أدخل الكود كاملاً', 'error');
     const btn = document.getElementById('verify-btn');
     btn.disabled = true;
     setLoading(true, 'جاري التحقق...');
-
     try {
         await api('/api/auth/verify-code', {
             body: JSON.stringify({ email: signupData.email, code, purpose: 'signup' })
         });
         setLoading(false);
-        showToast('✅ تم التحقق من البريد');
+        showToast('✅ تم التحقق');
         showPage('password');
         setTimeout(() => document.getElementById('signup-password')?.focus(), 250);
     } catch (e) {
@@ -1533,15 +1903,12 @@ async function handleVerifyCode() {
 
 async function handleResendCode() {
     try {
-        await api('/api/auth/send-code', {
-            body: JSON.stringify({ email: signupData.email, purpose: 'signup' })
-        });
+        await api('/api/auth/send-code', { body: JSON.stringify({ email: signupData.email, purpose: 'signup' }) });
         showToast('📧 تم إرسال كود جديد');
+        startResendTimer();
     } catch (e) {
         showToast('❌ ' + e.message, 'error');
-        return;
     }
-    startResendTimer();
 }
 
 let resendTimerInterval = null;
@@ -1563,13 +1930,7 @@ function startResendTimer() {
     }, 1000);
 }
 
-/* ═══════════════════════════════════════════════════════
-   🔑 قوة كلمة المرور
-   ═══════════════════════════════════════════════════════ */
-const COMMON_PASSWORDS = new Set([
-    '12345678','123456789','1234567890','password','password1',
-    'qwerty123','11111111','00000000','aaaaaaaa','iloveyou','admin123','welcome1'
-]);
+const COMMON_PASSWORDS = new Set(['12345678','123456789','1234567890','password','password1','qwerty123','11111111','00000000','aaaaaaaa','iloveyou','admin123','welcome1']);
 
 function calculatePasswordStrength(pwd) {
     if (!pwd) return { score: 0, level: 'weak', label: '—' };
@@ -1590,9 +1951,7 @@ function updatePasswordStrength() {
     const bars = [1,2,3,4].map(i => document.getElementById('bar-' + i));
     const label = document.getElementById('strength-label');
     bars.forEach(b => b.classList.remove('active','weak','medium','strong'));
-    if (!pwd) {
-        label.textContent = '—'; label.className = 'value'; checkPasswordMatch(); return;
-    }
+    if (!pwd) { label.textContent = '—'; label.className = 'value'; checkPasswordMatch(); return; }
     for (let i = 0; i < Math.max(1, s.score); i++) bars[i].classList.add('active', s.level);
     label.textContent = s.label;
     label.className = 'value ' + s.level;
@@ -1605,9 +1964,7 @@ function updateResetStrength() {
     const bars = [1,2,3,4].map(i => document.getElementById('rbar-' + i));
     const label = document.getElementById('reset-strength-label');
     bars.forEach(b => b.classList.remove('active','weak','medium','strong'));
-    if (!pwd) {
-        label.textContent = '—'; label.className = 'value'; checkResetMatch(); return;
-    }
+    if (!pwd) { label.textContent = '—'; label.className = 'value'; checkResetMatch(); return; }
     for (let i = 0; i < Math.max(1, s.score); i++) bars[i].classList.add('active', s.level);
     label.textContent = s.label;
     label.className = 'value ' + s.level;
@@ -1634,17 +1991,12 @@ function checkResetMatch() {
     btn.disabled = !valid;
 }
 
-/* ═══════════════════════════════════════════════════════
-   🎉 إنشاء الحساب
-   ═══════════════════════════════════════════════════════ */
 async function handleCreatePassword(event) {
     event.preventDefault();
     const pwd1 = document.getElementById('signup-password').value;
     const pwd2 = document.getElementById('signup-password2').value;
-
-    if (pwd1.length < 8) return showToast('❌ كلمة المرور قصيرة (8 أحرف على الأقل)', 'error');
-    if (pwd1 !== pwd2) return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
-
+    if (pwd1.length < 8) return showToast('❌ كلمة المرور قصيرة', 'error');
+    if (pwd1 !== pwd2) return showToast('❌ غير متطابقتين', 'error');
     setLoading(true, 'جاري إنشاء الحساب...');
     try {
         const data = await api('/api/auth/signup', {
@@ -1666,9 +2018,6 @@ async function handleCreatePassword(event) {
     }
 }
 
-/* ═══════════════════════════════════════════════════════
-   🎛️ لوحة التحكم
-   ═══════════════════════════════════════════════════════ */
 function updateUserUI() {
     if (!currentUser) return;
     const initial = (currentUser.first_name || '؟').charAt(0).toUpperCase();
@@ -1676,19 +2025,14 @@ function updateUserUI() {
     document.getElementById('user-name-display').textContent =
         (currentUser.first_name + ' ' + (currentUser.last_name || '')).trim() || 'المستخدم';
     document.getElementById('user-email-display').textContent = currentUser.email || '';
-
     document.getElementById('settings-firstname').value = currentUser.first_name || '';
     document.getElementById('settings-lastname').value = currentUser.last_name || '';
     document.getElementById('settings-user-id').textContent = currentUser.id || '—';
     document.getElementById('settings-user-email').textContent = currentUser.email || '—';
     document.getElementById('settings-user-joined').textContent = currentUser.created_at
-        ? new Date(currentUser.created_at).toLocaleDateString('ar-EG')
-        : '—';
+        ? new Date(currentUser.created_at).toLocaleDateString('ar-EG') : '—';
 }
 
-/* ═══════════════════════════════════════════════════════
-   📊 الإحصائيات
-   ═══════════════════════════════════════════════════════ */
 async function loadStats() {
     try {
         const data = await api('/api/stats');
@@ -1698,9 +2042,6 @@ async function loadStats() {
     } catch (e) {}
 }
 
-/* ═══════════════════════════════════════════════════════
-   🔑 إدارة المفاتيح
-   ═══════════════════════════════════════════════════════ */
 const keyVisibility = {};
 const keyCache = {};
 
@@ -1712,14 +2053,12 @@ async function loadKeys() {
 
     try {
         const data = await api('/api/keys/list');
-        // 🔒 مفتاح واحد فقط: إخفاء زر الإنشاء إذا وُجد مفتاح
         createBtn.style.display = data.keys.length ? 'none' : 'inline-flex';
-
         if (!data.keys.length) {
             list.innerHTML = '<div class="empty-state">' +
                 '<div class="icon">🔑</div>' +
                 '<h3>لا توجد مفاتيح بعد</h3>' +
-                '<p>أنشئ مفتاح API الخاص بك للبدء في استخدام الأنفاق</p>' +
+                '<p>أنشئ مفتاح API للبدء</p>' +
                 '<button class="btn btn-primary" onclick="openCreateKeyModal()">➕ إنشاء مفتاح جديد</button>' +
                 '</div>';
             return;
@@ -1752,8 +2091,8 @@ function renderKeyItem(key) {
             '<div class="key-actions">' +
                 '<button class="icon-btn" onclick="toggleKeyVisibility(' + key.id + ')" title="إظهار/إخفاء"><span id="eye-' + key.id + '">👁️</span></button>' +
                 '<button class="icon-btn" onclick="copyKey(' + key.id + ')" title="نسخ">📋</button>' +
-                '<button class="icon-btn" onclick="openRegenerateKeyModal(' + key.id + ', \'' + escapeHtml(key.name).replace(/'/g, "\\'") + '\')" title="إعادة إنشاء المفتاح">🔄</button>' +
-                '<button class="icon-btn" onclick="openDeleteKeyModal(' + key.id + ', \'' + escapeHtml(key.name).replace(/'/g, "\\'") + '\')" title="حذف">🗑️</button>' +
+                '<button class="icon-btn" onclick="openRegenerateKeyModal(' + key.id + ', \'' + escapeHtml(key.name).replace(/'/g,"\\'") + '\')" title="إعادة إنشاء">🔄</button>' +
+                '<button class="icon-btn" onclick="openDeleteKeyModal(' + key.id + ', \'' + escapeHtml(key.name).replace(/'/g,"\\'") + '\')" title="حذف">🗑️</button>' +
             '</div>' +
         '</div>' +
         '<div class="key-meta">' +
@@ -1765,9 +2104,7 @@ function renderKeyItem(key) {
 }
 
 function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, c => ({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-    }[c]));
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
 function toggleKeyVisibility(id) {
@@ -1794,9 +2131,9 @@ function copyKey(id) {
 
 function copyText(text, successMsg) {
     if (!text) return;
-    const done = () => showToast(successMsg || '📋 تم النسخ');
     if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, successMsg));
+        navigator.clipboard.writeText(text).then(() => showToast(successMsg || '📋 تم النسخ'))
+            .catch(() => fallbackCopy(text, successMsg));
     } else {
         fallbackCopy(text, successMsg);
     }
@@ -1812,65 +2149,15 @@ function fallbackCopy(text, successMsg) {
     try {
         document.execCommand('copy');
         showToast(successMsg || '📋 تم النسخ');
-    } catch {
-        showToast('❌ فشل النسخ', 'error');
-    }
+    } catch { showToast('❌ فشل النسخ', 'error'); }
     document.body.removeChild(ta);
 }
 
-/* ═══════════════════════════════════════════════════════
-   🌐 الأنفاق
-   ═══════════════════════════════════════════════════════ */
-async function loadTunnels() {
-    const list = document.getElementById('tunnels-list');
-    list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--txt2)">⏳ جاري التحميل...</div>';
-
-    try {
-        const data = await api('/api/tunnels/list');
-        if (!data.tunnels.length) {
-            list.innerHTML = '<div class="empty-state">' +
-                '<div class="icon">🌐</div>' +
-                '<h3>لا توجد أنفاق نشطة</h3>' +
-                '<p>ابدأ باستخدام مفتاح API في سكربتك، وسيظهر النفق هنا تلقائياً بمجرد الاتصال.</p>' +
-                '<button class="btn btn-primary" onclick="navigate(\'/KEYS\')">🔑 انتقل لمفاتيح API</button>' +
-                '</div>';
-            return;
-        }
-        list.innerHTML = data.tunnels.map(t => '<div class="tunnel-item">' +
-            '<div class="tunnel-info">' +
-                '<div class="tunnel-status" style="' + (t.is_online ? '' : 'background:var(--txt3);box-shadow:none') + '"></div>' +
-                '<div style="min-width:0;flex:1">' +
-                    '<div class="tunnel-slug">#' + escapeHtml(t.slug) + '</div>' +
-                    '<div class="tunnel-url">' + escapeHtml(t.url || '') + '</div>' +
-                '</div>' +
-            '</div>' +
-            '<div class="tunnel-stats">' +
-                '<div class="tunnel-stat">' +
-                    '<div class="tunnel-stat-value">' + (t.requests || 0) + '</div>' +
-                    '<div>طلب</div>' +
-                '</div>' +
-            '</div>' +
-        '</div>').join('');
-    } catch (e) {
-        list.innerHTML = '<div class="empty-state">' +
-            '<div class="icon">❌</div>' +
-            '<h3>خطأ</h3>' +
-            '<p>' + escapeHtml(e.message) + '</p>' +
-            '<button class="btn btn-primary" onclick="loadTunnels()">🔄 إعادة المحاولة</button>' +
-            '</div>';
-    }
-}
-
-/* ═══════════════════════════════════════════════════════
-   ⚙️ تحديث المعلومات
-   ═══════════════════════════════════════════════════════ */
 async function handleUpdateInfo(event) {
     event.preventDefault();
     const first_name = document.getElementById('settings-firstname').value.trim();
     const last_name = document.getElementById('settings-lastname').value.trim();
-
-    if (!first_name || first_name.length < 2) return showToast('❌ الاسم قصير جداً', 'error');
-
+    if (!first_name || first_name.length < 2) return showToast('❌ الاسم قصير', 'error');
     const btn = document.getElementById('update-info-btn');
     btn.disabled = true;
     setLoading(true, 'جاري الحفظ...');
@@ -1880,36 +2167,29 @@ async function handleUpdateInfo(event) {
         localStorage.setItem('zt_user', JSON.stringify(currentUser));
         updateUserUI();
         setLoading(false);
-        showToast('✅ تم تحديث معلوماتك');
+        showToast('✅ تم التحديث');
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
-    } finally {
-        btn.disabled = false;
-    }
+    } finally { btn.disabled = false; }
 }
 
-/* ═══════════════════════════════════════════════════════
-   🔒 تغيير كلمة المرور
-   ═══════════════════════════════════════════════════════ */
 async function handleChangePassword(event) {
     event.preventDefault();
     const old_password = document.getElementById('settings-old-password').value;
     const new_password = document.getElementById('settings-new-password').value;
     const new_password2 = document.getElementById('settings-new-password2').value;
     const err = document.getElementById('settings-pass-error');
-
     if (new_password !== new_password2) {
         err.classList.add('show');
-        return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
+        return showToast('❌ غير متطابقتين', 'error');
     }
     err.classList.remove('show');
-    if (new_password.length < 8) return showToast('❌ كلمة المرور الجديدة قصيرة', 'error');
+    if (new_password.length < 8) return showToast('❌ كلمة المرور قصيرة', 'error');
     if (old_password === new_password) return showToast('❌ يجب أن تختلف عن القديمة', 'error');
-
     const btn = document.getElementById('change-password-btn');
     btn.disabled = true;
-    setLoading(true, 'جاري تغيير كلمة المرور...');
+    setLoading(true, 'جاري التغيير...');
     try {
         await api('/api/auth/change-password', { body: JSON.stringify({ old_password, new_password }) });
         setLoading(false);
@@ -1920,19 +2200,58 @@ async function handleChangePassword(event) {
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
-    } finally {
-        btn.disabled = false;
+    } finally { btn.disabled = false; }
+}
+
+function openDeleteAccountModal() {
+    openModal({
+        title: 'حذف الحساب نهائياً',
+        icon: '⚠️',
+        bodyHTML:
+            '<div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:14px;margin-bottom:16px">' +
+                '<p style="color:var(--red);font-weight:700;margin-bottom:6px">⚠️ تحذير نهائي</p>' +
+                '<p style="font-size:13px;line-height:1.7">سيتم حذف حسابك مع كل المفاتيح والأنفاق. لا يمكن التراجع.</p>' +
+            '</div>' +
+            '<p style="margin-bottom:10px">كلمة المرور:</p>' +
+            '<div class="modal-input-wrap">' +
+                '<input type="password" class="modal-input ltr" id="modal-delete-password" placeholder="••••••••">' +
+            '</div>' +
+            '<p style="margin-top:14px;margin-bottom:10px">اكتب <span class="inline-code" style="color:var(--red)">DELETE</span>:</p>' +
+            '<div class="modal-input-wrap">' +
+                '<input type="text" class="modal-input ltr" id="modal-delete-confirm" placeholder="DELETE">' +
+            '</div>',
+        buttons: [
+            { label: 'إلغاء', className: 'btn-ghost' },
+            { label: '🗑️ حذف نهائي', className: 'btn-danger', onClick: confirmDeleteAccount }
+        ]
+    });
+}
+
+async function confirmDeleteAccount() {
+    const password = document.getElementById('modal-delete-password')?.value || '';
+    const confirm = document.getElementById('modal-delete-confirm')?.value || '';
+    if (!password) return showToast('❌ أدخل كلمة المرور', 'error');
+    if (confirm !== 'DELETE') return showToast('❌ اكتب DELETE بالضبط', 'error');
+    setLoading(true, 'جاري الحذف...');
+    try {
+        await api('/api/user/delete', { body: JSON.stringify({ password, confirm: 'DELETE' }) });
+        localStorage.removeItem('zt_session');
+        localStorage.removeItem('zt_user');
+        currentUser = null;
+        setLoading(false);
+        showToast('🗑️ تم حذف حسابك');
+        setTimeout(() => navigate('/'), 800);
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
     }
 }
 
-/* ═══════════════════════════════════════════════════════
-   🚪 تسجيل الخروج
-   ═══════════════════════════════════════════════════════ */
 function handleLogout() {
     openConfirmModal({
         title: 'تسجيل الخروج؟',
         icon: '🚪',
-        message: 'هل تريد تسجيل الخروج من حسابك الحالي؟',
+        message: 'هل تريد تسجيل الخروج من حسابك؟',
         confirmLabel: 'نعم، اخرج',
         confirmClass: 'btn-danger',
         onConfirm: async () => {
@@ -1946,15 +2265,11 @@ function handleLogout() {
     });
 }
 
-/* ═══════════════════════════════════════════════════════
-   🛠️ أدوات
-   ═══════════════════════════════════════════════════════ */
 function showToast(msg, type) {
     type = type || 'success';
     const toast = document.getElementById('toast');
     document.getElementById('toast-text').textContent = msg;
-    document.getElementById('toast-icon').textContent =
-        type === 'error' ? '❌' : (type === 'warning' ? '⚠️' : '✅');
+    document.getElementById('toast-icon').textContent = type === 'error' ? '❌' : (type === 'warning' ? '⚠️' : '✅');
     toast.className = 'toast show ' + (type === 'error' ? 'error' : type);
     clearTimeout(toast._tid);
     toast._tid = setTimeout(() => toast.classList.remove('show'), 4000);
@@ -1963,8 +2278,7 @@ function showToast(msg, type) {
 function setLoading(show, text) {
     const el = document.getElementById('loading');
     document.getElementById('loading-text').textContent = text || 'جاري المعالجة...';
-    if (show) el.classList.add('show');
-    else el.classList.remove('show');
+    if (show) el.classList.add('show'); else el.classList.remove('show');
 }
 
 function toggleSidebar(force) {
@@ -1975,14 +2289,10 @@ function toggleSidebar(force) {
     overlay.classList.toggle('show', open);
 }
 
-/* ═══════════════════════════════════════════════════════
-   🎯 خانات الكود
-   ═══════════════════════════════════════════════════════ */
 function setupCodeInputs(containerId, onComplete) {
     const container = document.getElementById(containerId);
     if (!container) return;
     const inputs = container.querySelectorAll('.code-input');
-
     inputs.forEach((inp, i) => {
         inp.addEventListener('input', e => {
             e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(-1);
@@ -2007,10 +2317,7 @@ function setupCodeInputs(containerId, onComplete) {
             const text = (e.clipboardData || window.clipboardData).getData('text');
             const digits = text.replace(/[^0-9]/g, '').slice(0, 6);
             digits.split('').forEach((d, j) => {
-                if (inputs[j]) {
-                    inputs[j].value = d;
-                    inputs[j].classList.add('filled');
-                }
+                if (inputs[j]) { inputs[j].value = d; inputs[j].classList.add('filled'); }
             });
             if (digits.length === 6 && onComplete) setTimeout(onComplete, 200);
         });
@@ -2021,18 +2328,13 @@ function setupCodeInputs(containerId, onComplete) {
 setupCodeInputs('verify-code-inputs', handleVerifyCode);
 setupCodeInputs('reset-code-inputs', handleResetCodeNext);
 
-/* ═══════════════════════════════════════════════════════
-   📋 إضافة زر نسخ تلقائياً لكل بلوك كود
-   ═══════════════════════════════════════════════════════ */
 function enhanceCodeBlocks() {
     document.querySelectorAll('.code-block').forEach(block => {
         if (block.parentElement && block.parentElement.classList.contains('code-wrap')) return;
-
         const wrap = document.createElement('div');
         wrap.className = 'code-wrap';
         block.parentNode.insertBefore(wrap, block);
         wrap.appendChild(block);
-
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'code-copy-btn';
@@ -2041,42 +2343,30 @@ function enhanceCodeBlocks() {
             copyText(block.textContent.trim(), '📋 تم نسخ الكود');
             btn.textContent = '✅ تم النسخ';
             btn.classList.add('done');
-            setTimeout(() => {
-                btn.textContent = '📋 نسخ';
-                btn.classList.remove('done');
-            }, 1800);
+            setTimeout(() => { btn.textContent = '📋 نسخ'; btn.classList.remove('done'); }, 1800);
         };
         wrap.appendChild(btn);
     });
 }
 
-/* ═══════════════════════════════════════════════════════
-   🚀 التهيئة
-   ═══════════════════════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('zt_session');
     const storedUser = localStorage.getItem('zt_user');
-
     if (token && storedUser) {
         try {
             const data = await api('/api/user/me');
             currentUser = data.user;
             localStorage.setItem('zt_user', JSON.stringify(currentUser));
             updateUserUI();
-            showToast('👋 مرحباً بعودتك ' + currentUser.first_name);
         } catch (e) {
             localStorage.removeItem('zt_session');
             localStorage.removeItem('zt_user');
             currentUser = null;
         }
     }
-
     enhanceCodeBlocks();
     handleRoute();
-
-    console.log('%c🚀 ZONE TUNNEL', 'font-size:24px;font-weight:bold;color:#8b5cf6');
-    console.log('%c📧 Support: zonetunnel@gmail.com', 'color:#06b6d4');
-    console.log('%c👑 Dev: @LIEI_T', 'color:#8b5cf6');
+    console.log('%c🚀 ZONE TUNNEL v5', 'font-size:24px;font-weight:bold;color:#8b5cf6');
 });
 </script>
 </body>
