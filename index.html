@@ -273,14 +273,14 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
 .faq-item[open] summary::before{transform:rotate(90deg)}
 .faq-item .faq-answer{padding:0 20px 18px 20px;color:var(--txt2);font-size:13.5px;line-height:1.8;border-top:1px solid rgba(255,255,255,.04);padding-top:14px;margin-top:0}
 .faq-item .faq-answer code{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:var(--purpleL);font-family:'JetBrains Mono',monospace;font-size:12px;padding:2px 8px;border-radius:6px;direction:ltr;display:inline-block}
-.host-drop-zone{border:2px dashed rgba(139,92,246,.35);border-radius:16px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(139,92,246,.03)}
-.host-drop-zone:hover,.host-drop-zone.dragover{border-color:var(--purple);background:rgba(139,92,246,.1)}
-.host-drop-icon{font-size:56px;margin-bottom:12px}
-.host-drop-title{font-size:16px;font-weight:700;margin-bottom:8px}
-.host-drop-sub{color:var(--txt2);font-size:13px;margin-bottom:16px}
-.host-file-name{margin-top:14px;color:var(--green);font-weight:600;font-size:14px}
-.host-status{margin-top:12px;min-height:24px;text-align:center;font-size:14px}
-.host-iframe{width:100%;height:600px;border:1px solid var(--border);border-radius:12px;background:#fff}
+.big-flow{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:26px 22px;margin:20px 0;direction:ltr;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyanL);overflow-x:auto;line-height:2.4}
+.big-flow .row{display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap}
+.big-flow .box{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.4);border-radius:10px;padding:10px 16px;color:#fff;font-weight:600;white-space:nowrap}
+.big-flow .box.green{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.4);color:var(--green)}
+.big-flow .box.cyan{background:rgba(6,182,212,.15);border-color:rgba(6,182,212,.4);color:var(--cyanL)}
+.big-flow .arrow{color:var(--purpleL);font-size:20px}
+.big-flow .down{text-align:center;color:var(--txt3);font-size:18px;margin:4px 0}
+.big-flow .title{text-align:center;color:var(--purpleL);font-weight:700;margin-bottom:16px;font-size:14px}
 @media(max-width:900px){
 .dashboard{grid-template-columns:1fr}
 .dashboard-sidebar{position:fixed;top:0;right:-100%;width:280px;height:100vh;z-index:200;transition:right .3s;border-left:1px solid rgba(255,255,255,.05)}
@@ -613,7 +613,6 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
                 <button class="nav-item" data-tab="keys" onclick="navigate('/KEYS')"><span class="nav-icon">🔑</span> مفاتيح API</button>
                 <button class="nav-item" data-tab="tunnels" onclick="navigate('/TUNNELS')"><span class="nav-icon">🌐</span> الأنفاق النشطة</button>
                 <button class="nav-item" data-tab="connect" onclick="navigate('/CONNECT')"><span class="nav-icon">🔗</span> اربط سكربتك</button>
-                <button class="nav-item" data-tab="host" onclick="navigate('/HOST')"><span class="nav-icon">🚀</span> ZONE HOST</button>
                 <button class="nav-item" data-tab="settings" onclick="navigate('/SETTINGS')"><span class="nav-icon">⚙️</span> إعدادات الحساب</button>
                 <button class="nav-item" data-tab="support" onclick="navigate('/SUPPORT')"><span class="nav-icon">💬</span> الدعم الفني</button>
                 <button class="nav-item" data-tab="terms" onclick="navigate('/TERMS')"><span class="nav-icon">📋</span> الشروط والأحكام</button>
@@ -652,7 +651,7 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
                         <button class="btn btn-primary" onclick="navigate('/KEYS')">🔑 إنشاء مفتاح API</button>
                         <button class="btn btn-ghost" onclick="navigate('/TUNNELS')">🌐 إنشاء نفق جديد</button>
-                        <button class="btn btn-ghost" onclick="navigate('/HOST')">🚀 استضافة موقع</button>
+                        <button class="btn btn-ghost" onclick="navigate('/CONNECT')">🔗 اربط سكربتك بنفق</button>
                     </div>
                 </div>
                 <div class="card">
@@ -664,6 +663,9 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
                         <li>شغّل أمر <strong>zone client</strong> الذي سيظهر لك</li>
                         <li>شارك رابط النفق مع أي شخص ليصل لسكربتك</li>
                     </ol>
+                    <div style="margin-top:16px">
+                        <button class="btn btn-ghost" onclick="navigate('/CONNECT')">📘 دليل الربط الكامل ←</button>
+                    </div>
                 </div>
             </div>
 
@@ -764,154 +766,473 @@ fetch(API_URL + "/api/user/me", {
                     </div>
                     <div id="tunnels-list"></div>
                 </div>
-
-                <div class="card" id="tunnel-guide-card">
-                    <div class="card-title">📖 كيف يعمل النفق؟</div>
-                    <div class="card-subtitle">دليل سريع خطوة بخطوة</div>
-
-                    <div class="alert alert-info" style="margin-bottom:20px">
-                        <span class="alert-icon">💡</span>
-                        <div>ZONE TUNNEL يستخدم تقنية <strong>Long-Polling</strong> — كل الاتصالات HTTP عادية، بدون WebSocket.</div>
-                    </div>
-
-                    <div class="settings-section">
-                        <div class="settings-title">🎯 الفكرة</div>
-                        <div class="settings-desc">
-                            عندما ينشئ شخص رابطاً عاماً مثل
-                            <span class="inline-code">/t/abc123/</span>
-                            فإن أي طلب يصل إليه يُرسَل إلى جهازك عبر عميل zone، فينفذه سكربتك المحلي ويرد.
-                        </div>
-                    </div>
-
-                    <div class="settings-section">
-                        <div class="settings-title">1️⃣ شغّل سكربتك المحلي</div>
-<pre class="code-block">python -m http.server 5000</pre>
-                    </div>
-
-                    <div class="settings-section">
-                        <div class="settings-title">2️⃣ ثبّت httpx</div>
-<pre class="code-block">pip install httpx</pre>
-                    </div>
-
-                    <div class="settings-section">
-                        <div class="settings-title">3️⃣ شغّل عميل zone</div>
-<pre class="code-block">python api_server.py --client https://pedigree-hankering-unmixable.ngrok-free.dev 1 tun_xxx 5000</pre>
-                    </div>
-
-                    <div class="settings-section" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
-                        <div class="settings-title">4️⃣ شارك الرابط</div>
-                        <div class="settings-desc">أي شخص يفتح <span class="inline-code">/t/{slug}/</span> سيصل إلى سكربتك المحلي.</div>
-                    </div>
-                </div>
             </div>
 
             <div class="tab-content" id="tab-connect">
+
                 <div class="welcome-card">
-                    <h2>🔗 كيف تربط سكربتك بنفق موجود؟</h2>
-                    <p>عندك نفق جاهز في ZONE TUNNEL وتريد تربطه بسكربتك المحلي؟ <strong>اتبع 4 خطوات فقط</strong>.</p>
+                    <h2>🔗 اربط سكربتك بنفق — دليل كامل</h2>
+                    <p>عندك سكربت محلي (Python / Node / أي شي) وتريد تربطه بالإنترنت عبر ZONE TUNNEL؟ هذا الدليل يشرح كل خطوة بالتفصيل.</p>
+                    <p>في النهاية ستحصل على <strong>رابط عام</strong> يفتحه أي شخص في العالم ويوصل مباشرة لسكربتك.</p>
                 </div>
 
                 <div class="card">
                     <div class="card-title">🎯 الفكرة ببساطة</div>
                     <div class="card-subtitle">ماذا يحدث فعلياً؟</div>
-                    <div style="background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:22px;direction:ltr;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--cyanL);overflow-x:auto;line-height:2.2;white-space:nowrap">
-                        <div style="color:var(--purpleL);font-weight:700;margin-bottom:14px;font-size:13px">⚡ FLOW</div>
-                        <div>🌍 <span style="color:#fff">الزائر</span> → <span style="color:var(--cyanL)">GET /t/{slug}/api/data</span></div>
-                        <div style="color:var(--txt3);margin:6px 0">↓</div>
-                        <div>🌐 <span style="color:#fff">ZONE Gateway</span> → <span style="color:var(--cyanL)">توجيه الطلب</span></div>
-                        <div style="color:var(--txt3);margin:6px 0">↓</div>
-                        <div>🔌 <span style="color:#fff">zone_client</span> → <span style="color:var(--cyanL)">على جهازك</span></div>
-                        <div style="color:var(--txt3);margin:6px 0">↓</div>
-                        <div>💻 <span style="color:#fff">سكربتك المحلي</span> → <span style="color:var(--cyanL)">localhost:5000</span></div>
-                        <div style="color:var(--txt3);margin:6px 0">↑</div>
-                        <div style="color:var(--green)">✅ الرد يرجع بنفس المسار للزائر</div>
+
+                    <div class="big-flow">
+                        <div class="title">⚡ FLOW</div>
+                        <div class="row"><div class="box cyan">🌍 زائر يفتح الرابط</div></div>
+                        <div class="down">↓</div>
+                        <div class="row"><div class="box">🌐 سيرفر ZONE TUNNEL يستقبل الطلب</div></div>
+                        <div class="down">↓</div>
+                        <div class="row"><div class="box">🔌 عميلك (zonetunnel.py) يسحب الطلب</div></div>
+                        <div class="down">↓</div>
+                        <div class="row"><div class="box">💻 سكربتك المحلي ينفّذه (localhost:5000)</div></div>
+                        <div class="down">↑</div>
+                        <div class="row"><div class="box green">✅ الرد يرجع للزائر</div></div>
+                    </div>
+
+                    <div class="alert alert-info" style="margin-top:20px">
+                        <span class="alert-icon">💡</span>
+                        <div>العميل يشتغل بتقنية <strong>Long-Polling</strong> — يعني يسأل السيرفر كل فترة: "فيه طلبات جديدة؟" فلما يجي طلب، السيرفر يرد عليه، والعميل ينفّذه على سكربتك المحلي ويرجّع النتيجة. كل شي عبر HTTPS عادي، ما يحتاج فتح بورتات أو إعدادات راوتر.</div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <div class="card-title">🚀 الخطوات الأربع</div>
+                    <div class="card-title">🚀 الخطوات — من الصفر للتشغيل</div>
+                    <div class="card-subtitle">اتبعها بالترتيب</div>
 
                     <div class="settings-section">
-                        <div class="step-title"><span class="step-num">1</span> احصل على معلومات النفق</div>
-                        <div class="settings-desc">من صفحة <strong>الأنفاق النشطة</strong>، اختر النفق. تحتاج:</div>
-                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px;margin:12px 0;direction:ltr;text-align:left;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--txt2);line-height:2.2">
-                            <div><span style="color:var(--txt3)">Tunnel ID:  </span><span style="color:var(--cyanL)">1</span></div>
-                            <div><span style="color:var(--txt3)">Token:      </span><span style="color:var(--cyanL)">tun_xxxxxxxxxxxxxxxxxxxx</span></div>
-                            <div><span style="color:var(--txt3)">Local Port: </span><span style="color:var(--cyanL)">5000</span></div>
-                            <div><span style="color:var(--txt3)">Public URL: </span><span style="color:var(--cyanL)">https://.../t/{slug}/</span></div>
+                        <div class="step-title"><span class="step-num">1</span> أنشئ مفتاح API</div>
+                        <div class="settings-desc">
+                            من صفحة <strong>مفاتيح API</strong>، اضغط "إنشاء مفتاح". هذا المفتاح يستخدم للتحقق من هويتك.
+                            احفظه في مكان آمن لأنك لن تراه مرة أخرى.
+                        </div>
+                        <div class="alert alert-warning">
+                            <span class="alert-icon">⚠️</span>
+                            <div>لا تشارك هذا المفتاح مع أي شخص. من يملكه يستطيع التحكم بحسابك.</div>
                         </div>
                     </div>
 
                     <div class="settings-section">
-                        <div class="step-title"><span class="step-num">2</span> ثبّت المكتبة</div>
-                        <div class="tunnel-cmd-wrap">
-                            <pre class="tunnel-cmd">pip install httpx</pre>
-                            <button class="tunnel-cmd-copy" onclick="copyText('pip install httpx', '📋 تم نسخ الأمر')">📋 نسخ</button>
+                        <div class="step-title"><span class="step-num">2</span> أنشئ نفقاً</div>
+                        <div class="settings-desc">
+                            من صفحة <strong>الأنفاق النشطة</strong>، اضغط "إنشاء نفق". اختر:
+                        </div>
+                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px;margin:12px 0;font-size:14px;line-height:2">
+                            <div>📝 <strong>الاسم:</strong> أي اسم (مثال: "موقعي")</div>
+                            <div>🔌 <strong>المنفذ المحلي:</strong> المنفذ اللي يشتغل عليه سكربتك (مثلاً <span class="inline-code">5000</span>)</div>
+                        </div>
+                        <div class="settings-desc">
+                            بعد الإنشاء، راح يظهرلك:
+                        </div>
+                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px;margin:12px 0;direction:ltr;text-align:left;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--txt2);line-height:2.2">
+                            <div><span style="color:var(--txt3)">Tunnel ID:  </span><span style="color:var(--cyanL)">1</span></div>
+                            <div><span style="color:var(--txt3)">Token:      </span><span style="color:var(--cyanL)">tun_f5iLTIYUCW4GsTrHxGFhYRPx1sbk1EpBWrt7hA53QTs</span></div>
+                            <div><span style="color:var(--txt3)">Local Port: </span><span style="color:var(--cyanL)">5000</span></div>
+                            <div><span style="color:var(--txt3)">Public URL: </span><span style="color:var(--cyanL)">https://.../t/abc123/</span></div>
+                        </div>
+                        <div class="alert alert-warning">
+                            <span class="alert-icon">🔒</span>
+                            <div>احتفظ بالـ <strong>Token</strong> و <strong>ID</strong> و <strong>Public URL</strong> — راح تحتاجها في الخطوات القادمة.</div>
                         </div>
                     </div>
 
                     <div class="settings-section">
                         <div class="step-title"><span class="step-num">3</span> شغّل سكربتك المحلي</div>
-<pre class="code-block"># save as: my_server.py
+                        <div class="settings-desc">
+                            أي سكربت HTTP عادي يعمل. هذا مثال بسيط بلغة Python — انسخه واحفظه في ملف <span class="inline-code">my_server.py</span>:
+                        </div>
+<pre class="code-block"># my_server.py
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        body = b"Hello from my local server!"
+        body = "أهلاً من سكربتي المحلي! 🎉".encode()
         self.send_response(200)
-        self.send_header("Content-Type", "text/plain")
+        self.send_header("Content-Type", "text/plain; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
 
     def log_message(self, *a): pass
 
-print("Local server on port 5000")
+print("✅ سكربتي يعمل على http://localhost:5000")
 HTTPServer(("0.0.0.0", 5000), Handler).serve_forever()</pre>
+                        <div class="settings-desc" style="margin-top:12px">
+                            شغّله:
+                        </div>
+                        <div class="tunnel-cmd-wrap">
+                            <pre class="tunnel-cmd">python my_server.py</pre>
+                            <button class="tunnel-cmd-copy" onclick="copyText('python my_server.py','📋 تم النسخ')">📋</button>
+                        </div>
+                        <div class="alert alert-success" style="margin-top:14px">
+                            <span class="alert-icon">✅</span>
+                            <div>سترى: <strong>سكربتي يعمل على http://localhost:5000</strong></div>
+                        </div>
                     </div>
 
                     <div class="settings-section">
-                        <div class="step-title"><span class="step-num">4</span> شغّل عميل ZONE TUNNEL</div>
+                        <div class="step-title"><span class="step-num">4</span> ثبّت مكتبة httpx (مرة واحدة)</div>
+                        <div class="settings-desc">
+                            عميل ZONE يحتاجها. افتح Terminal آخر واكتب:
+                        </div>
                         <div class="tunnel-cmd-wrap">
-                            <pre class="tunnel-cmd">python api_server.py --client https://your-url.ngrok-free.dev 1 tun_xxxxxxxxxxxx 5000</pre>
-                            <button class="tunnel-cmd-copy" onclick="copyText('python api_server.py --client https://your-url.ngrok-free.dev 1 tun_xxxxxxxxxxxx 5000', '📋 تم نسخ الأمر')">📋 نسخ</button>
+                            <pre class="tunnel-cmd">pip install httpx</pre>
+                            <button class="tunnel-cmd-copy" onclick="copyText('pip install httpx','📋 تم النسخ')">📋</button>
+                        </div>
+                        <div class="modal-hint">💡 على Mac/Linux استخدم <span class="inline-code">pip3</span> بدل <span class="inline-code">pip</span>.</div>
+                    </div>
+
+                    <div class="settings-section">
+                        <div class="step-title"><span class="step-num">5</span> شغّل العميل ZONE TUNNEL</div>
+                        <div class="settings-desc">
+                            في Terminal <strong>ثالث</strong> (لا تغلق الأولين)، شغّل هذا الأمر. استبدل القيم باللي حصلت عليها من الخطوة 2:
+                        </div>
+                        <div class="tunnel-cmd-wrap">
+                            <pre class="tunnel-cmd">python zonetunnel.py --client https://pedigree-hankering-unmixable.ngrok-free.dev 1 tun_xxxxxxxxxxxx 5000</pre>
+                            <button class="tunnel-cmd-copy" onclick="copyText('python zonetunnel.py --client https://pedigree-hankering-unmixable.ngrok-free.dev 1 tun_xxxxxxxxxxxx 5000','📋 تم النسخ')">📋</button>
+                        </div>
+                        <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px;margin:14px 0;font-size:13px;line-height:2;color:var(--txt2)">
+                            <div style="color:var(--purpleL);font-weight:700;margin-bottom:8px">📌 شرح الأمر:</div>
+                            <div><span class="inline-code">--client</span> — يخبر السكربت أنك تشغّل العميل (لا السيرفر)</div>
+                            <div><span class="inline-code">https://...</span> — عنوان سيرفر ZONE TUNNEL</div>
+                            <div><span class="inline-code">1</span> — Tunnel ID</div>
+                            <div><span class="inline-code">tun_xxx</span> — التوكن</div>
+                            <div><span class="inline-code">5000</span> — المنفذ المحلي لسكربتك</div>
+                        </div>
+                        <div class="alert alert-success" style="margin-top:14px">
+                            <span class="alert-icon">✅</span>
+                            <div>إذا رأيت <strong>"✅ النفق فاضي — جاهز"</strong> — كل شي شغال! 🎉</div>
                         </div>
                     </div>
 
                     <div class="settings-section" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
-                        <div class="step-title"><span class="step-num">✓</span> اختبر النتيجة</div>
-                        <div class="alert alert-success" style="margin-top:14px;margin-bottom:0">
-                            <span class="alert-icon">✅</span>
-                            <div>إذا ظهرت <strong>"Hello from my local server!"</strong> — كل شيء يعمل! 🎉</div>
+                        <div class="step-title"><span class="step-num">✓</span> اختبر من أي مكان</div>
+                        <div class="settings-desc">
+                            افتح الرابط العام في أي متصفح — من أي جهاز في العالم:
+                        </div>
+                        <div class="key-value-wrapper" style="margin-top:10px">
+                            <div class="key-value">https://pedigree-hankering-unmixable.ngrok-free.dev/t/{slug}/</div>
+                        </div>
+                        <div class="alert alert-success" style="margin-top:14px">
+                            <span class="alert-icon">🎉</span>
+                            <div>إذا ظهرت <strong>"أهلاً من سكربتي المحلي!"</strong> — الربط ناجح تماماً! 🚀</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🐍 سكربت Python كامل يربط تلقائياً</div>
+                    <div class="card-subtitle">بديل كامل مبسط — لا يحتاج httpx ولا أي مكتبة خارجية. فقط Python خالص.</div>
+
+                    <div class="alert alert-info">
+                        <span class="alert-icon">💡</span>
+                        <div>هذا سكربت <strong>جاهز للاستخدام المباشر</strong> — انسخه في ملف، عدّل 3 متغيرات في الأعلى، وشغّله. يقوم بكل شي تلقائياً: يسجّل نفسه، يسحب الطلبات (polling)، ينفذها على سكربتك المحلي، ويرجّع الردود.</div>
+                    </div>
+
+                    <pre class="code-block">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+zonetunnel.py — عميل ZONE TUNNEL مبسّط
+يربط سكربتك المحلي بالإنترنت عبر نفق ZONE TUNNEL.
+
+الاستخدام:
+    1. عدّل المتغيرات الثلاثة في الأسفل (API_URL, TUNNEL_ID, TOKEN, LOCAL_PORT)
+    2. شغّل: python zonetunnel.py
+
+ملاحظات:
+    - لا يحتاج أي مكتبة خارجية (يستخدم urllib من Python القياسية)
+    - يستخدم Long-Polling عبر HTTPS — يعمل خلف أي جدار ناري
+"""
+
+import json
+import time
+import base64
+import signal
+import sys
+import urllib.request
+import urllib.error
+from http.client import HTTPConnection
+
+
+# ═══════════════════════════════════════════════════════
+# 🔧 الإعدادات — عدّلها من هنا فقط
+# ═══════════════════════════════════════════════════════
+API_URL    = "https://pedigree-hankering-unmixable.ngrok-free.dev"
+TUNNEL_ID  = 1
+TOKEN      = "tun_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+LOCAL_HOST = "127.0.0.1"
+LOCAL_PORT = 5000
+POLL_TIMEOUT = 25  # ثواني — كم ينتظر السيرفر قبل ما يرد "لا جديد"
+
+
+# ═══════════════════════════════════════════════════════
+# أدوات مساعدة
+# ═══════════════════════════════════════════════════════
+HEADERS = {
+    "Content-Type": "text/plain;charset=UTF-8",
+    "ngrok-skip-browser-warning": "true",
+    "User-Agent": "ZoneTunnelClient/1.0"
+}
+
+
+def api_post(path, payload, timeout=60):
+    """يرسل طلب POST لـ API ZONE TUNNEL ويرجع JSON"""
+    url = API_URL.rstrip("/") + path
+    data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    req = urllib.request.Request(url, data=data, headers=HEADERS, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            raw = resp.read().decode("utf-8")
+            return resp.status, json.loads(raw) if raw else {}
+    except urllib.error.HTTPError as e:
+        return e.code, {"error": e.read().decode("utf-8", errors="replace")[:300]}
+    except Exception as e:
+        return 0, {"error": str(e)}
+
+
+def log(msg, icon="ℹ️"):
+    """طباعة منسقة"""
+    t = time.strftime("%H:%M:%S")
+    print(f"[{t}] {icon}  {msg}", flush=True)
+
+
+# ═══════════════════════════════════════════════════════
+# تنفيذ الطلب محلياً على السكربت
+# ═══════════════════════════════════════════════════════
+def forward_to_local(method, path, headers, body_bytes):
+    """يرسل الطلب لسكربتك المحلي ويرجع (status, headers, body)"""
+    # احذف هيدرات ممنوعة
+    clean = {k: v for k, v in headers.items()
+             if k.lower() not in ("host", "content-length", "connection",
+                                   "transfer-encoding", "keep-alive")}
+
+    conn = HTTPConnection(LOCAL_HOST, LOCAL_PORT, timeout=60)
+    try:
+        conn.request(method, path, body=body_bytes, headers=clean)
+        resp = conn.getresponse()
+        data = resp.read(10 * 1024 * 1024)
+        resp_headers = {k: v for k, v in resp.getheaders()
+                        if k.lower() not in ("transfer-encoding", "connection",
+                                              "content-length", "content-encoding")}
+        return resp.status, resp_headers, data
+    finally:
+        try: conn.close()
+        except: pass
+
+
+# ═══════════════════════════════════════════════════════
+# الحلقة الرئيسية — Polling
+# ═══════════════════════════════════════════════════════
+running = True
+
+
+def stop_handler(sig, frame):
+    global running
+    log("إيقاف...", "🛑")
+    running = False
+
+
+def poll_once():
+    """يسحب طلب واحد من السيرفر (Long-Polling)"""
+    status, data = api_post(
+        "/api/tunnel/poll",
+        {"type": "poll", "ts": time.time()},
+        timeout=POLL_TIMEOUT + 10
+    )
+    return status, data
+
+
+def handle_request(req):
+    """ينفذ طلب وارد على السكربت المحلي ويرجّع الرد"""
+    req_id  = req.get("id") or req.get("request_id")
+    method  = req.get("method", "GET")
+    path    = req.get("path", "/")
+    headers = req.get("headers", {}) or {}
+    body_b64 = req.get("body", "")
+
+    body = base64.b64decode(body_b64) if body_b64 else None
+
+    log(f"→ {method} {path}", "📥")
+
+    try:
+        status, resp_headers, resp_body = forward_to_local(method, path, headers, body)
+    except Exception as e:
+        log(f"خطأ في السكربت المحلي: {e}", "❌")
+        resp_body = json.dumps({
+            "error": str(e),
+            "hint": f"هل سكربتك يعمل على {LOCAL_HOST}:{LOCAL_PORT}؟"
+        }).encode()
+        resp_headers = {"Content-Type": "application/json; charset=utf-8"}
+        status = 502
+
+    log(f"← {status}  ({len(resp_body)}B)", "✅")
+
+    # أرسل الرد للسيرفر
+    api_post("/api/tunnel/respond", {
+        "req_id": req_id,
+        "status": status,
+        "headers": resp_headers,
+        "body": base64.b64encode(resp_body).decode()
+    })
+
+
+def main():
+    print("═" * 60)
+    print("  🚀 ZONE TUNNEL Client — مبسّط")
+    print("═" * 60)
+    print(f"  🌐 Gateway:   {API_URL}")
+    print(f"  🚇 Tunnel ID: #{TUNNEL_ID}")
+    print(f"  🎯 Local:     http://{LOCAL_HOST}:{LOCAL_PORT}")
+    print("═" * 60)
+
+    signal.signal(signal.SIGINT, stop_handler)
+    signal.signal(signal.SIGTERM, stop_handler)
+
+    # فحص النفق أولاً
+    log("فحص النفق...", "🔍")
+    code, resp = api_post("/api/tunnel/check", {
+        "tunnel_id": TUNNEL_ID, "token": TOKEN
+    })
+    if code != 200:
+        log(f"فشل الفحص: HTTP {code} — {resp}", "❌")
+        return
+    if isinstance(resp, dict) and resp.get("tunnel"):
+        t = resp["tunnel"]
+        log(f"النفق ملكنا: #{t.get('id')} — {t.get('name', '')}", "✅")
+    else:
+        log(f"رد غير متوقع: {resp}", "⚠️")
+
+    log("بدأ السحب (Polling)... اضغط Ctrl+C للإيقاف", "🎯")
+    print("─" * 60)
+
+    # الحلقة الرئيسية
+    errors = 0
+    while running:
+        try:
+            status, data = poll_once()
+
+            if status == 200 and isinstance(data, dict):
+                # فُكّ الغلاف
+                payload = data.get("data") or data
+                if isinstance(payload, str):
+                    # قد تكون مشفرة بـ base64 — تجاهلنا هنا لأننا مبسطين
+                    payload = json.loads(base64.b64decode(payload))
+
+                if payload.get("type") == "request":
+                    errors = 0
+                    handle_request(payload)
+                else:
+                    # idle — لا جديد
+                    pass
+            else:
+                errors += 1
+                log(f"poll HTTP {status}: {str(data)[:100]}", "⚠️")
+                time.sleep(min(2 ** errors, 30))
+
+        except KeyboardInterrupt:
+            break
+        except Exception as e:
+            errors += 1
+            log(f"استثناء: {type(e).__name__}: {e}", "❌")
+            time.sleep(min(2 ** errors, 30))
+
+    log("انتهى", "👋")
+
+
+if __name__ == "__main__":
+    main()</pre>
+
+                    <div style="margin-top:16px">
+                        <button class="btn btn-ghost" onclick="copyText(document.querySelectorAll('#tab-connect pre.code-block')[2].textContent, '📋 تم نسخ السكربت')">📋 انسخ السكربت</button>
+                    </div>
+
+                    <div style="background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.25);border-radius:14px;padding:16px;margin-top:18px;font-size:13.5px;line-height:2;color:var(--txt2)">
+                        <div style="color:var(--purpleL);font-weight:700;margin-bottom:8px">🎯 ما يفعله السكربت:</div>
+                        <div>1️⃣ يتحقق من صحة النفق عبر <span class="inline-code">/api/tunnel/check</span></div>
+                        <div>2️⃣ يدخل في حلقة <strong>Long-Polling</strong> دائمة على <span class="inline-code">/api/tunnel/poll</span></div>
+                        <div>3️⃣ لما يجي طلب، ينفذه على سكربتك المحلي (<span class="inline-code">127.0.0.1:5000</span>)</div>
+                        <div>4️⃣ يرجّع الرد للسيرفر عبر <span class="inline-code">/api/tunnel/respond</span></div>
+                        <div>5️⃣ يعيد الكرّة — للأبد، بدون تدخل منك</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🎛️ أوضاع التشغيل</div>
+                    <div class="card-subtitle">اختر الطريقة الأنسب لك</div>
+
+                    <div class="mode-grid">
+                        <div class="mode-card">
+                            <div class="mode-icon">💻</div>
+                            <div class="mode-title">كمبيوتر (Windows/Mac/Linux)</div>
+                            <div class="mode-desc">افتح 3 نوافذ Terminal: واحد للسكربت، واحد للعميل، وواحد للتجربة.</div>
+                        </div>
+                        <div class="mode-card">
+                            <div class="mode-icon">📱</div>
+                            <div class="mode-title">هاتف أندرويد (Pydroid 3)</div>
+                            <div class="mode-desc">شغّل السكربت المحلي + العميل داخل Pydroid. لا يحتاج root.</div>
+                        </div>
+                        <div class="mode-card">
+                            <div class="mode-icon">🐧</div>
+                            <div class="mode-title">Linux / VPS</div>
+                            <div class="mode-desc">نفس الأمر، لكن مع <span class="inline-code">python3</span>. استخدم <span class="inline-code">screen</span> أو <span class="inline-code">tmux</span> عشان يشتغل بالخلفية.</div>
+                        </div>
+                        <div class="mode-card">
+                            <div class="mode-icon">🐳</div>
+                            <div class="mode-title">Docker</div>
+                            <div class="mode-desc">شغّل الحاوية مع <span class="inline-code">--network host</span> عشان توصل للـ localhost.</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-title">❓ أسئلة شائعة</div>
+
                     <details class="faq-item">
-                        <summary>عميل zone يطبع "النفق مشغول" — ماذا أفعل؟</summary>
-                        <div class="faq-answer">يعني عميل آخر متصل بنفس النفق. أنشئ نفقاً جديداً، أو أوقف العميل القديم.</div>
+                        <summary>العميل يقول "النفق مشغول" — ماذا أفعل؟</summary>
+                        <div class="faq-answer">يعني عميل آخر متصل بنفس النفق. <strong>نفق واحد = عميل واحد</strong>. افتح صفحة الأنفاق، أنشئ نفقاً جديداً، واستخدم أمره. أو أوقف العميل القديم أولاً.</div>
                     </details>
+
                     <details class="faq-item">
-                        <summary>"tunnel not found" عند فتح الرابط — لماذا؟</summary>
-                        <div class="faq-answer">الـ slug غير موجود. تأكد من نسخ الرابط الكامل من صفحة الأنفاق النشطة.</div>
+                        <summary>يفتح الرابط ويقول "tunnel not found" — لماذا؟</summary>
+                        <div class="faq-answer">الـ slug في الرابط غير موجود بقاعدة البيانات. تأكد من نسخ الرابط الكامل من صفحة <strong>الأنفاق النشطة</strong> بدقة.</div>
                     </details>
+
                     <details class="faq-item">
                         <summary>"tunnel offline" عند فتح الرابط — لماذا؟</summary>
-                        <div class="faq-answer">العميل غير شغال. شغّله في Terminal واتركه مفتوحاً.</div>
+                        <div class="faq-answer">العميل (<span class="inline-code">zonetunnel.py</span>) غير شغال على جهازك. شغّله في Terminal واتركه مفتوحاً. سيصبح النفق online خلال ثوانٍ.</div>
                     </details>
+
                     <details class="faq-item">
-                        <summary>ngrok يعرض صفحة تحذير — هل هذا خطأ؟</summary>
-                        <div class="faq-answer">لا، اضغط "Visit Site". العميل يضيف الهيدر تلقائياً.</div>
+                        <summary>ngrok يعرض صفحة تحذير ERR_NGROK_6024 — هل هذا خطأ؟</summary>
+                        <div class="faq-answer">لا، هذه صفحة ngrok يظهرها مرة واحدة لأول زيارة. اضغط زر <strong>"Visit Site"</strong> وستنتقل لصفحتك. العميل يضيف الهيدر تلقائياً، فلا تظهر له.</div>
                     </details>
+
                     <details class="faq-item">
                         <summary>"Connection refused" من العميل — لماذا؟</summary>
-                        <div class="faq-answer">سكربتك المحلي غير شغال على المنفذ. تأكد أنه يستمع على نفس المنفذ.</div>
+                        <div class="faq-answer">يعني سكربتك المحلي <strong>غير شغال</strong> على المنفذ اللي أدخلته. تأكد أن <span class="inline-code">python my_server.py</span> شغال في Terminal آخر، وأنه يستمع على نفس المنفذ.</div>
                     </details>
+
+                    <details class="faq-item">
+                        <summary>كيف أتأكد أن النفق يعمل؟</summary>
+                        <div class="faq-answer">3 فحوصات: (1) نقطة <span style="color:var(--green)">خضراء</span> بجانب النفق في صفحة الأنفاق النشطة. (2) العميل يطبع <span class="inline-code">✅ بدأ السحب</span>. (3) افتح الرابط العام — يفترض تظهر صفحتك.</div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>هل يعمل على شبكات الشركات/الجدار الناري؟</summary>
+                        <div class="faq-answer">نعم، طالما يسمح بالخروج على HTTPS (منفذ 443). كل الاتصالات عادية على نفس المنفذ، ما يحتاج فتح أي بورت إضافي.</div>
+                    </details>
+
                     <details class="faq-item">
                         <summary>هل يمكن تشغيل أكثر من عميل لنفس النفق؟</summary>
-                        <div class="faq-answer">لا. نفق واحد = عميل واحد.</div>
+                        <div class="faq-answer">لا. <strong>نفق واحد = عميل واحد</strong>. إذا احتجت أجهزة متعددة، أنشئ نفقاً لكل جهاز.</div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>هل يمكن تشغيل أكثر من نفق من نفس الجهاز؟</summary>
+                        <div class="faq-answer">نعم — افتح Terminal جديد لكل نفق، واستخدم أمر تشغيل مختلف لكل واحد. تأكد أن كل نفق يشير لمنفذ مختلف لسكربت مختلف.</div>
                     </details>
                 </div>
 
@@ -919,164 +1240,15 @@ HTTPServer(("0.0.0.0", 5000), Handler).serve_forever()</pre>
                     <div class="card-title">🔐 ملاحظات أمان مهمة</div>
                     <div class="settings-section" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
                         <ul style="padding-right:24px;line-height:2.2;color:var(--txt2);font-size:14px">
-                            <li>🔒 لا تشارك التوكن مع أي شخص.</li>
-                            <li>🌐 الرابط العام مفتوح لأي شخص يعرفه.</li>
-                            <li>🛡️ أضف authentication في سكربتك إذا كان النفق عاماً.</li>
-                            <li>⚙️ لإيقاف نفق فوراً: أوقف العميل (Ctrl+C).</li>
-                            <li>🔁 إذا سربت التوكن، احذف النفق وأنشئ واحداً جديداً.</li>
+                            <li>🔒 <strong>لا تشارك</strong> التوكن (<span class="inline-code">tun_...</span>) مع أي شخص — من يملكه يسيطر على نفقك.</li>
+                            <li>🌐 الرابط العام <span class="inline-code">/t/{slug}/</span> مفتوح لأي شخص يعرفه. لا تضع فيه بيانات حساسة بدون حماية في سكربتك.</li>
+                            <li>🛡️ أضف authentication في سكربتك المحلي إذا كان النفق عاماً (header, token, IP whitelist).</li>
+                            <li>⚙️ لإيقاف نفق فوراً: أوقف العميل (<span class="inline-code">Ctrl+C</span>) أو احذف النفق من لوحة التحكم.</li>
+                            <li>🔁 إذا سربت التوكن، احذف النفق وأنشئ واحداً جديداً — التوكنات لا تُغيَّر.</li>
                         </ul>
                     </div>
                 </div>
-            </div>
 
-            <div class="tab-content" id="tab-host">
-                <div class="welcome-card">
-                    <h2>🚀 ZONE HOST — استضافة مواقع أسطورية</h2>
-                    <p>استضف مواقع HTML/CSS/JS كاملة عبر <strong>ZONE TUNNEL</strong> في ثوانٍ. ارفع ملف ZIP، احصل على رابط عام، وشارك موقعك مع العالم.</p>
-                    <p>كل موقع يحصل على <strong>ID فريد</strong> ورابط دائم — بدون تعقيد.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">🎯 كيف يعمل ZONE HOST؟</div>
-                    <div class="card-subtitle">فكرة بسيطة — قوية</div>
-                    <div style="background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:22px;direction:ltr;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--cyanL);overflow-x:auto;line-height:2.2;white-space:nowrap;margin-bottom:20px">
-                        <div style="color:var(--purpleL);font-weight:700;margin-bottom:14px;font-size:13px">⚡ FLOW</div>
-                        <div>📤 <span style="color:#fff">ترفع ZIP</span> → <span style="color:var(--cyanL)">الواجهة ترسله للسيرفر</span></div>
-                        <div style="color:var(--txt3);margin:6px 0">↓</div>
-                        <div>🆔 <span style="color:#fff">السيرفر ينشئ ID</span> → <span style="color:var(--cyanL)">id1a2b3c4d5e6f</span></div>
-                        <div style="color:var(--txt3);margin:6px 0">↓</div>
-                        <div>💾 <span style="color:#fff">يفك ZIP</span> → <span style="color:var(--cyanL)">يحفظ الملفات</span></div>
-                        <div style="color:var(--txt3);margin:6px 0">↓</div>
-                        <div>🔗 <span style="color:#fff">رابط المشاركة</span> → <span style="color:var(--cyanL)">#/HOST?id=id1a2b3c4d5e6f</span></div>
-                        <div style="color:var(--txt3);margin:6px 0">↓</div>
-                        <div style="color:var(--green)">✅ الموقع يعمل في iframe</div>
-                    </div>
-
-                    <div class="mode-grid">
-                        <div class="mode-card">
-                            <div class="mode-icon">📦</div>
-                            <div class="mode-title">ZIP واحد</div>
-                            <div class="mode-desc">ارفع مشروعك كامل في ZIP (حتى 20MB).<br>لازم يحتوي على <span class="inline-code">index.html</span>.</div>
-                        </div>
-                        <div class="mode-card">
-                            <div class="mode-icon">🆔</div>
-                            <div class="mode-title">ID فريد</div>
-                            <div class="mode-desc">كل مشروع يحصل على ID ثابت. الرابط لا يتغير.</div>
-                        </div>
-                        <div class="mode-card">
-                            <div class="mode-icon">⚡</div>
-                            <div class="mode-title">عرض فوري</div>
-                            <div class="mode-desc">الموقع يظهر مباشرة داخل iframe.</div>
-                        </div>
-                        <div class="mode-card">
-                            <div class="mode-icon">🔗</div>
-                            <div class="mode-title">رابط مشاركة</div>
-                            <div class="mode-desc">شارك الرابط مع أي شخص.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">⚙️ إعداد الاتصال بالسيرفر</div>
-                    <div class="card-subtitle">ZONE HOST يحتاج سيرفراً محلياً (سكربت Python) على منفذ محدد، مرتبط بنفق ZONE TUNNEL.</div>
-
-                    <div class="settings-section">
-                        <div class="settings-title">🔌 عنوان سيرفر ZONE HOST</div>
-                        <div class="settings-desc">ضع رابط النفق الذي يشغّل عليه سكربت ZONE HOST المحلي.</div>
-                        <div class="form-group">
-                            <input type="text" class="form-input ltr" id="host-api-url" placeholder="https://...ngrok-free.dev/t/YOUR_SLUG">
-                        </div>
-                        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-                            <button class="btn btn-primary" onclick="saveHostApi()">💾 حفظ</button>
-                            <button class="btn btn-ghost" onclick="testHostApi()">🔍 اختبار الاتصال</button>
-                        </div>
-                        <div id="host-api-status" class="modal-hint" style="margin-top:10px"></div>
-                    </div>
-
-                    <div class="settings-section" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
-                        <div class="settings-title">📖 كيف تجهّز السيرفر؟</div>
-                        <ol style="padding-right:24px;line-height:2.2;color:var(--txt2);font-size:14px;margin-top:10px">
-                            <li>شغّل سكربت ZONE HOST على جهازك (منفذ 5000 مثلاً).</li>
-                            <li>أنشئ نفقاً من صفحة <strong>الأنفاق النشطة</strong> يشير للمنفذ 5000.</li>
-                            <li>شغّل عميل zone بالأمر الظاهر.</li>
-                            <li>انسخ رابط النفق هنا والصقه في الحقل أعلاه.</li>
-                            <li>اضغط <strong>اختبار الاتصال</strong> — يجب أن يظهر ✅.</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">📤 ارفع مشروعك</div>
-                    <div class="card-subtitle">ارفع ملف ZIP يحتوي على <span class="inline-code">index.html</span> على الأقل. الحد الأقصى: <strong>20MB</strong>.</div>
-
-                    <div class="host-drop-zone" id="host-drop-zone">
-                        <div class="host-drop-icon">📦</div>
-                        <p class="host-drop-title">اسحب ملف ZIP هنا</p>
-                        <p class="host-drop-sub">أو اضغط لاختيار ملف</p>
-                        <button class="btn btn-primary" onclick="document.getElementById('host-file-input').click()">📁 اختر ملف ZIP</button>
-                        <input type="file" id="host-file-input" accept=".zip" hidden>
-                        <p class="host-file-name" id="host-file-name"></p>
-                    </div>
-
-                    <button class="btn btn-primary btn-full btn-lg" id="host-upload-btn" onclick="uploadHostProject()" disabled style="margin-top:16px">🚀 إنشاء موقع الآن</button>
-                    <p id="host-upload-status" class="host-status"></p>
-                </div>
-
-                <div class="card" id="host-preview-card" style="display:none">
-                    <div class="card-title">🌐 موقعك جاهز!</div>
-                    <div class="card-subtitle">انسخ الرابط وشاركه مع العالم</div>
-
-                    <div class="key-value-wrapper" style="margin-bottom:12px">
-                        <div class="key-value" id="host-share-url" style="direction:ltr;text-align:left"></div>
-                        <div class="key-actions">
-                            <button class="icon-btn" onclick="copyHostLink()" title="نسخ">📋</button>
-                            <button class="icon-btn" onclick="openHostInNewTab()" title="فتح">🔗</button>
-                        </div>
-                    </div>
-
-                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-                        <button class="btn btn-ghost btn-sm" onclick="resetHostView()">🔄 مشروع جديد</button>
-                        <button class="btn btn-ghost btn-sm" onclick="reloadHostPreview()">♻️ إعادة تحميل</button>
-                    </div>
-
-                    <iframe id="host-viewer" class="host-iframe" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
-                </div>
-
-                <div class="card" id="host-projects-card">
-                    <div class="card-title">📚 مشاريعي</div>
-                    <div class="card-subtitle">كل المواقع التي أنشأتها عبر ZONE HOST</div>
-                    <div id="host-projects-list">
-                        <div class="empty-state">
-                            <div class="icon">📭</div>
-                            <h3>لا توجد مشاريع بعد</h3>
-                            <p>ارفع أول مشروع من الأعلى</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">❓ أسئلة شائعة</div>
-                    <details class="faq-item">
-                        <summary>ما الملفات المدعومة داخل ZIP؟</summary>
-                        <div class="faq-answer">كل شيء: <span class="inline-code">.html</span>، <span class="inline-code">.css</span>، <span class="inline-code">.js</span>، صور، خطوط، فيديو. المهم وجود <span class="inline-code">index.html</span> في الجذر.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>هل الموقع دائم؟</summary>
-                        <div class="faq-answer">نعم — الملفات محفوظة على السيرفر. طالما السيرفر شغال، الرابط يعمل.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>هل يمكنني حذف مشروع؟</summary>
-                        <div class="faq-answer">نعم، من قسم <strong>مشاريعي</strong> — اضغط 🗑️.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>ما أقصى حجم للمشروع؟</summary>
-                        <div class="faq-answer"><strong>20MB</strong> لكل ZIP.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>هل يدعم JavaScript و CSS الخارجية؟</summary>
-                        <div class="faq-answer">نعم — كل الملفات المرفقة في ZIP تعمل معاً.</div>
-                    </details>
-                </div>
             </div>
 
             <div class="tab-content" id="tab-settings">
@@ -1296,7 +1468,6 @@ const ROUTES = {
     '/keys':          { page: 'dashboard', auth: true, tab: 'keys' },
     '/tunnels':       { page: 'dashboard', auth: true, tab: 'tunnels' },
     '/connect':       { page: 'dashboard', auth: true, tab: 'connect' },
-    '/host':          { page: 'dashboard', auth: true, tab: 'host' },
     '/settings':      { page: 'dashboard', auth: true, tab: 'settings' },
     '/support':       { page: 'dashboard', auth: true, tab: 'support' },
     '/terms':         { page: 'dashboard', auth: true, tab: 'terms' },
@@ -1307,7 +1478,6 @@ const TAB_TITLES = {
     keys: ['مفاتيح API', 'إدارة مفاتيح الوصول الخاصة بك'],
     tunnels: ['الأنفاق النشطة', 'أنشئ وأدِر أنفاقك'],
     connect: ['اربط سكربتك', 'دليل كامل لربط سكربتك بنفق موجود'],
-    host: ['ZONE HOST', 'استضافة مواقع أسطورية عبر ZONE TUNNEL'],
     settings: ['إعدادات الحساب', 'إدارة حسابك وكلمة المرور'],
     support: ['الدعم الفني', 'نحن هنا لمساعدتك'],
     terms: ['الشروط والأحكام', 'يرجى قراءة الشروط بعناية']
@@ -1318,16 +1488,6 @@ function getRoute() {
     if (!hash) hash = '/';
     const [path] = hash.split('?');
     return path.toLowerCase();
-}
-
-function getRouteParams() {
-    const hash = location.hash.replace(/^#/, '');
-    const qIndex = hash.indexOf('?');
-    if (qIndex === -1) return {};
-    const params = new URLSearchParams(hash.slice(qIndex + 1));
-    const out = {};
-    for (const [k, v] of params.entries()) out[k] = v;
-    return out;
 }
 
 function navigate(path) {
@@ -1363,10 +1523,6 @@ function switchTab(tab) {
     if (tab === 'keys') loadKeys();
     if (tab === 'tunnels') { loadTunnels(); startTunnelsPolling(); }
     if (tab === 'home') loadStats();
-    if (tab === 'host') {
-        setupHostDropZone();
-        if (hostApiUrl) loadHostProjects();
-    }
     if (window.innerWidth <= 900) toggleSidebar(false);
 }
 
@@ -1391,11 +1547,6 @@ function handleRoute() {
         updateUserUI();
         showPage('dashboard');
         switchTab(route.tab);
-
-        const params = getRouteParams();
-        if (route.tab === 'host' && params.id) {
-            setTimeout(() => showHostPreview(params.id), 400);
-        }
     } else {
         showPage(route.page);
     }
@@ -1610,7 +1761,7 @@ async function confirmCreateTunnel() {
 }
 
 function openShowTunnelModal(tunnel, instructions) {
-    const cmd = instructions?.step2 || `python api_server.py --client ${API} ${tunnel.id} ${tunnel.token} ${tunnel.local_port || 5000}`;
+    const cmd = instructions?.step2 || `python zonetunnel.py --client ${API} ${tunnel.id} ${tunnel.token} ${tunnel.local_port || 5000}`;
     openModal({
         title: 'النفق جاهز!',
         icon: '🌐',
@@ -1661,7 +1812,7 @@ function renderTunnelItem(t) {
     const dotClass = isOnline ? 'online' : 'offline';
     const badgeClass = isOnline ? 'online' : 'offline';
     const badgeText = isOnline ? '● متصل' : '○ غير متصل';
-    const cmd = `python api_server.py --client ${API} ${t.id} ${t.tunnel_token || tunnelCache[t.id]?.tunnel_token || 'tun_xxx'} ${t.local_port || 5000}`;
+    const cmd = `python zonetunnel.py --client ${API} ${t.id} ${t.tunnel_token || tunnelCache[t.id]?.tunnel_token || 'tun_xxx'} ${t.local_port || 5000}`;
     const connected = t.connected_at ? new Date(t.connected_at).toLocaleString('ar-EG') : '—';
     const sinceSeen = t.seconds_since_seen != null ? t.seconds_since_seen + ' ث' : '—';
 
@@ -2268,367 +2419,6 @@ function handleLogout() {
     });
 }
 
-// ═══════════════════════════════════════════════════════
-// 🚀 ZONE HOST
-// ═══════════════════════════════════════════════════════
-
-let hostSelectedFile = null;
-let hostApiUrl = localStorage.getItem('zt_host_api') || '';
-let currentHostId = null;
-
-function setupHostDropZone() {
-    const zone = document.getElementById('host-drop-zone');
-    const input = document.getElementById('host-file-input');
-    if (!zone || !input || zone._setup) return;
-    zone._setup = true;
-
-    zone.addEventListener('dragover', e => {
-        e.preventDefault();
-        zone.classList.add('dragover');
-    });
-    zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-    zone.addEventListener('drop', e => {
-        e.preventDefault();
-        zone.classList.remove('dragover');
-        const f = e.dataTransfer.files[0];
-        if (f) setHostFile(f);
-    });
-    zone.addEventListener('click', e => {
-        if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
-            input.click();
-        }
-    });
-    input.addEventListener('change', e => {
-        const f = e.target.files[0];
-        if (f) setHostFile(f);
-    });
-
-    const urlInp = document.getElementById('host-api-url');
-    if (urlInp && hostApiUrl) urlInp.value = hostApiUrl;
-}
-
-function setHostFile(f) {
-    if (!f.name.toLowerCase().endsWith('.zip')) {
-        return showToast('❌ الرجاء رفع ملف ZIP فقط', 'error');
-    }
-    if (f.size > 20 * 1024 * 1024) {
-        return showToast('❌ الملف كبير جداً (الحد 20MB)', 'error');
-    }
-    hostSelectedFile = f;
-    const nameEl = document.getElementById('host-file-name');
-    if (nameEl) nameEl.textContent = `📦 ${f.name} (${(f.size / 1024).toFixed(1)} KB)`;
-    const btn = document.getElementById('host-upload-btn');
-    if (btn) btn.disabled = false;
-    setHostStatus('');
-}
-
-function setHostStatus(msg, type = '') {
-    const el = document.getElementById('host-upload-status');
-    if (!el) return;
-    el.textContent = msg;
-    el.style.color = type === 'ok' ? 'var(--green)'
-                   : type === 'err' ? 'var(--red)'
-                   : type === 'loading' ? 'var(--amber)'
-                   : 'var(--txt2)';
-}
-
-function updateHostApiStatus(msg, type) {
-    const el = document.getElementById('host-api-status');
-    if (!el) return;
-    el.textContent = msg;
-    el.style.color = type === 'ok' ? 'var(--green)'
-                   : type === 'err' ? 'var(--red)'
-                   : 'var(--txt2)';
-}
-
-function saveHostApi() {
-    const url = (document.getElementById('host-api-url')?.value || '').trim().replace(/\/$/, '');
-    if (!url || !/^https?:\/\//.test(url)) {
-        return showToast('❌ رابط غير صالح — يجب أن يبدأ بـ http', 'error');
-    }
-    hostApiUrl = url;
-    localStorage.setItem('zt_host_api', url);
-    showToast('✅ تم حفظ الرابط');
-    updateHostApiStatus('💾 محفوظ: ' + url, 'ok');
-}
-
-async function testHostApi() {
-    if (!hostApiUrl) return showToast('❌ احفظ الرابط أولاً', 'error');
-    updateHostApiStatus('⏳ جاري الاختبار...', 'info');
-    try {
-        const r = await fetch(hostApiUrl + '/api/ping', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain;charset=UTF-8',
-                'ngrok-skip-browser-warning': 'true'
-            },
-            body: JSON.stringify({})
-        });
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        const data = await r.json();
-        updateHostApiStatus('✅ السيرفر يعمل: ' + (data.service || 'ZONE HOST'), 'ok');
-        showToast('✅ الاتصال ناجح');
-        loadHostProjects();
-    } catch (e) {
-        updateHostApiStatus('❌ فشل الاتصال: ' + e.message, 'err');
-        showToast('❌ ' + e.message, 'error');
-    }
-}
-
-async function uploadHostProject() {
-    if (!hostApiUrl) return showToast('❌ احفظ رابط السيرفر أولاً', 'error');
-    if (!hostSelectedFile) return showToast('❌ اختر ملف ZIP', 'error');
-
-    const btn = document.getElementById('host-upload-btn');
-    btn.disabled = true;
-    setHostStatus('⏳ جاري الرفع...', 'loading');
-
-    try {
-        const buffer = await hostSelectedFile.arrayBuffer();
-        const b64 = hostArrayBufferToBase64(buffer);
-
-        const r = await fetch(hostApiUrl + '/api/project/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain;charset=UTF-8',
-                'ngrok-skip-browser-warning': 'true'
-            },
-            body: JSON.stringify({ zip_b64: b64 })
-        });
-
-        if (!r.ok) {
-            const txt = await r.text();
-            throw new Error(`HTTP ${r.status}: ${txt.slice(0, 200)}`);
-        }
-
-        const data = await r.json();
-        if (data.error) throw new Error(data.error);
-
-        setHostStatus('✅ تم إنشاء الموقع! ID: ' + data.id, 'ok');
-        showToast('🎉 تم النشر بنجاح');
-        showHostPreview(data.id);
-        loadHostProjects();
-    } catch (e) {
-        setHostStatus('❌ ' + e.message, 'err');
-        showToast('❌ ' + e.message, 'error');
-        btn.disabled = false;
-    }
-}
-
-function hostArrayBufferToBase64(buffer) {
-    const bytes = new Uint8Array(buffer);
-    let binary = '';
-    const chunk = 0x8000;
-    for (let i = 0; i < bytes.length; i += chunk) {
-        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
-    }
-    return btoa(binary);
-}
-
-function hostBase64ToUint8(b64) {
-    const binary = atob(b64);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-    return bytes;
-}
-
-function showHostPreview(id) {
-    currentHostId = id;
-    const card = document.getElementById('host-preview-card');
-    card.style.display = 'block';
-
-    const shareUrl = `${location.origin}${location.pathname}#/HOST?id=${id}`;
-    const urlEl = document.getElementById('host-share-url');
-    if (urlEl) urlEl.textContent = shareUrl;
-
-    loadHostProject(id);
-    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-async function loadHostProject(id) {
-    setHostStatus('⏳ جاري تحميل الملفات...', 'loading');
-    try {
-        const r = await fetch(hostApiUrl + '/api/project/get', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain;charset=UTF-8',
-                'ngrok-skip-browser-warning': 'true'
-            },
-            body: JSON.stringify({ id })
-        });
-        const data = await r.json();
-        if (data.error) throw new Error(data.error);
-        renderHostProject(data.files);
-        setHostStatus('');
-    } catch (e) {
-        setHostStatus('❌ ' + e.message, 'err');
-    }
-}
-
-function renderHostProject(files) {
-    const blobUrls = {};
-    const mimeMap = {
-        html:'text/html', htm:'text/html', css:'text/css',
-        js:'text/javascript', mjs:'text/javascript', json:'application/json',
-        png:'image/png', jpg:'image/jpeg', jpeg:'image/jpeg', gif:'image/gif',
-        svg:'image/svg+xml', webp:'image/webp', ico:'image/x-icon',
-        woff:'font/woff', woff2:'font/woff2', ttf:'font/ttf', otf:'font/otf',
-        mp4:'video/mp4', webm:'video/webm', mp3:'audio/mpeg', wav:'audio/wav',
-        pdf:'application/pdf'
-    };
-
-    for (const [path, b64] of Object.entries(files)) {
-        const ext = path.split('.').pop().toLowerCase();
-        const mime = mimeMap[ext] || 'application/octet-stream';
-        const bytes = hostBase64ToUint8(b64);
-        blobUrls[path] = URL.createObjectURL(new Blob([bytes], { type: mime }));
-    }
-
-    const indexKey = Object.keys(files).find(k =>
-        k === 'index.html' || k.endsWith('/index.html')
-    );
-
-    if (!indexKey) {
-        document.getElementById('host-viewer').srcdoc = `
-            <div style="padding:40px;font-family:sans-serif;text-align:center;color:#333">
-                <h2>⚠️ لا يوجد index.html</h2>
-                <p>الملفات الموجودة:</p>
-                <ul style="text-align:right;display:inline-block">
-                    ${Object.keys(files).map(f => `<li>${f}</li>`).join('')}
-                </ul>
-            </div>
-        `;
-        return;
-    }
-
-    let html = atob(files[indexKey]);
-    const baseDir = indexKey.replace('index.html', '');
-
-    for (const [path, url] of Object.entries(blobUrls)) {
-        const rel = path.startsWith(baseDir) ? path.slice(baseDir.length) : path;
-        html = html
-            .replaceAll(`"${rel}"`, `"${url}"`)
-            .replaceAll(`'${rel}'`, `'${url}'`)
-            .replaceAll(`"${path}"`, `"${url}"`)
-            .replaceAll(`'${path}'`, `'${url}'`);
-    }
-
-    document.getElementById('host-viewer').srcdoc = html;
-}
-
-function copyHostLink() {
-    const url = document.getElementById('host-share-url')?.textContent;
-    if (url) copyText(url, '📋 تم نسخ الرابط');
-}
-
-function openHostInNewTab() {
-    const url = document.getElementById('host-share-url')?.textContent;
-    if (url) window.open(url, '_blank');
-}
-
-function reloadHostPreview() {
-    if (currentHostId) loadHostProject(currentHostId);
-}
-
-function resetHostView() {
-    currentHostId = null;
-    hostSelectedFile = null;
-    document.getElementById('host-preview-card').style.display = 'none';
-    document.getElementById('host-file-name').textContent = '';
-    document.getElementById('host-file-input').value = '';
-    document.getElementById('host-upload-btn').disabled = true;
-    setHostStatus('');
-}
-
-async function loadHostProjects() {
-    if (!hostApiUrl) return;
-    const list = document.getElementById('host-projects-list');
-    if (!list) return;
-
-    try {
-        const r = await fetch(hostApiUrl + '/api/project/list', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain;charset=UTF-8',
-                'ngrok-skip-browser-warning': 'true'
-            },
-            body: JSON.stringify({})
-        });
-        const data = await r.json();
-        const projects = Object.values(data.projects || {});
-
-        if (!projects.length) {
-            list.innerHTML = `
-                <div class="empty-state">
-                    <div class="icon">📭</div>
-                    <h3>لا توجد مشاريع بعد</h3>
-                    <p>ارفع أول مشروع من الأعلى</p>
-                </div>`;
-            return;
-        }
-
-        list.innerHTML = projects.map(p => {
-            const shareUrl = `${location.origin}${location.pathname}#/HOST?id=${p.id}`;
-            return `
-                <div class="key-item" style="margin-bottom:10px">
-                    <div class="key-header">
-                        <div class="key-name">📄 ${escapeHtml(p.id)}</div>
-                        <div class="key-status" style="background:rgba(6,182,212,.15);color:var(--cyanL);border-color:rgba(6,182,212,.3)">● نشط</div>
-                    </div>
-                    <div class="key-value-wrapper">
-                        <div class="key-value" style="direction:ltr;text-align:left">${escapeHtml(shareUrl)}</div>
-                        <div class="key-actions">
-                            <button class="icon-btn" onclick="copyText('${escapeHtml(shareUrl)}', '📋 تم النسخ')" title="نسخ">📋</button>
-                            <button class="icon-btn" onclick="window.open('${escapeHtml(shareUrl)}','_blank')" title="فتح">🔗</button>
-                            <button class="icon-btn" onclick="openHostProject('${escapeHtml(p.id)}')" title="عرض">👁️</button>
-                            <button class="icon-btn" onclick="deleteHostProject('${escapeHtml(p.id)}')" title="حذف">🗑️</button>
-                        </div>
-                    </div>
-                    <div class="key-meta">
-                        <span>📅 ${new Date(p.created_at).toLocaleString('ar-EG')}</span>
-                        <span>📄 ${(p.files||[]).length} ملف</span>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    } catch (e) {
-        list.innerHTML = `<div class="empty-state"><div class="icon">❌</div><h3>فشل التحميل</h3><p>${escapeHtml(e.message)}</p></div>`;
-    }
-}
-
-function openHostProject(id) {
-    showHostPreview(id);
-    document.getElementById('host-preview-card')?.scrollIntoView({ behavior:'smooth' });
-}
-
-async function deleteHostProject(id) {
-    openConfirmModal({
-        title: 'حذف المشروع؟',
-        icon: '🗑️',
-        message: `سيتم حذف المشروع <strong style="color:var(--purpleL)">${escapeHtml(id)}</strong> نهائياً.`,
-        confirmLabel: '🗑️ نعم، احذف',
-        onConfirm: async () => {
-            setLoading(true, 'جاري الحذف...');
-            try {
-                await fetch(hostApiUrl + '/api/project/delete', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=UTF-8',
-                        'ngrok-skip-browser-warning': 'true'
-                    },
-                    body: JSON.stringify({ id })
-                });
-                setLoading(false);
-                showToast('🗑️ تم الحذف');
-                loadHostProjects();
-            } catch (e) {
-                setLoading(false);
-                showToast('❌ ' + e.message, 'error');
-            }
-        }
-    });
-}
-
 function showToast(msg, type) {
     type = type || 'success';
     const toast = document.getElementById('toast');
@@ -2730,7 +2520,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
     enhanceCodeBlocks();
     handleRoute();
-    console.log('%c🚀 ZONE TUNNEL v6 + ZONE HOST', 'font-size:24px;font-weight:bold;color:#8b5cf6');
+    console.log('%c🚀 ZONE TUNNEL v6', 'font-size:24px;font-weight:bold;color:#8b5cf6');
 });
 </script>
 </body>
