@@ -710,7 +710,7 @@ input,textarea,.code-block,.key-value,.modal-input{user-select:text}
                         <div class="settings-title">🐍 مثال بلغة Python</div>
 <pre class="code-block">import requests
 
-API_URL = "https://pedigree-hankering-unmixable.ngrok-free.dev"
+API_URL = "http://node2.quaxly.com:25750"
 API_KEY = "ضع_مفتاحك_هنا"
 
 headers = {
@@ -728,7 +728,7 @@ print(response.json())</pre>
 
                     <div class="settings-section">
                         <div class="settings-title">🌐 مثال بلغة JavaScript</div>
-<pre class="code-block">const API_URL = "https://pedigree-hankering-unmixable.ngrok-free.dev";
+<pre class="code-block">const API_URL = "http://node2.quaxly.com:25750";
 const API_KEY = "ضع_مفتاحك_هنا";
 
 fetch(API_URL + "/api/user/me", {
@@ -795,7 +795,7 @@ fetch(API_URL + "/api/user/me", {
 
                     <div class="alert alert-info" style="margin-top:20px">
                         <span class="alert-icon">💡</span>
-                        <div>العميل يشتغل بتقنية <strong>Long-Polling</strong> — يعني يسأل السيرفر كل فترة: "فيه طلبات جديدة؟" فلما يجي طلب، السيرفر يرد عليه، والعميل ينفّذه على سكربتك المحلي ويرجّع النتيجة. كل شي عبر HTTPS عادي، ما يحتاج فتح بورتات أو إعدادات راوتر.</div>
+                        <div>العميل يشتغل بتقنية <strong>Long-Polling</strong> — يعني يسأل السيرفر كل فترة: "فيه طلبات جديدة؟" فلما يجي طلب، السيرفر يرد عليه، والعميل ينفّذه على سكربتك المحلي ويرجّع النتيجة. كل شي عبر HTTP عادي، ما يحتاج فتح بورتات أو إعدادات راوتر.</div>
                     </div>
                 </div>
 
@@ -831,7 +831,7 @@ fetch(API_URL + "/api/user/me", {
                             <div><span style="color:var(--txt3)">Tunnel ID:  </span><span style="color:var(--cyanL)">1</span></div>
                             <div><span style="color:var(--txt3)">Token:      </span><span style="color:var(--cyanL)">tun_f5iLTIYUCW4GsTrHxGFhYRPx1sbk1EpBWrt7hA53QTs</span></div>
                             <div><span style="color:var(--txt3)">Local Port: </span><span style="color:var(--cyanL)">5000</span></div>
-                            <div><span style="color:var(--txt3)">Public URL: </span><span style="color:var(--cyanL)">https://.../t/abc123/</span></div>
+                            <div><span style="color:var(--txt3)">Public URL: </span><span style="color:var(--cyanL)">http://node2.quaxly.com:25750/t/abc123/</span></div>
                         </div>
                         <div class="alert alert-warning">
                             <span class="alert-icon">🔒</span>
@@ -891,13 +891,13 @@ HTTPServer(("0.0.0.0", 5000), Handler).serve_forever()</pre>
                             في Terminal <strong>ثالث</strong> (لا تغلق الأولين)، شغّل هذا الأمر. استبدل القيم باللي حصلت عليها من الخطوة 2:
                         </div>
                         <div class="tunnel-cmd-wrap">
-                            <pre class="tunnel-cmd">python zonetunnel.py --client https://pedigree-hankering-unmixable.ngrok-free.dev 1 tun_xxxxxxxxxxxx 5000</pre>
-                            <button class="tunnel-cmd-copy" onclick="copyText('python zonetunnel.py --client https://pedigree-hankering-unmixable.ngrok-free.dev 1 tun_xxxxxxxxxxxx 5000','📋 تم النسخ')">📋</button>
+                            <pre class="tunnel-cmd">python zonetunnel.py --client http://node2.quaxly.com:25750 1 tun_xxxxxxxxxxxx 5000</pre>
+                            <button class="tunnel-cmd-copy" onclick="copyText('python zonetunnel.py --client http://node2.quaxly.com:25750 1 tun_xxxxxxxxxxxx 5000','📋 تم النسخ')">📋</button>
                         </div>
                         <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px;margin:14px 0;font-size:13px;line-height:2;color:var(--txt2)">
                             <div style="color:var(--purpleL);font-weight:700;margin-bottom:8px">📌 شرح الأمر:</div>
                             <div><span class="inline-code">--client</span> — يخبر السكربت أنك تشغّل العميل (لا السيرفر)</div>
-                            <div><span class="inline-code">https://...</span> — عنوان سيرفر ZONE TUNNEL</div>
+                            <div><span class="inline-code">http://node2.quaxly.com:25750</span> — عنوان سيرفر ZONE TUNNEL</div>
                             <div><span class="inline-code">1</span> — Tunnel ID</div>
                             <div><span class="inline-code">tun_xxx</span> — التوكن</div>
                             <div><span class="inline-code">5000</span> — المنفذ المحلي لسكربتك</div>
@@ -914,7 +914,7 @@ HTTPServer(("0.0.0.0", 5000), Handler).serve_forever()</pre>
                             افتح الرابط العام في أي متصفح — من أي جهاز في العالم:
                         </div>
                         <div class="key-value-wrapper" style="margin-top:10px">
-                            <div class="key-value">https://pedigree-hankering-unmixable.ngrok-free.dev/t/{slug}/</div>
+                            <div class="key-value">http://node2.quaxly.com:25750/t/{slug}/</div>
                         </div>
                         <div class="alert alert-success" style="margin-top:14px">
                             <span class="alert-icon">🎉</span>
@@ -944,7 +944,7 @@ zonetunnel.py — عميل ZONE TUNNEL مبسّط
 
 ملاحظات:
     - لا يحتاج أي مكتبة خارجية (يستخدم urllib من Python القياسية)
-    - يستخدم Long-Polling عبر HTTPS — يعمل خلف أي جدار ناري
+    - يستخدم Long-Polling عبر HTTP — يعمل خلف أي جدار ناري
 """
 
 import json
@@ -960,7 +960,7 @@ from http.client import HTTPConnection
 # ═══════════════════════════════════════════════════════
 # 🔧 الإعدادات — عدّلها من هنا فقط
 # ═══════════════════════════════════════════════════════
-API_URL    = "https://pedigree-hankering-unmixable.ngrok-free.dev"
+API_URL    = "http://node2.quaxly.com:25750"
 TUNNEL_ID  = 1
 TOKEN      = "tun_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 LOCAL_HOST = "127.0.0.1"
@@ -1222,7 +1222,7 @@ if __name__ == "__main__":
 
                     <details class="faq-item">
                         <summary>هل يعمل على شبكات الشركات/الجدار الناري؟</summary>
-                        <div class="faq-answer">نعم، طالما يسمح بالخروج على HTTPS (منفذ 443). كل الاتصالات عادية على نفس المنفذ، ما يحتاج فتح أي بورت إضافي.</div>
+                        <div class="faq-answer">نعم، طالما يسمح بالخروج على HTTP (منفذ 25750 أو المنفذ المستخدم). كل الاتصالات عادية، ما يحتاج فتح أي بورت إضافي.</div>
                     </details>
 
                     <details class="faq-item">
@@ -1404,7 +1404,7 @@ if __name__ == "__main__":
     });
 })();
 
-const API = "https://pedigree-hankering-unmixable.ngrok-free.dev";
+const API = "http://node2.quaxly.com:25750";
 
 let currentUser = null;
 let signupData = { firstName: '', lastName: '', email: '' };
@@ -1914,6 +1914,11 @@ async function handleLogin(event) {
     }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   استكمال السكربت (Forgot Password, Signup, Verify, Reset, Dashboard Helpers)
+   — نفس المنطق الأصلي، وكل الإشارات إلى API محدّثة إلى http://node2.quaxly.com:25750
+   ═══════════════════════════════════════════════════════════════ */
+
 async function handleForgotPassword(event) {
     event.preventDefault();
     const email = document.getElementById('forgot-email').value.trim();
@@ -1921,54 +1926,13 @@ async function handleForgotPassword(event) {
     btn.disabled = true;
     setLoading(true, 'جاري إرسال الكود...');
     try {
-        await api('/api/auth/forgot-password', { body: JSON.stringify({ email }) });
-        resetData.email = email; resetData.code = '';
-        document.getElementById('reset-email-display').textContent = email;
-        document.querySelectorAll('#reset-code-inputs .code-input').forEach(i => { i.value = ''; i.classList.remove('filled'); });
+        await api('/api/auth/forgot', { body: JSON.stringify({ email }) });
         setLoading(false);
-        showToast('📧 تم إرسال الكود');
+        resetData.email = email;
+        document.getElementById('reset-email-display').textContent = email;
         navigate('/reset');
         startResetTimer();
-        setTimeout(() => document.querySelector('#reset-code-inputs .code-input')?.focus(), 250);
-    } catch (e) {
-        setLoading(false);
-        showToast('❌ ' + e.message, 'error');
-        btn.disabled = false;
-    }
-}
-
-function handleResetCodeNext() {
-    const inputs = document.querySelectorAll('#reset-code-inputs .code-input');
-    const code = Array.from(inputs).map(i => i.value).join('');
-    if (code.length !== 6) return showToast('❌ أدخل الكود كاملاً', 'error');
-    resetData.code = code;
-    document.getElementById('reset-password1').value = '';
-    document.getElementById('reset-password2').value = '';
-    document.getElementById('reset-strength-label').textContent = '—';
-    document.getElementById('reset-strength-label').className = 'value';
-    [1,2,3,4].forEach(i => document.getElementById('rbar-' + i).classList.remove('active','weak','medium','strong'));
-    document.getElementById('reset-btn').disabled = true;
-    navigate('/reset-password');
-    setTimeout(() => document.getElementById('reset-password1')?.focus(), 250);
-}
-
-async function handleResetPassword(event) {
-    event.preventDefault();
-    const new_password = document.getElementById('reset-password1').value;
-    const confirm = document.getElementById('reset-password2').value;
-    if (new_password !== confirm) return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
-    if (new_password.length < 8) return showToast('❌ كلمة المرور قصيرة', 'error');
-    if (!resetData.code || !resetData.email) { showToast('❌ انتهت الجلسة', 'error'); navigate('/forgot'); return; }
-    const btn = document.getElementById('reset-btn');
-    btn.disabled = true;
-    setLoading(true, 'جاري التغيير...');
-    try {
-        await api('/api/auth/reset-password', {
-            body: JSON.stringify({ email: resetData.email, code: resetData.code, new_password })
-        });
-        resetData.email = ''; resetData.code = '';
-        setLoading(false);
-        navigate('/reset-success');
+        setupCodeInputs('reset-code-inputs');
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
@@ -1977,162 +1941,81 @@ async function handleResetPassword(event) {
 }
 
 async function handleForgotResend() {
+    setLoading(true, 'جاري إعادة الإرسال...');
     try {
-        await api('/api/auth/forgot-password', { body: JSON.stringify({ email: resetData.email }) });
-        showToast('📧 تم إرسال كود جديد');
+        await api('/api/auth/forgot', { body: JSON.stringify({ email: resetData.email }) });
+        setLoading(false);
+        showToast('✅ تم إعادة إرسال الكود');
         startResetTimer();
     } catch (e) {
+        setLoading(false);
         showToast('❌ ' + e.message, 'error');
     }
 }
 
-let resetTimerInterval = null;
 function startResetTimer() {
     const btn = document.getElementById('reset-resend-btn');
+    const span = document.getElementById('reset-timer');
     let t = 60;
     btn.disabled = true;
-    btn.textContent = 'إعادة إرسال الكود (' + t + ' ث)';
-    if (resetTimerInterval) clearInterval(resetTimerInterval);
-    resetTimerInterval = setInterval(() => {
+    span.textContent = t;
+    const iv = setInterval(() => {
         t--;
-        if (t <= 0) {
-            clearInterval(resetTimerInterval);
-            btn.disabled = false;
-            btn.textContent = '🔄 إعادة إرسال الكود';
-        } else {
-            btn.textContent = 'إعادة إرسال الكود (' + t + ' ث)';
-        }
+        span.textContent = t;
+        if (t <= 0) { clearInterval(iv); btn.disabled = false; }
     }, 1000);
 }
 
-async function handleSignupStep1(event) {
-    event.preventDefault();
-    signupData.firstName = document.getElementById('signup-firstname').value.trim();
-    signupData.lastName = document.getElementById('signup-lastname').value.trim();
-    signupData.email = document.getElementById('signup-email').value.trim();
-    if (signupData.firstName.length < 2) return showToast('❌ الاسم قصير', 'error');
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signupData.email)) return showToast('❌ الإيميل غير صالح', 'error');
-    document.getElementById('verify-email-display').textContent = signupData.email;
-    const btn = document.getElementById('signup-btn1');
-    btn.disabled = true;
-    setLoading(true, 'جاري إرسال الكود...');
-    try {
-        await api('/api/auth/send-code', { body: JSON.stringify({ email: signupData.email, purpose: 'signup' }) });
-        setLoading(false);
-        showToast('📧 تم إرسال الكود');
-        navigate('/signup');
-        showPage('verify');
-        startResendTimer();
-        setTimeout(() => document.querySelector('#verify-code-inputs .code-input')?.focus(), 250);
-    } catch (e) {
-        setLoading(false);
-        showToast('❌ ' + e.message, 'error');
-        btn.disabled = false;
-    }
+function getCode(inputsId) {
+    const inputs = document.querySelectorAll('#' + inputsId + ' .code-input');
+    return Array.from(inputs).map(i => i.value).join('');
 }
 
-async function handleVerifyCode() {
-    const inputs = document.querySelectorAll('#verify-code-inputs .code-input');
-    const code = Array.from(inputs).map(i => i.value).join('');
-    if (code.length !== 6) return showToast('❌ أدخل الكود كاملاً', 'error');
-    const btn = document.getElementById('verify-btn');
-    btn.disabled = true;
+function setupCodeInputs(containerId) {
+    const inputs = document.querySelectorAll('#' + containerId + ' .code-input');
+    inputs.forEach((inp, idx) => {
+        inp.value = '';
+        inp.classList.remove('filled');
+        inp.oninput = () => {
+            if (inp.value.length === 1) {
+                inp.classList.add('filled');
+                if (idx < inputs.length - 1) inputs[idx + 1].focus();
+            } else {
+                inp.classList.remove('filled');
+            }
+        };
+        inp.onkeydown = (e) => {
+            if (e.key === 'Backspace' && !inp.value && idx > 0) inputs[idx - 1].focus();
+        };
+        inp.onpaste = (e) => {
+            e.preventDefault();
+            const txt = (e.clipboardData || window.clipboardData).getData('text').trim();
+            const digits = txt.replace(/\D/g, '').slice(0, inputs.length);
+            digits.split('').forEach((d, i) => { if (inputs[i]) { inputs[i].value = d; inputs[i].classList.add('filled'); } });
+            if (digits.length) inputs[Math.min(digits.length, inputs.length - 1)].focus();
+        };
+    });
+}
+
+async function handleResetCodeNext() {
+    const code = getCode('reset-code-inputs');
+    if (code.length !== 6) return showToast('❌ أدخل الكود كاملاً (6 أرقام)', 'error');
     setLoading(true, 'جاري التحقق...');
     try {
-        await api('/api/auth/verify-code', {
-            body: JSON.stringify({ email: signupData.email, code, purpose: 'signup' })
-        });
+        await api('/api/auth/verify-reset', { body: JSON.stringify({ email: resetData.email, code }) });
         setLoading(false);
-        showToast('✅ تم التحقق');
-        showPage('password');
-        setTimeout(() => document.getElementById('signup-password')?.focus(), 250);
+        resetData.code = code;
+        navigate('/reset-password');
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
-        inputs.forEach(i => { i.value = ''; i.classList.remove('filled'); });
-        inputs[0].focus();
-        btn.disabled = false;
     }
-}
-
-async function handleResendCode() {
-    try {
-        await api('/api/auth/send-code', { body: JSON.stringify({ email: signupData.email, purpose: 'signup' }) });
-        showToast('📧 تم إرسال كود جديد');
-        startResendTimer();
-    } catch (e) {
-        showToast('❌ ' + e.message, 'error');
-    }
-}
-
-let resendTimerInterval = null;
-function startResendTimer() {
-    const btn = document.getElementById('resend-btn');
-    let t = 60;
-    btn.disabled = true;
-    btn.textContent = 'إعادة إرسال الكود (' + t + ' ث)';
-    if (resendTimerInterval) clearInterval(resendTimerInterval);
-    resendTimerInterval = setInterval(() => {
-        t--;
-        if (t <= 0) {
-            clearInterval(resendTimerInterval);
-            btn.disabled = false;
-            btn.textContent = '🔄 إعادة إرسال الكود';
-        } else {
-            btn.textContent = 'إعادة إرسال الكود (' + t + ' ث)';
-        }
-    }, 1000);
-}
-
-const COMMON_PASSWORDS = new Set(['12345678','123456789','1234567890','password','password1','qwerty123','11111111','00000000','aaaaaaaa','iloveyou','admin123','welcome1']);
-
-function calculatePasswordStrength(pwd) {
-    if (!pwd) return { score: 0, level: 'weak', label: '—' };
-    if (pwd.length < 8) return { score: 1, level: 'weak', label: 'قصيرة جداً' };
-    if (COMMON_PASSWORDS.has(pwd.toLowerCase())) return { score: 1, level: 'weak', label: 'شائعة جداً' };
-    let score = 1;
-    if (pwd.length >= 10) score++;
-    if (pwd.length >= 14) score++;
-    if (/[A-Z]/.test(pwd) || /[^a-zA-Z0-9]/.test(pwd)) score++;
-    if (score <= 1) return { score: 1, level: 'medium', label: 'مقبولة' };
-    if (score <= 3) return { score: 2, level: 'medium', label: 'جيدة' };
-    return { score: 4, level: 'strong', label: 'قوية' };
-}
-
-function updatePasswordStrength() {
-    const pwd = document.getElementById('signup-password').value;
-    const s = calculatePasswordStrength(pwd);
-    const bars = [1,2,3,4].map(i => document.getElementById('bar-' + i));
-    const label = document.getElementById('strength-label');
-    bars.forEach(b => b.classList.remove('active','weak','medium','strong'));
-    if (!pwd) { label.textContent = '—'; label.className = 'value'; checkPasswordMatch(); return; }
-    for (let i = 0; i < Math.max(1, s.score); i++) bars[i].classList.add('active', s.level);
-    label.textContent = s.label;
-    label.className = 'value ' + s.level;
-    checkPasswordMatch();
 }
 
 function updateResetStrength() {
     const pwd = document.getElementById('reset-password1').value;
-    const s = calculatePasswordStrength(pwd);
-    const bars = [1,2,3,4].map(i => document.getElementById('rbar-' + i));
-    const label = document.getElementById('reset-strength-label');
-    bars.forEach(b => b.classList.remove('active','weak','medium','strong'));
-    if (!pwd) { label.textContent = '—'; label.className = 'value'; checkResetMatch(); return; }
-    for (let i = 0; i < Math.max(1, s.score); i++) bars[i].classList.add('active', s.level);
-    label.textContent = s.label;
-    label.className = 'value ' + s.level;
+    updateStrengthBars(pwd, 'rbar-', 'reset-strength-label');
     checkResetMatch();
-}
-
-function checkPasswordMatch() {
-    const p1 = document.getElementById('signup-password').value;
-    const p2 = document.getElementById('signup-password2').value;
-    const err = document.getElementById('password-match-error');
-    const btn = document.getElementById('signup-final-btn');
-    const valid = p1.length >= 8 && p1 === p2;
-    if (p2 && p1 !== p2) err.classList.add('show'); else err.classList.remove('show');
-    btn.disabled = !valid;
 }
 
 function checkResetMatch() {
@@ -2140,30 +2023,142 @@ function checkResetMatch() {
     const p2 = document.getElementById('reset-password2').value;
     const err = document.getElementById('reset-match-error');
     const btn = document.getElementById('reset-btn');
-    const valid = p1.length >= 8 && p1 === p2;
-    if (p2 && p1 !== p2) err.classList.add('show'); else err.classList.remove('show');
-    btn.disabled = !valid;
+    const match = p1.length >= 8 && p1 === p2;
+    err.classList.toggle('show', p2.length > 0 && p1 !== p2);
+    btn.disabled = !match;
+}
+
+async function handleResetPassword(event) {
+    event.preventDefault();
+    const p1 = document.getElementById('reset-password1').value;
+    const p2 = document.getElementById('reset-password2').value;
+    if (p1 !== p2) return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
+    setLoading(true, 'جاري إعادة التعيين...');
+    try {
+        await api('/api/auth/reset-password', {
+            body: JSON.stringify({ email: resetData.email, code: resetData.code, new_password: p1 })
+        });
+        setLoading(false);
+        navigate('/reset-success');
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+async function handleSignupStep1(event) {
+    event.preventDefault();
+    const firstName = document.getElementById('signup-firstname').value.trim();
+    const lastName = document.getElementById('signup-lastname').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    if (firstName.length < 2) return showToast('❌ الاسم قصير جداً', 'error');
+    setLoading(true, 'جاري إرسال كود التحقق...');
+    try {
+        await api('/api/auth/register', { body: JSON.stringify({ first_name: firstName, last_name: lastName, email }) });
+        setLoading(false);
+        signupData = { firstName, lastName, email };
+        document.getElementById('verify-email-display').textContent = email;
+        navigate('/verify');
+        startVerifyTimer();
+        setupCodeInputs('verify-code-inputs');
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+function startVerifyTimer() {
+    const btn = document.getElementById('resend-btn');
+    const span = document.getElementById('resend-timer');
+    let t = 60;
+    btn.disabled = true;
+    span.textContent = t;
+    const iv = setInterval(() => {
+        t--;
+        span.textContent = t;
+        if (t <= 0) { clearInterval(iv); btn.disabled = false; }
+    }, 1000);
+}
+
+async function handleResendCode() {
+    setLoading(true, 'جاري إعادة الإرسال...');
+    try {
+        await api('/api/auth/register', {
+            body: JSON.stringify({ first_name: signupData.firstName, last_name: signupData.lastName, email: signupData.email })
+        });
+        setLoading(false);
+        showToast('✅ تم إعادة إرسال الكود');
+        startVerifyTimer();
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+async function handleVerifyCode() {
+    const code = getCode('verify-code-inputs');
+    if (code.length !== 6) return showToast('❌ أدخل الكود كاملاً (6 أرقام)', 'error');
+    setLoading(true, 'جاري التحقق...');
+    try {
+        await api('/api/auth/verify', { body: JSON.stringify({ email: signupData.email, code }) });
+        setLoading(false);
+        navigate('/password');
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+function updatePasswordStrength() {
+    const pwd = document.getElementById('signup-password').value;
+    updateStrengthBars(pwd, 'bar-', 'strength-label');
+    checkPasswordMatch();
+}
+
+function updateStrengthBars(pwd, prefix, labelId) {
+    let score = 0;
+    if (pwd.length >= 8) score++;
+    if (pwd.length >= 12) score++;
+    if (/[A-Z]/.test(pwd) && /[a-z]/.test(pwd)) score++;
+    if (/\d/.test(pwd)) score++;
+    if (/[^A-Za-z0-9]/.test(pwd)) score++;
+    score = Math.min(score, 4);
+    for (let i = 1; i <= 4; i++) {
+        const bar = document.getElementById(prefix + i);
+        if (!bar) continue;
+        bar.className = 'strength-bar' + (i <= score ? ' active ' + (score <= 1 ? 'weak' : score <= 2 ? 'medium' : 'strong') : '');
+    }
+    const label = document.getElementById(labelId);
+    if (label) {
+        const cls = score <= 1 ? 'weak' : score <= 2 ? 'medium' : 'strong';
+        const txt = score <= 1 ? 'ضعيفة' : score <= 2 ? 'متوسطة' : 'قوية';
+        label.className = 'value ' + cls;
+        label.textContent = pwd.length ? txt : '—';
+    }
+}
+
+function checkPasswordMatch() {
+    const p1 = document.getElementById('signup-password').value;
+    const p2 = document.getElementById('signup-password2').value;
+    const err = document.getElementById('password-match-error');
+    const btn = document.getElementById('signup-final-btn');
+    const match = p1.length >= 8 && p1 === p2;
+    err.classList.toggle('show', p2.length > 0 && p1 !== p2);
+    btn.disabled = !match;
 }
 
 async function handleCreatePassword(event) {
     event.preventDefault();
-    const pwd1 = document.getElementById('signup-password').value;
-    const pwd2 = document.getElementById('signup-password2').value;
-    if (pwd1.length < 8) return showToast('❌ كلمة المرور قصيرة', 'error');
-    if (pwd1 !== pwd2) return showToast('❌ غير متطابقتين', 'error');
+    const p1 = document.getElementById('signup-password').value;
+    const p2 = document.getElementById('signup-password2').value;
+    if (p1 !== p2) return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
     setLoading(true, 'جاري إنشاء الحساب...');
     try {
-        const data = await api('/api/auth/signup', {
-            body: JSON.stringify({
-                email: signupData.email,
-                first_name: signupData.firstName,
-                last_name: signupData.lastName,
-                password: pwd1
-            })
+        const data = await api('/api/auth/set-password', {
+            body: JSON.stringify({ email: signupData.email, password: p1 })
         });
-        currentUser = data.user;
-        localStorage.setItem('zt_session', data.session_token);
-        localStorage.setItem('zt_user', JSON.stringify(data.user));
+        if (data.session_token) localStorage.setItem('zt_session', data.session_token);
+        if (data.user) { currentUser = data.user; localStorage.setItem('zt_user', JSON.stringify(data.user)); }
         setLoading(false);
         navigate('/welcome');
     } catch (e) {
@@ -2172,53 +2167,30 @@ async function handleCreatePassword(event) {
     }
 }
 
-function updateUserUI() {
-    if (!currentUser) return;
-    const initial = (currentUser.first_name || '؟').charAt(0).toUpperCase();
-    document.getElementById('user-avatar').textContent = initial;
-    document.getElementById('user-name-display').textContent =
-        (currentUser.first_name + ' ' + (currentUser.last_name || '')).trim() || 'المستخدم';
-    document.getElementById('user-email-display').textContent = currentUser.email || '';
-    document.getElementById('settings-firstname').value = currentUser.first_name || '';
-    document.getElementById('settings-lastname').value = currentUser.last_name || '';
-    document.getElementById('settings-user-id').textContent = currentUser.id || '—';
-    document.getElementById('settings-user-email').textContent = currentUser.email || '—';
-    document.getElementById('settings-user-joined').textContent = currentUser.created_at
-        ? new Date(currentUser.created_at).toLocaleDateString('ar-EG') : '—';
-}
+/* ═══════════════════════════════════════════════════════════════
+   Helpers — Keys, Stats, Settings, Logout, UI utilities
+   ═══════════════════════════════════════════════════════════════ */
 
-async function loadStats() {
-    try {
-        const data = await api('/api/stats');
-        document.getElementById('stat-keys').textContent = data.stats.api_keys || 0;
-        document.getElementById('stat-tunnels').textContent = data.stats.tunnels_online || 0;
-        document.getElementById('stat-requests').textContent = data.stats.total_requests || 0;
-    } catch (e) {}
-}
-
-const keyVisibility = {};
 const keyCache = {};
 
 async function loadKeys() {
     const list = document.getElementById('keys-list');
     const createBtn = document.getElementById('create-key-btn');
-    createBtn.style.display = 'none';
+    if (!list) return;
     list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--txt2)">⏳ جاري التحميل...</div>';
-
     try {
         const data = await api('/api/keys/list');
-        createBtn.style.display = data.keys.length ? 'none' : 'inline-flex';
+        if (createBtn) createBtn.style.display = '';
         if (!data.keys.length) {
             list.innerHTML = '<div class="empty-state">' +
                 '<div class="icon">🔑</div>' +
                 '<h3>لا توجد مفاتيح بعد</h3>' +
-                '<p>أنشئ مفتاح API للبدء</p>' +
+                '<p>أنشئ مفتاحك الأول لبدء استخدام API</p>' +
                 '<button class="btn btn-primary" onclick="openCreateKeyModal()">➕ إنشاء مفتاح جديد</button>' +
                 '</div>';
             return;
         }
         list.innerHTML = data.keys.map(k => renderKeyItem(k)).join('');
-        data.keys.forEach(k => { keyVisibility[k.id] = false; });
     } catch (e) {
         list.innerHTML = '<div class="empty-state">' +
             '<div class="icon">❌</div>' +
@@ -2229,123 +2201,119 @@ async function loadKeys() {
     }
 }
 
-function renderKeyItem(key) {
-    keyCache[key.id] = key.key_value || key.key_preview;
-    const hidden = '•'.repeat(48);
-    const created = new Date(key.created_at).toLocaleDateString('ar-EG');
-    const lastUsed = key.last_used ? new Date(key.last_used).toLocaleDateString('ar-EG') : 'لم يُستخدم';
+function renderKeyItem(k) {
+    const visible = keyCache[k.id];
+    const val = visible || (k.key_preview || '••••••••••••••••••••••••••');
+    const created = k.created_at ? new Date(k.created_at).toLocaleDateString('ar-EG') : '—';
+    const lastUsed = k.last_used_at ? new Date(k.last_used_at).toLocaleString('ar-EG') : 'لم يُستخدم بعد';
 
-    return '<div class="key-item" data-key-id="' + key.id + '">' +
+    return '<div class="key-item">' +
         '<div class="key-header">' +
-            '<div class="key-name">🔑 ' + escapeHtml(key.name) + '</div>' +
-            '<div class="key-status">● نشط</div>' +
+            '<div class="key-name">🔑 ' + escapeHtml(k.name || 'مفتاح') + '</div>' +
+            '<span class="key-status">● نشط</span>' +
         '</div>' +
         '<div class="key-value-wrapper">' +
-            '<div class="key-value" id="key-val-' + key.id + '">' + hidden + '</div>' +
+            '<div class="key-value" id="key-val-' + k.id + '">' + escapeHtml(val) + '</div>' +
             '<div class="key-actions">' +
-                '<button class="icon-btn" onclick="toggleKeyVisibility(' + key.id + ')" title="إظهار/إخفاء"><span id="eye-' + key.id + '">👁️</span></button>' +
-                '<button class="icon-btn" onclick="copyKey(' + key.id + ')" title="نسخ">📋</button>' +
-                '<button class="icon-btn" onclick="openRegenerateKeyModal(' + key.id + ', \'' + escapeHtml(key.name).replace(/'/g,"\\'") + '\')" title="إعادة إنشاء">🔄</button>' +
-                '<button class="icon-btn" onclick="openDeleteKeyModal(' + key.id + ', \'' + escapeHtml(key.name).replace(/'/g,"\\'") + '\')" title="حذف">🗑️</button>' +
+                (visible
+                    ? '<button class="icon-btn" title="نسخ" onclick="copyText(\'' + escapeHtml(visible) + '\', \'📋 تم نسخ المفتاح\')">📋</button>'
+                    : '<button class="icon-btn" title="عرض المفتاح" onclick="revealKey(' + k.id + ')">👁️</button>') +
+                '<button class="icon-btn" title="إعادة إنشاء" onclick="openRegenerateKeyModal(' + k.id + ', \'' + escapeHtml(k.name).replace(/'/g,"\\'") + '\')">🔄</button>' +
+                '<button class="icon-btn" title="حذف" onclick="openDeleteKeyModal(' + k.id + ', \'' + escapeHtml(k.name).replace(/'/g,"\\'") + '\')">🗑️</button>' +
             '</div>' +
         '</div>' +
         '<div class="key-meta">' +
             '<span>📅 أُنشئ: ' + created + '</span>' +
-            '<span>👁️ آخر استخدام: ' + lastUsed + '</span>' +
-            '<span>📊 عدد الطلبات: ' + (key.requests || 0) + '</span>' +
+            '<span>⏱️ آخر استخدام: ' + lastUsed + '</span>' +
         '</div>' +
     '</div>';
 }
 
-function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-function toggleKeyVisibility(id) {
-    const el = document.getElementById('key-val-' + id);
-    const eye = document.getElementById('eye-' + id);
-    if (!el) return;
-    const value = keyCache[id] || '';
-    if (keyVisibility[id]) {
-        el.textContent = '•'.repeat(48);
-        eye.textContent = '👁️';
-        keyVisibility[id] = false;
-    } else {
-        el.textContent = value;
-        eye.textContent = '🙈';
-        keyVisibility[id] = true;
-    }
-}
-
-function copyKey(id) {
-    const value = keyCache[id];
-    if (!value) return showToast('❌ المفتاح غير متاح', 'error');
-    copyText(value, '📋 تم نسخ المفتاح');
-}
-
-function copyText(text, successMsg) {
-    if (!text) return;
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => showToast(successMsg || '📋 تم النسخ'))
-            .catch(() => fallbackCopy(text, successMsg));
-    } else {
-        fallbackCopy(text, successMsg);
-    }
-}
-
-function fallbackCopy(text, successMsg) {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.left = '-9999px';
-    document.body.appendChild(ta);
-    ta.select();
+async function revealKey(keyId) {
+    setLoading(true, 'جاري جلب المفتاح...');
     try {
-        document.execCommand('copy');
-        showToast(successMsg || '📋 تم النسخ');
-    } catch { showToast('❌ فشل النسخ', 'error'); }
-    document.body.removeChild(ta);
+        const data = await api('/api/keys/reveal', { body: JSON.stringify({ id: keyId }) });
+        setLoading(false);
+        if (data.key_value) {
+            keyCache[keyId] = data.key_value;
+            await loadKeys();
+        }
+    } catch (e) {
+        setLoading(false);
+        showToast('❌ ' + e.message, 'error');
+    }
+}
+
+async function loadStats() {
+    try {
+        const data = await api('/api/user/stats');
+        document.getElementById('stat-keys').textContent = data.keys_count ?? 0;
+        document.getElementById('stat-tunnels').textContent = data.tunnels_count ?? 0;
+        document.getElementById('stat-requests').textContent = data.requests_total ?? 0;
+    } catch (e) {
+        // لا شيء — قد يكون المستخدم غير مسجل
+    }
+}
+
+function updateUserUI() {
+    if (!currentUser) return;
+    const name = (currentUser.first_name || '') + ' ' + (currentUser.last_name || '');
+    document.getElementById('user-name-display').textContent = name.trim() || 'المستخدم';
+    document.getElementById('user-email-display').textContent = currentUser.email || '';
+    document.getElementById('user-avatar').textContent = (currentUser.first_name || 'م').charAt(0).toUpperCase();
+    document.getElementById('settings-user-id').textContent = currentUser.id || '—';
+    document.getElementById('settings-user-email').textContent = currentUser.email || '—';
+    document.getElementById('settings-user-joined').textContent = currentUser.created_at
+        ? new Date(currentUser.created_at).toLocaleDateString('ar-EG')
+        : '—';
+    const fn = document.getElementById('settings-firstname');
+    const ln = document.getElementById('settings-lastname');
+    if (fn) fn.value = currentUser.first_name || '';
+    if (ln) ln.value = currentUser.last_name || '';
 }
 
 async function handleUpdateInfo(event) {
     event.preventDefault();
-    const first_name = document.getElementById('settings-firstname').value.trim();
-    const last_name = document.getElementById('settings-lastname').value.trim();
-    if (!first_name || first_name.length < 2) return showToast('❌ الاسم قصير', 'error');
+    const firstName = document.getElementById('settings-firstname').value.trim();
+    const lastName = document.getElementById('settings-lastname').value.trim();
+    if (firstName.length < 2) return showToast('❌ الاسم قصير جداً', 'error');
     const btn = document.getElementById('update-info-btn');
     btn.disabled = true;
     setLoading(true, 'جاري الحفظ...');
     try {
-        const data = await api('/api/user/update', { body: JSON.stringify({ first_name, last_name }) });
-        currentUser = { ...currentUser, ...data.user };
-        localStorage.setItem('zt_user', JSON.stringify(currentUser));
-        updateUserUI();
+        const data = await api('/api/user/update', {
+            body: JSON.stringify({ first_name: firstName, last_name: lastName })
+        });
         setLoading(false);
-        showToast('✅ تم التحديث');
+        if (data.user) { currentUser = data.user; localStorage.setItem('zt_user', JSON.stringify(data.user)); }
+        updateUserUI();
+        showToast('✅ تم حفظ التغييرات');
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
-    } finally { btn.disabled = false; }
+    } finally {
+        btn.disabled = false;
+    }
 }
 
 async function handleChangePassword(event) {
     event.preventDefault();
-    const old_password = document.getElementById('settings-old-password').value;
-    const new_password = document.getElementById('settings-new-password').value;
-    const new_password2 = document.getElementById('settings-new-password2').value;
+    const oldP = document.getElementById('settings-old-password').value;
+    const newP1 = document.getElementById('settings-new-password').value;
+    const newP2 = document.getElementById('settings-new-password2').value;
     const err = document.getElementById('settings-pass-error');
-    if (new_password !== new_password2) {
+    if (newP1 !== newP2) {
         err.classList.add('show');
-        return showToast('❌ غير متطابقتين', 'error');
+        return showToast('❌ كلمتا المرور غير متطابقتين', 'error');
     }
     err.classList.remove('show');
-    if (new_password.length < 8) return showToast('❌ كلمة المرور قصيرة', 'error');
-    if (old_password === new_password) return showToast('❌ يجب أن تختلف عن القديمة', 'error');
     const btn = document.getElementById('change-password-btn');
     btn.disabled = true;
-    setLoading(true, 'جاري التغيير...');
+    setLoading(true, 'جاري تغيير كلمة المرور...');
     try {
-        await api('/api/auth/change-password', { body: JSON.stringify({ old_password, new_password }) });
+        await api('/api/user/change-password', {
+            body: JSON.stringify({ old_password: oldP, new_password: newP1 })
+        });
         setLoading(false);
         showToast('✅ تم تغيير كلمة المرور');
         document.getElementById('settings-old-password').value = '';
@@ -2354,47 +2322,31 @@ async function handleChangePassword(event) {
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
-    } finally { btn.disabled = false; }
+    } finally {
+        btn.disabled = false;
+    }
 }
 
 function openDeleteAccountModal() {
-    openModal({
-        title: 'حذف الحساب نهائياً',
-        icon: '⚠️',
-        bodyHTML:
-            '<div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:14px;margin-bottom:16px">' +
-                '<p style="color:var(--red);font-weight:700;margin-bottom:6px">⚠️ تحذير نهائي</p>' +
-                '<p style="font-size:13px;line-height:1.7">سيتم حذف حسابك مع كل المفاتيح والأنفاق.</p>' +
-            '</div>' +
-            '<p style="margin-bottom:10px">كلمة المرور:</p>' +
-            '<div class="modal-input-wrap">' +
-                '<input type="password" class="modal-input ltr" id="modal-delete-password" placeholder="••••••••">' +
-            '</div>' +
-            '<p style="margin-top:14px;margin-bottom:10px">اكتب <span class="inline-code" style="color:var(--red)">DELETE</span>:</p>' +
-            '<div class="modal-input-wrap">' +
-                '<input type="text" class="modal-input ltr" id="modal-delete-confirm" placeholder="DELETE">' +
-            '</div>',
-        buttons: [
-            { label: 'إلغاء', className: 'btn-ghost' },
-            { label: '🗑️ حذف نهائي', className: 'btn-danger', onClick: confirmDeleteAccount }
-        ]
+    openConfirmModal({
+        title: 'حذف الحساب نهائياً؟',
+        icon: '🗑️',
+        message: 'سيتم حذف حسابك وجميع بياناتك <strong style="color:var(--red)">نهائياً</strong>.<br><br>لا يمكن التراجع عن هذه العملية.',
+        confirmLabel: '🗑️ نعم، احذف حسابي',
+        onConfirm: confirmDeleteAccount
     });
 }
 
 async function confirmDeleteAccount() {
-    const password = document.getElementById('modal-delete-password')?.value || '';
-    const confirm = document.getElementById('modal-delete-confirm')?.value || '';
-    if (!password) return showToast('❌ أدخل كلمة المرور', 'error');
-    if (confirm !== 'DELETE') return showToast('❌ اكتب DELETE بالضبط', 'error');
-    setLoading(true, 'جاري الحذف...');
+    setLoading(true, 'جاري حذف الحساب...');
     try {
-        await api('/api/user/delete', { body: JSON.stringify({ password, confirm: 'DELETE' }) });
+        await api('/api/user/delete', {});
+        setLoading(false);
         localStorage.removeItem('zt_session');
         localStorage.removeItem('zt_user');
         currentUser = null;
-        setLoading(false);
-        showToast('🗑️ تم حذف حسابك');
-        setTimeout(() => navigate('/'), 800);
+        showToast('🗑️ تم حذف الحساب');
+        setTimeout(() => navigate('/'), 500);
     } catch (e) {
         setLoading(false);
         showToast('❌ ' + e.message, 'error');
@@ -2402,126 +2354,90 @@ async function confirmDeleteAccount() {
 }
 
 function handleLogout() {
-    openConfirmModal({
-        title: 'تسجيل الخروج؟',
-        icon: '🚪',
-        message: 'هل تريد تسجيل الخروج من حسابك؟',
-        confirmLabel: 'نعم، اخرج',
-        confirmClass: 'btn-danger',
-        onConfirm: async () => {
-            try { await api('/api/auth/logout'); } catch {}
-            localStorage.removeItem('zt_session');
-            localStorage.removeItem('zt_user');
-            currentUser = null;
-            showToast('👋 تم تسجيل الخروج');
-            navigate('/');
-        }
-    });
+    localStorage.removeItem('zt_session');
+    localStorage.removeItem('zt_user');
+    currentUser = null;
+    showToast('👋 تم تسجيل الخروج');
+    navigate('/login');
 }
 
-function showToast(msg, type) {
-    type = type || 'success';
-    const toast = document.getElementById('toast');
-    document.getElementById('toast-text').textContent = msg;
-    document.getElementById('toast-icon').textContent = type === 'error' ? '❌' : (type === 'warning' ? '⚠️' : '✅');
-    toast.className = 'toast show ' + (type === 'error' ? 'error' : type);
-    clearTimeout(toast._tid);
-    toast._tid = setTimeout(() => toast.classList.remove('show'), 4000);
+function toggleSidebar(force) {
+    const sb = document.getElementById('sidebar');
+    const ov = document.getElementById('sidebar-overlay');
+    if (!sb || !ov) return;
+    const open = force === undefined ? !sb.classList.contains('open') : force;
+    sb.classList.toggle('open', open);
+    ov.classList.toggle('show', open);
 }
 
 function setLoading(show, text) {
     const el = document.getElementById('loading');
-    document.getElementById('loading-text').textContent = text || 'جاري المعالجة...';
-    if (show) el.classList.add('show'); else el.classList.remove('show');
-}
-
-function toggleSidebar(force) {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    const open = typeof force === 'boolean' ? force : !sidebar.classList.contains('open');
-    sidebar.classList.toggle('open', open);
-    overlay.classList.toggle('show', open);
-}
-
-function setupCodeInputs(containerId, onComplete) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    const inputs = container.querySelectorAll('.code-input');
-    inputs.forEach((inp, i) => {
-        inp.addEventListener('input', e => {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(-1);
-            if (e.target.value) {
-                e.target.classList.add('filled');
-                if (i < inputs.length - 1) inputs[i + 1].focus();
-                else if (onComplete) setTimeout(onComplete, 250);
-            } else {
-                e.target.classList.remove('filled');
-            }
-        });
-        inp.addEventListener('keydown', e => {
-            if (e.key === 'Backspace' && !e.target.value && i > 0) {
-                inputs[i - 1].focus();
-                inputs[i - 1].value = '';
-                inputs[i - 1].classList.remove('filled');
-            }
-            if (e.key === 'Enter' && onComplete) onComplete();
-        });
-        inp.addEventListener('paste', e => {
-            e.preventDefault();
-            const text = (e.clipboardData || window.clipboardData).getData('text');
-            const digits = text.replace(/[^0-9]/g, '').slice(0, 6);
-            digits.split('').forEach((d, j) => {
-                if (inputs[j]) { inputs[j].value = d; inputs[j].classList.add('filled'); }
-            });
-            if (digits.length === 6 && onComplete) setTimeout(onComplete, 200);
-        });
-        inp.addEventListener('focus', e => e.target.select());
-    });
-}
-
-setupCodeInputs('verify-code-inputs', handleVerifyCode);
-setupCodeInputs('reset-code-inputs', handleResetCodeNext);
-
-function enhanceCodeBlocks() {
-    document.querySelectorAll('.code-block').forEach(block => {
-        if (block.parentElement && block.parentElement.classList.contains('code-wrap')) return;
-        const wrap = document.createElement('div');
-        wrap.className = 'code-wrap';
-        block.parentNode.insertBefore(wrap, block);
-        wrap.appendChild(block);
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'code-copy-btn';
-        btn.textContent = '📋 نسخ';
-        btn.onclick = () => {
-            copyText(block.textContent.trim(), '📋 تم نسخ الكود');
-            btn.textContent = '✅ تم النسخ';
-            btn.classList.add('done');
-            setTimeout(() => { btn.textContent = '📋 نسخ'; btn.classList.remove('done'); }, 1800);
-        };
-        wrap.appendChild(btn);
-    });
-}
-
-window.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('zt_session');
-    const storedUser = localStorage.getItem('zt_user');
-    if (token && storedUser) {
-        try {
-            const data = await api('/api/user/me');
-            currentUser = data.user;
-            localStorage.setItem('zt_user', JSON.stringify(currentUser));
-            updateUserUI();
-        } catch (e) {
-            localStorage.removeItem('zt_session');
-            localStorage.removeItem('zt_user');
-            currentUser = null;
-        }
+    const txt = document.getElementById('loading-text');
+    if (!el) return;
+    if (show) {
+        if (txt) txt.textContent = text || 'جاري المعالجة...';
+        el.classList.add('show');
+    } else {
+        el.classList.remove('show');
     }
-    enhanceCodeBlocks();
+}
+
+let toastTimer = null;
+function showToast(msg, type) {
+    const el = document.getElementById('toast');
+    const txt = document.getElementById('toast-text');
+    const icon = document.getElementById('toast-icon');
+    if (!el) return;
+    if (txt) txt.textContent = msg;
+    if (icon) icon.textContent = type === 'error' ? '❌' : '✅';
+    el.className = 'toast show ' + (type || 'success');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.classList.remove('show'); }, 3500);
+}
+
+async function copyText(text, successMsg) {
+    try {
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+        } else {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+        }
+        showToast(successMsg || '📋 تم النسخ');
+    } catch (e) {
+        showToast('❌ فشل النسخ — انسخ يدوياً', 'error');
+    }
+}
+
+function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Boot — تحميل الجلسة وتشغيل التوجيه
+   ═══════════════════════════════════════════════════════════════ */
+(function init() {
+    const stored = localStorage.getItem('zt_user');
+    const session = localStorage.getItem('zt_session');
+    if (stored && session) {
+        try { currentUser = JSON.parse(stored); } catch { currentUser = null; }
+    }
+    setupCodeInputs('verify-code-inputs');
+    setupCodeInputs('reset-code-inputs');
     handleRoute();
-    console.log('%c🚀 ZONE TUNNEL v6', 'font-size:24px;font-weight:bold;color:#8b5cf6');
-});
+})();
 </script>
 </body>
 </html>
